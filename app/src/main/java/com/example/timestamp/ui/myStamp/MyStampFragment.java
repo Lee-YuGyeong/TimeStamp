@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -47,6 +48,13 @@ public class MyStampFragment extends Fragment {
         adapter.addItem(new MyStampMenuGridItem(R.drawable.background1, "스터디"));
 
         gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Intent intent = new Intent(getContext(),MyStampDetailActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return root;
     }
