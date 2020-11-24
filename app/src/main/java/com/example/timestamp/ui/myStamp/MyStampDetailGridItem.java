@@ -1,18 +1,20 @@
 package com.example.timestamp.ui.myStamp;
 
+import android.graphics.Bitmap;
+
 public class MyStampDetailGridItem {
 
-    int image;
+    Bitmap image;
 
-    public MyStampDetailGridItem(int image) {
+    public MyStampDetailGridItem(Bitmap image) {
         this.image = image;
     }
 
-    public int getImage() {
+    public Bitmap getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 }

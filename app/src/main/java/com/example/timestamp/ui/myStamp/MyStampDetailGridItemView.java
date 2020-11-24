@@ -1,6 +1,7 @@
 package com.example.timestamp.ui.myStamp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -33,8 +34,8 @@ public class MyStampDetailGridItemView extends LinearLayout {
     }
 
 
-    public void setImage(int resId) {
-        imageView.setImageResource(resId);
+    public void setImage(Bitmap resId) {
+        imageView.setImageBitmap(resId);
     }
 
 }
