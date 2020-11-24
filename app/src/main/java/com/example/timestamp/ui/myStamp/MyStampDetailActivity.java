@@ -2,14 +2,13 @@ package com.example.timestamp.ui.myStamp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,15 +16,11 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
 
 import com.example.timestamp.R;
-import com.example.timestamp.StampTitleImageItemView;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,10 +57,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
 //        adapter.addItem(new MyStampDetailGridItem(R.drawable.background1));
 //        adapter.addItem(new MyStampDetailGridItem(R.drawable.background2));
 
-
         gridView.setAdapter(adapter);
-
-        imageView = findViewById(R.id.imageView);
 
         Button plusButton = (Button) findViewById(R.id.plusButton);
         plusButton.setOnClickListener(new View.OnClickListener() {
@@ -84,9 +76,15 @@ public class MyStampDetailActivity extends AppCompatActivity {
             switch (requestCode) {
                 case REQUEST_TAKE_PHOTO: {
                     if (resultCode == RESULT_OK) {
+
                         File file = new File(currentPhotoPath);
                         Bitmap bitmap = MediaStore.Images.Media
-                                .getBitmap(getContentResolver(), Uri.fromFile(file));
+                                .getBitmap(getContentResolver(), Uri.fromFile(file)); //원본
+
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+                        Bitmap imageBitmap = BitmapFactory.decodeFile(currentPhotoPath, options); //줄이기
+
                         if (bitmap != null) {
                             ExifInterface ei = new ExifInterface(currentPhotoPath);
                             int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
@@ -96,25 +94,29 @@ public class MyStampDetailActivity extends AppCompatActivity {
                             switch (orientation) {
 
                                 case ExifInterface.ORIENTATION_ROTATE_90:
-                                    rotatedBitmap = rotateImage(bitmap, 90);
+                                    rotatedBitmap = rotateImage(imageBitmap, 90);
                                     break;
 
                                 case ExifInterface.ORIENTATION_ROTATE_180:
-                                    rotatedBitmap = rotateImage(bitmap, 180);
+                                    rotatedBitmap = rotateImage(imageBitmap, 180);
                                     break;
 
                                 case ExifInterface.ORIENTATION_ROTATE_270:
-                                    rotatedBitmap = rotateImage(bitmap, 270);
+                                    rotatedBitmap = rotateImage(imageBitmap, 270);
                                     break;
 
                                 case ExifInterface.ORIENTATION_NORMAL:
                                 default:
-                                    rotatedBitmap = bitmap;
+                                    rotatedBitmap = imageBitmap;
                             }
 
-                            adapter.addItem(new MyStampDetailGridItem(rotatedBitmap));
+
+                            DrawToBitmap drawToBitmap = new DrawToBitmap();
+                            Bitmap bmp =drawToBitmap.drawTimeToBitmap(this,rotatedBitmap);
+
+                            adapter.addItem(new MyStampDetailGridItem(bmp));
                             adapter.notifyDataSetChanged();
-                       
+
                         }
                     }
                     break;
@@ -171,6 +173,90 @@ public class MyStampDetailActivity extends AppCompatActivity {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
     }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
+    private void setPic() {
+        // Get the dimensions of the View
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
+        imageView.setImageBitmap(bitmap);
+    }
+
+
+//    public Bitmap drawTextToBitmap(Context mContext, Bitmap bitmap) {
+//
+//        long now = System.currentTimeMillis();
+//        Date mDate = new Date(now);
+//
+//        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) a hh:mm:ss");
+//        String getTime = simpleDate.format(mDate);
+//
+//
+//        try {
+//            Resources resources = mContext.getResources();
+//            float scale = resources.getDisplayMetrics().density;
+//           // Bitmap bitmap = BitmapFactory.decodeResource(resources, resourceId);
+//            android.graphics.Bitmap.Config bitmapConfig =   bitmap.getConfig();
+//            // set default bitmap config if none
+//            if(bitmapConfig == null) {
+//                bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+//            }
+//            // resource bitmaps are imutable,
+//            // so we need to convert it to mutable one
+//            bitmap = bitmap.copy(bitmapConfig, true);
+//
+//            Canvas canvas = new Canvas(bitmap);
+//            // new antialised Paint
+//            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//            // text color -
+//            paint.setColor(Color.rgb(255,255, 255));
+//            // text size in pixels
+//            paint.setTextSize((int) (20 * scale));
+//            // text shadow
+//            paint.setShadowLayer(1f, 0f, 1f, Color.DKGRAY);
+//
+//            paint.setFakeBoldText(true);
+//
+//            // draw text to the Canvas center
+//            Rect bounds = new Rect();
+//            paint.getTextBounds(getTime, 0, getTime.length(), bounds);
+//            int x = (bitmap.getWidth() - bounds.width())/6;
+//            int y = (bitmap.getHeight() + bounds.height())/5;
+//
+//            canvas.drawText(getTime, x * scale, y * scale, paint);
+//
+//            return bitmap;
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//
+//            return null;
+//        }
+//
+//    } //이미지위에 글자적기
 
     class StampDetailAdapter extends BaseAdapter {
 
