@@ -12,23 +12,48 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background1"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp">
 
-<!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintDimensionRatio="1:1"-->
-<!--        android:text="TextView"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:textSize="25dp"-->
-<!--        android:textStyle="bold"/>-->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:text="TextView1"
+            android:textColor="#FFFFFF"
+            android:textSize="10dp"
+            android:textStyle="bold" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_above="@+id/textView"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:layout_marginBottom="0dp"-->
+<!--            android:text="TextView2"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="15dp"-->
+<!--            android:textStyle="bold" />-->
+
+    </RelativeLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

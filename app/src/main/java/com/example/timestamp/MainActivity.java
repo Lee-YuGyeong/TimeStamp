@@ -4,13 +4,16 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,7 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    final String TAG = getClass().getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,33 +36,46 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_myStamp, R.id.navigation_ourStamp,R.id.navigation_setting)
+                R.id.navigation_home, R.id.navigation_myStamp, R.id.navigation_ourStamp, R.id.navigation_setting)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        checkSelfPermission();
 
-        // 6.0 마쉬멜로우 이상일 경우에는 권한 체크 후 권한 요청
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                Log.d(TAG, "권한 설정 완료");
-            } else {
-                Log.d(TAG, "권한 설정 요청");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { //권한을 허용 했을 경우
+        if (requestCode == 1) {
+            int length = permissions.length;
+            for (int i = 0; i < length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("MainActivity", "권한 허용 : " + permissions[i]);
+                }
             }
         }
+
+
     }
 
-    // 권한 요청
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.d(TAG, "onRequestPermissionsResult");
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+    public void checkSelfPermission() {
+        String temp = "";
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.CAMERA + " ";
+        }//파일 읽기 권한 확인
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.READ_EXTERNAL_STORAGE + " ";
+        } //파일 쓰기 권한 확인
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
+        }
+        if (TextUtils.isEmpty(temp) == false) { // 권한 요청
+
+            ActivityCompat.requestPermissions(this, temp.trim().split(" "), 1);
+        } else { // 모두 허용 상태
         }
     }
-
-
 }
+

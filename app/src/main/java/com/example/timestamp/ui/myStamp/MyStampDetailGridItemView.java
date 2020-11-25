@@ -15,6 +15,7 @@ import com.example.timestamp.R;
 public class MyStampDetailGridItemView extends LinearLayout {
 
     ImageView imageView;
+    TextView textView;
 
     public MyStampDetailGridItemView(Context context) {
         super(context);
@@ -31,11 +32,16 @@ public class MyStampDetailGridItemView extends LinearLayout {
         inflater.inflate(R.layout.my_stamp_detail_grid_item, this, true);
 
         imageView = (ImageView) findViewById(R.id.imageView);
+        textView = (TextView) findViewById(R.id.textView);
     }
 
 
     public void setImage(Bitmap resId) {
         imageView.setImageBitmap(resId);
+    }
+
+    public void setText(String text) {
+        textView.setText(text);
     }
 
 }

@@ -111,10 +111,16 @@ public class MyStampDetailActivity extends AppCompatActivity {
                             }
 
 
-                            DrawToBitmap drawToBitmap = new DrawToBitmap();
-                            Bitmap bmp =drawToBitmap.drawTimeToBitmap(this,rotatedBitmap);
+                //            DrawToBitmap drawToBitmap = new DrawToBitmap();
+                 //           Bitmap bmp =drawToBitmap.drawTimeToBitmap(this,rotatedBitmap);
 
-                            adapter.addItem(new MyStampDetailGridItem(bmp));
+                            long now = System.currentTimeMillis();
+                            Date mDate = new Date(now);
+
+                            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm:ss");
+                            String getTime = simpleDate.format(mDate);
+
+                            adapter.addItem(new MyStampDetailGridItem(rotatedBitmap,getTime));
                             adapter.notifyDataSetChanged();
 
                         }
@@ -174,37 +180,37 @@ public class MyStampDetailActivity extends AppCompatActivity {
                 matrix, true);
     }
 
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(currentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
-    }
+//    private void galleryAddPic() {
+//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//        File f = new File(currentPhotoPath);
+//        Uri contentUri = Uri.fromFile(f);
+//        mediaScanIntent.setData(contentUri);
+//        this.sendBroadcast(mediaScanIntent);
+//    }
 
-    private void setPic() {
-        // Get the dimensions of the View
-        int targetW = imageView.getWidth();
-        int targetH = imageView.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-        imageView.setImageBitmap(bitmap);
-    }
+//    private void setPic() {
+//        // Get the dimensions of the View
+//        int targetW = imageView.getWidth();
+//        int targetH = imageView.getHeight();
+//
+//        // Get the dimensions of the bitmap
+//        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+//        bmOptions.inJustDecodeBounds = true;
+//
+//        int photoW = bmOptions.outWidth;
+//        int photoH = bmOptions.outHeight;
+//
+//        // Determine how much to scale down the image
+//        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+//
+//        // Decode the image file into a Bitmap sized to fill the View
+//        bmOptions.inJustDecodeBounds = false;
+//        bmOptions.inSampleSize = scaleFactor;
+//        bmOptions.inPurgeable = true;
+//
+//        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
+//        imageView.setImageBitmap(bitmap);
+//    }
 
 
 //    public Bitmap drawTextToBitmap(Context mContext, Bitmap bitmap) {
@@ -293,6 +299,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
             MyStampDetailGridItem item = items.get(position);
 
             view.setImage(item.getImage());
+            view.setText(item.getDate());
 
             return view;
 
