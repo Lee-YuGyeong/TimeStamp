@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,8 @@ import androidx.core.content.FileProvider;
 
 import com.example.timestamp.ImageEditActivity;
 import com.example.timestamp.R;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -54,6 +57,10 @@ public class MyStampDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        String title = getIntent().getStringExtra("title");
+        TextView textView = (TextView) findViewById(R.id.toolBar_textView);
+        textView.setText(title);
 
         GridView gridView = (GridView) findViewById(R.id.gridView);
 

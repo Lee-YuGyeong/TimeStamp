@@ -36,7 +36,7 @@ public class MyStampFragment extends Fragment {
             }
         });
 
-        GridView gridView = (GridView) root.findViewById(R.id.gridView);
+        final GridView gridView = (GridView) root.findViewById(R.id.gridView);
 
         adapter = new StampMenuAdapter();
 
@@ -52,6 +52,7 @@ public class MyStampFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent intent = new Intent(getContext(),MyStampDetailActivity.class);
+                intent.putExtra("title",adapter.items.get(position).getTitle());
                 startActivity(intent);
             }
         });

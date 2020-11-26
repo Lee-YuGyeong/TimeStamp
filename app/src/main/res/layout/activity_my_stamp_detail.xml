@@ -13,11 +13,11 @@
         android:background="#eb9f9f">
 
 
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content">
+
 
             <Button
                 android:id="@+id/backButton"
@@ -26,13 +26,15 @@
                 android:background="@drawable/back" />
 
             <TextView
+                android:id="@+id/toolBar_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:text="My Time Detail"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/backButton"
+                android:layout_marginLeft="10dp"/>
 
             <Button
                 android:id="@+id/plusButton"
@@ -44,8 +46,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/plus" />
 
-        </LinearLayout>
-
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
 
