@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -20,9 +21,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.example.timestamp.ImageEditActivity;
 import com.example.timestamp.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -111,17 +116,25 @@ public class MyStampDetailActivity extends AppCompatActivity {
                             }
 
 
-                //            DrawToBitmap drawToBitmap = new DrawToBitmap();
-                 //           Bitmap bmp =drawToBitmap.drawTimeToBitmap(this,rotatedBitmap);
+                            //            DrawToBitmap drawToBitmap = new DrawToBitmap();
+                            //           Bitmap bmp =drawToBitmap.drawTimeToBitmap(this,rotatedBitmap);
 
-                            long now = System.currentTimeMillis();
-                            Date mDate = new Date(now);
+//                            long now = System.currentTimeMillis();
+//                            Date mDate = new Date(now);
+//
+//                            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm:ss");
+//                            String getTime = simpleDate.format(mDate);
+//
+//                            adapter.addItem(new MyStampDetailGridItem(rotatedBitmap, getTime));
+//                            adapter.notifyDataSetChanged();
 
-                            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm:ss");
-                            String getTime = simpleDate.format(mDate);
+                            Intent intent1 = new Intent(getApplicationContext(), ImageEditActivity.class);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                            byte[] byteArray = stream.toByteArray();
+                            intent1.putExtra("bitmap",byteArray);
+                            startActivity(intent1);
 
-                            adapter.addItem(new MyStampDetailGridItem(rotatedBitmap,getTime));
-                            adapter.notifyDataSetChanged();
 
                         }
                     }
@@ -180,89 +193,27 @@ public class MyStampDetailActivity extends AppCompatActivity {
                 matrix, true);
     }
 
-//    private void galleryAddPic() {
-//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        File f = new File(currentPhotoPath);
-//        Uri contentUri = Uri.fromFile(f);
-//        mediaScanIntent.setData(contentUri);
-//        this.sendBroadcast(mediaScanIntent);
-//    }
+    public static void saveBitmaptoJpeg(Bitmap bitmap, String folder, String name) {
+        String ex_storage = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String foler_name = "/" + folder + "/";
+        String file_name = name + ".jpg";
+        String string_path = ex_storage + foler_name;
+        File file_path;
+        try {
+            file_path = new File(string_path);
+            if (!file_path.isDirectory()) {
+                file_path.mkdirs();
+            }
+            FileOutputStream out = new FileOutputStream(string_path + file_name);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+        } catch (FileNotFoundException exception) {
+            Log.e("FileNotFoundException", exception.getMessage());
+        } catch (IOException exception) {
+            Log.e("IOException", exception.getMessage());
+        }
+    }
 
-//    private void setPic() {
-//        // Get the dimensions of the View
-//        int targetW = imageView.getWidth();
-//        int targetH = imageView.getHeight();
-//
-//        // Get the dimensions of the bitmap
-//        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-//        bmOptions.inJustDecodeBounds = true;
-//
-//        int photoW = bmOptions.outWidth;
-//        int photoH = bmOptions.outHeight;
-//
-//        // Determine how much to scale down the image
-//        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-//
-//        // Decode the image file into a Bitmap sized to fill the View
-//        bmOptions.inJustDecodeBounds = false;
-//        bmOptions.inSampleSize = scaleFactor;
-//        bmOptions.inPurgeable = true;
-//
-//        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-//        imageView.setImageBitmap(bitmap);
-//    }
-
-
-//    public Bitmap drawTextToBitmap(Context mContext, Bitmap bitmap) {
-//
-//        long now = System.currentTimeMillis();
-//        Date mDate = new Date(now);
-//
-//        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) a hh:mm:ss");
-//        String getTime = simpleDate.format(mDate);
-//
-//
-//        try {
-//            Resources resources = mContext.getResources();
-//            float scale = resources.getDisplayMetrics().density;
-//           // Bitmap bitmap = BitmapFactory.decodeResource(resources, resourceId);
-//            android.graphics.Bitmap.Config bitmapConfig =   bitmap.getConfig();
-//            // set default bitmap config if none
-//            if(bitmapConfig == null) {
-//                bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
-//            }
-//            // resource bitmaps are imutable,
-//            // so we need to convert it to mutable one
-//            bitmap = bitmap.copy(bitmapConfig, true);
-//
-//            Canvas canvas = new Canvas(bitmap);
-//            // new antialised Paint
-//            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-//            // text color -
-//            paint.setColor(Color.rgb(255,255, 255));
-//            // text size in pixels
-//            paint.setTextSize((int) (20 * scale));
-//            // text shadow
-//            paint.setShadowLayer(1f, 0f, 1f, Color.DKGRAY);
-//
-//            paint.setFakeBoldText(true);
-//
-//            // draw text to the Canvas center
-//            Rect bounds = new Rect();
-//            paint.getTextBounds(getTime, 0, getTime.length(), bounds);
-//            int x = (bitmap.getWidth() - bounds.width())/6;
-//            int y = (bitmap.getHeight() + bounds.height())/5;
-//
-//            canvas.drawText(getTime, x * scale, y * scale, paint);
-//
-//            return bitmap;
-//        } catch (Exception e) {
-//            // TODO: handle exception
-//
-//            return null;
-//        }
-//
-//    } //이미지위에 글자적기
 
     class StampDetailAdapter extends BaseAdapter {
 
