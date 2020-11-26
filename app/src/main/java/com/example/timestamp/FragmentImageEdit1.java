@@ -25,8 +25,7 @@ public class FragmentImageEdit1 extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_image_edit1, container, false);
 
-        Bundle bundle = new Bundle();
-        byte[] arr = bundle.getByteArray("bitmap");
+        byte[] arr = getArguments().getByteArray("bitmap");
         Bitmap bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
 
 

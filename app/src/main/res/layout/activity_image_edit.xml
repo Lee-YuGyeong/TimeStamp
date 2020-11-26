@@ -6,7 +6,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eb9f9f">
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Time"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/backButton"
+                android:layout_marginLeft="10dp"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/plus" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -33,11 +73,5 @@
             android:layout_weight="1"
             android:text="Button2" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@android:color/holo_blue_bright" />
 
 </LinearLayout>

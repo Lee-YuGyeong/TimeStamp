@@ -22,14 +22,13 @@ public class FragmentImageEdit2 extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_image_edit2, container, false);
 
-        Bundle bundle = new Bundle();
-     //   byte[] arr = bundle.getByteArray("bitmap");
-    //    Bitmap bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+        byte[] arr = getArguments().getByteArray("bitmap");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
 
         ImageView imageView = (ImageView) root.findViewById(R.id.imageView);
 
-     //   imageView.setImageBitmap(bitmap);
-//
+        imageView.setImageBitmap(bitmap);
+
         long now = System.currentTimeMillis();
         Date mDate = new Date(now);
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm:ss");

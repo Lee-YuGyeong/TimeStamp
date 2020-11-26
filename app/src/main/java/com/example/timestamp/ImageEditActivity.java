@@ -26,11 +26,6 @@ import java.util.Date;
 
 public class ImageEditActivity extends AppCompatActivity {
 
-
-    final String TAG = getClass().getSimpleName();
-    String currentPhotoPath;
-    static final int REQUEST_TAKE_PHOTO = 1;
-
     FragmentImageEdit1 fragmentImageEdit1;
     FragmentImageEdit2 fragmentImageEdit2;
 
@@ -41,21 +36,13 @@ public class ImageEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-
-
         fragmentImageEdit1 = new FragmentImageEdit1();
         fragmentImageEdit2 = new FragmentImageEdit2();
 
-//        NewThread thread = new NewThread();
-//        thread.start();
         byte[] arr = getIntent().getByteArrayExtra("bitmap");
         bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
 
-        imageView.setImageBitmap(bitmap);
-
-        go(bitmap,fragmentImageEdit1);
-
+        goToFragment(bitmap, fragmentImageEdit1, 0);
 
 
         Button button1 = (Button) findViewById(R.id.button1);
@@ -63,14 +50,7 @@ public class ImageEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (fragmentImageEdit1 != null) {
-
-                    Bundle bundle = new Bundle();
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    byte[] byteArray = stream.toByteArray();
-                    bundle.putByteArray("bitmap", byteArray);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, fragmentImageEdit1).addToBackStack(null).commit();
-
+                    goToFragment(bitmap, fragmentImageEdit1, 1);
                 }
             }
         });
@@ -81,8 +61,7 @@ public class ImageEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (fragmentImageEdit2 != null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, fragmentImageEdit2).addToBackStack(null).commit();
-
+                    goToFragment(bitmap, fragmentImageEdit2, 1);
                 }
             }
         });
@@ -90,28 +69,23 @@ public class ImageEditActivity extends AppCompatActivity {
 
     }
 
-    public void go(Bitmap bitmap, Fragment fragment){
+    public void goToFragment(Bitmap bitmap, Fragment fragment, int i) {
+
         Bundle bundle = new Bundle();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         bundle.putByteArray("bitmap", byteArray);
-        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).addToBackStack(null).commit();
+        fragment.setArguments(bundle);
+
+        if (i == 0) {
+            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).addToBackStack(null).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
+        }
+
 
     }
-
-//    class NewThread extends Thread {
-//
-//        public NewThread() {
-//        }
-//
-//        @Override
-//        public void run() {
-//            super.run();
-//
-//
-//        }
-//    }
 
 
 }
