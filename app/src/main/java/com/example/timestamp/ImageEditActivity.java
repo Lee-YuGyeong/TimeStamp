@@ -79,9 +79,9 @@ public class ImageEditActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
 
         if (i == 0) {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
         } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
         }
 
 
