@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -79,6 +80,24 @@ public class MyStampDetailActivity extends AppCompatActivity {
             }
         });
 
+        ReceiveImageFromEditActivity();
+
+    }
+
+    public void ReceiveImageFromEditActivity() {
+
+
+//        if (getIntent().getByteArrayExtra("captureBitmap") != null) {
+
+//
+//            byte[] arr = getIntent().getByteArrayExtra("captureBitmap");
+//            Bitmap bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+//            adapter.addItem(new MyStampDetailGridItem(bitmap));
+//            adapter.notifyDataSetChanged();
+
+//
+//        }
+        //서버에 저장한거 그리드뷰 보이기
     }
 
     @Override
@@ -139,7 +158,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                             byte[] byteArray = stream.toByteArray();
-                            intent1.putExtra("bitmap",byteArray);
+                            intent1.putExtra("bitmap", byteArray);
                             startActivity(intent1);
 
 
@@ -257,7 +276,6 @@ public class MyStampDetailActivity extends AppCompatActivity {
             MyStampDetailGridItem item = items.get(position);
 
             view.setImage(item.getImage());
-            view.setText(item.getDate());
 
             return view;
 
