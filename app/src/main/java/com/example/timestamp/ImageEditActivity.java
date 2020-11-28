@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.timestamp.ui.myStamp.MyStampDetailActivity;
 import com.example.timestamp.ui.myStamp.MyStampDetailGridItem;
@@ -32,8 +33,17 @@ import java.util.Date;
 
 public class ImageEditActivity extends AppCompatActivity {
 
-    FragmentImageEdit1 fragmentImageEdit1;
-    FragmentImageEdit2 fragmentImageEdit2;
+    TextView textView_date1;
+    TextView textView_date2;
+    TextView textView_date3;
+    TextView textView_date4;
+    TextView textView_date5;
+
+    boolean visibility1 = false;
+    boolean visibility2 = false;
+    boolean visibility3 = false;
+    boolean visibility4 = false;
+    boolean visibility5 = false;
 
     Bitmap bitmap;
 
@@ -42,14 +52,16 @@ public class ImageEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
-        fragmentImageEdit1 = new FragmentImageEdit1();
-        fragmentImageEdit2 = new FragmentImageEdit2();
+
         final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
 
         byte[] arr = getIntent().getByteArrayExtra("bitmap");
         bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+        imageView.setImageBitmap(bitmap);
 
-        goToFragment(bitmap, fragmentImageEdit1, 0);
+        setTime();
+        //   goToFragment(bitmap, fragmentImageEditOrigin, 0);
 
         Button saveButton = (Button) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -82,9 +94,9 @@ public class ImageEditActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fragmentImageEdit1 != null) {
-                    goToFragment(bitmap, fragmentImageEdit1, 1);
-                }
+                boolean bool = visibility(textView_date1,visibility1);
+                visibility1 = bool;
+
             }
         });
 
@@ -93,13 +105,74 @@ public class ImageEditActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fragmentImageEdit2 != null) {
-                    goToFragment(bitmap, fragmentImageEdit2, 1);
-                }
+                boolean bool = visibility(textView_date2,visibility2);
+                visibility2 = bool;
+            }
+        });
+
+        Button button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean bool = visibility(textView_date3,visibility3);
+                visibility3 = bool;
+            }
+        });
+
+        Button button4 = (Button) findViewById(R.id.button4);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean bool = visibility(textView_date4,visibility4);
+                visibility4 = bool;
             }
         });
 
 
+        Button button5 = (Button) findViewById(R.id.button5);
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean bool = visibility(textView_date5,visibility5);
+                visibility5 = bool;
+            }
+        });
+
+
+    }
+
+    public boolean visibility(TextView textView,boolean visibility) {
+
+        if (visibility == false) {
+            textView.setVisibility(View.VISIBLE);
+            return true;
+        } else {
+            textView.setVisibility(View.INVISIBLE);
+            return false;
+        }
+
+    }
+
+    public void setTime() {
+        long now = System.currentTimeMillis();
+        Date mDate = new Date(now);
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm:ss");
+        String getTime = simpleDate.format(mDate);
+
+        textView_date1 = (TextView) findViewById(R.id.textView_date1);
+        textView_date1.setText(getTime);
+
+        textView_date2 = (TextView) findViewById(R.id.textView_date2);
+        textView_date2.setText(getTime);
+
+        textView_date3 = (TextView) findViewById(R.id.textView_date3);
+        textView_date3.setText(getTime);
+
+        textView_date4 = (TextView) findViewById(R.id.textView_date4);
+        textView_date4.setText(getTime);
+
+        textView_date5 = (TextView) findViewById(R.id.textView_date5);
+        textView_date5.setText(getTime);
     }
 
     public static Bitmap setViewToBitmapImage(View view) {
@@ -119,24 +192,6 @@ public class ImageEditActivity extends AppCompatActivity {
         view.draw(canvas);
         //return the bitmap
         return returnedBitmap;
-    }
-
-    public void goToFragment(Bitmap bitmap, Fragment fragment, int i) {
-
-        Bundle bundle = new Bundle();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        bundle.putByteArray("bitmap", byteArray);
-        fragment.setArguments(bundle);
-
-        if (i == 0) {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
-        } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
-        }
-
-
     }
 
 
