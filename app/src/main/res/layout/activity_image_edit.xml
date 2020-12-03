@@ -80,7 +80,8 @@
                 android:textColor="#FFFFFF"
                 android:textSize="25dp"
                 android:textStyle="bold"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:fontFamily="@font/nanumbarunpen"/>
 
             <TextView
                 android:id="@+id/textView_date2"

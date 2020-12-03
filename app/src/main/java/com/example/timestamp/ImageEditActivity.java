@@ -1,6 +1,7 @@
 package com.example.timestamp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -111,6 +113,14 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             }
         });
 
+        Button timeFontButton = (Button) findViewById(R.id.timeFontButton);
+        timeFontButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new TimeFontButtonFragment()).commit();
+            }
+        });
+
         Bundle bundle = new Bundle();
         int style = bundle.getInt("style");
         Log.d("아아", style + "");
@@ -162,24 +172,42 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 //            }
 //        });
 
-
+        boolean bool = visibility(textView_date1, visibility1);
+        visibility1 = bool;
     }
 
     public void TimeStyleButtonSelected(String command, int data) {
 
-        if(data == 1){
+        if (data == 1) {
             boolean bool = visibility(textView_date1, visibility1);
             visibility1 = bool;
         }
 
     } //글자 스타일 적용
 
-    public void TimeColorButtonSelected(String command, String data){
+    public void TimeColorButtonSelected(String command, String data) {
 
         textView_date1.setTextColor(Color.parseColor(data));
 
     } // 글자 색 적용
 
+    public void TimeFontButtonSelected(String command, int font) {
+
+        if (font == 1) {
+            Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.nanumbarunpen);
+            textView_date1.setTypeface(typeface);
+        } else if (font == 2) {
+            Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.nanumsquare);
+            textView_date1.setTypeface(typeface);
+        } else if (font == 3) {
+            Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.maruburi);
+            textView_date1.setTypeface(typeface);
+        } else if (font == 4) {
+            Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.bmhanna);
+            textView_date1.setTypeface(typeface);
+        }
+
+    } // 글자 폰트 적용
 
     public boolean visibility(TextView textView, boolean visibility) {
 

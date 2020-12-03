@@ -36,14 +36,44 @@ public class TimeFontButtonFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_time_style_button, container, false);
+        View root = inflater.inflate(R.layout.fragment_font_button, container, false);
 
         Button button1 = (Button) root.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (callBack!=null){
-                    callBack.TimeStyleButtonSelected("show",1);
+                    callBack.TimeFontButtonSelected("font",1);
+                }
+            }
+        });
+
+        Button button2 = (Button) root.findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack!=null){
+                    callBack.TimeFontButtonSelected("font",2);
+                }
+            }
+        });
+
+        Button button3 = (Button) root.findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack!=null){
+                    callBack.TimeFontButtonSelected("font",3);
+                }
+            }
+        });
+
+        Button button4 = (Button) root.findViewById(R.id.button4);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack!=null){
+                    callBack.TimeFontButtonSelected("font",4);
                 }
             }
         });

@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="기본" />
+            android:text="나눔바른펜" />
 
         <Button
             android:id="@+id/button2"
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/nanumbarunpen"
-            android:text="나눔바른펜" />
+            android:text="나눔스퀘어" />
 
         <Button
             android:id="@+id/button3"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/nanumsquare"
-            android:text="나눔스퀘어" />
+            android:text="마루부리" />
 
         <Button
             android:id="@+id/button4"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/bmhanna"
-            android:text="배민한나체" />
+            android:text="배민한나" />
 
         <Button
             android:id="@+id/button5"
