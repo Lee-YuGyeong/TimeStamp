@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,8 +24,6 @@ import androidx.core.content.FileProvider;
 
 import com.example.timestamp.ImageEditActivity;
 import com.example.timestamp.R;
-
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -76,7 +73,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakePictureIntent();
+                 dispatchTakePictureIntent();
             }
         });
 
