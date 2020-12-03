@@ -16,7 +16,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -31,19 +33,19 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ImageEditActivity extends AppCompatActivity {
+public class ImageEditActivity extends AppCompatActivity implements View.OnTouchListener, FragmentCallBack {
 
     TextView textView_date1;
-    TextView textView_date2;
-    TextView textView_date3;
-    TextView textView_date4;
-    TextView textView_date5;
+//    TextView textView_date2;
+//    TextView textView_date3;
+//    TextView textView_date4;
+//    TextView textView_date5;
 
     boolean visibility1 = false;
-    boolean visibility2 = false;
-    boolean visibility3 = false;
-    boolean visibility4 = false;
-    boolean visibility5 = false;
+//    boolean visibility2 = false;
+//    boolean visibility3 = false;
+//    boolean visibility4 = false;
+//    boolean visibility5 = false;
 
     Bitmap bitmap;
 
@@ -52,6 +54,7 @@ public class ImageEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
+        getSupportFragmentManager().beginTransaction().add(R.id.container, new TimeStyleButtonFragment()).commit();
 
         final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
@@ -61,6 +64,8 @@ public class ImageEditActivity extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
 
         setTime();
+
+        textView_date1.setOnTouchListener(this);
         //   goToFragment(bitmap, fragmentImageEditOrigin, 0);
 
         Button saveButton = (Button) findViewById(R.id.saveButton);
@@ -69,8 +74,8 @@ public class ImageEditActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Bitmap captureBitmap = setViewToBitmapImage(container);
-                ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
-                imageView2.setImageBitmap(captureBitmap);
+//                ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
+//                imageView2.setImageBitmap(captureBitmap);
 
                 Intent intent = new Intent(getApplicationContext(), MyStampDetailActivity.class);
 //                ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -90,58 +95,93 @@ public class ImageEditActivity extends AppCompatActivity {
             }
         });
 
-        Button button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
+        Button timeStyleButton = (Button) findViewById(R.id.timeStyleButton);
+        timeStyleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean bool = visibility(textView_date1,visibility1);
-                visibility1 = bool;
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new TimeStyleButtonFragment()).commit();
             }
         });
 
-
-        Button button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
+        Button timeColorButton = (Button) findViewById(R.id.timeColorButton);
+        timeColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean bool = visibility(textView_date2,visibility2);
-                visibility2 = bool;
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new TimeColorButtonFragment()).commit();
             }
         });
 
-        Button button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean bool = visibility(textView_date3,visibility3);
-                visibility3 = bool;
-            }
-        });
-
-        Button button4 = (Button) findViewById(R.id.button4);
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean bool = visibility(textView_date4,visibility4);
-                visibility4 = bool;
-            }
-        });
+        Bundle bundle = new Bundle();
+        int style = bundle.getInt("style");
+        Log.d("아아", style + "");
+//        Button button1 = (Button) findViewById(R.id.button1);
+//        button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                boolean bool = visibility(textView_date1,visibility1);
+//                visibility1 = bool;
+//
+//            }
+//        });////////////
 
 
-        Button button5 = (Button) findViewById(R.id.button5);
-        button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean bool = visibility(textView_date5,visibility5);
-                visibility5 = bool;
-            }
-        });
+//        Button button2 = (Button) findViewById(R.id.button2);
+//        button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                boolean bool = visibility(textView_date2,visibility2);
+//                visibility2 = bool;
+//            }
+//        });
+//
+//        Button button3 = (Button) findViewById(R.id.button3);
+//        button3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                boolean bool = visibility(textView_date3,visibility3);
+//                visibility3 = bool;
+//            }
+//        });
+//
+//        Button button4 = (Button) findViewById(R.id.button4);
+//        button4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                boolean bool = visibility(textView_date4,visibility4);
+//                visibility4 = bool;
+//            }
+//        });
+//
+//
+//        Button button5 = (Button) findViewById(R.id.button5);
+//        button5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                boolean bool = visibility(textView_date5,visibility5);
+//                visibility5 = bool;
+//            }
+//        });
 
 
     }
 
-    public boolean visibility(TextView textView,boolean visibility) {
+    public void TimeStyleButtonSelected(String command, int data) {
+
+        if(data == 1){
+            boolean bool = visibility(textView_date1, visibility1);
+            visibility1 = bool;
+        }
+
+    } //글자 스타일 적용
+
+    public void TimeColorButtonSelected(String command, String data){
+
+        textView_date1.setTextColor(Color.parseColor(data));
+
+    } // 글자 색 적용
+
+
+    public boolean visibility(TextView textView, boolean visibility) {
 
         if (visibility == false) {
             textView.setVisibility(View.VISIBLE);
@@ -162,17 +202,17 @@ public class ImageEditActivity extends AppCompatActivity {
         textView_date1 = (TextView) findViewById(R.id.textView_date1);
         textView_date1.setText(getTime);
 
-        textView_date2 = (TextView) findViewById(R.id.textView_date2);
-        textView_date2.setText(getTime);
-
-        textView_date3 = (TextView) findViewById(R.id.textView_date3);
-        textView_date3.setText(getTime);
-
-        textView_date4 = (TextView) findViewById(R.id.textView_date4);
-        textView_date4.setText(getTime);
-
-        textView_date5 = (TextView) findViewById(R.id.textView_date5);
-        textView_date5.setText(getTime);
+//        textView_date2 = (TextView) findViewById(R.id.textView_date2);
+//        textView_date2.setText(getTime);
+//
+//        textView_date3 = (TextView) findViewById(R.id.textView_date3);
+//        textView_date3.setText(getTime);
+//
+//        textView_date4 = (TextView) findViewById(R.id.textView_date4);
+//        textView_date4.setText(getTime);
+//
+//        textView_date5 = (TextView) findViewById(R.id.textView_date5);
+//        textView_date5.setText(getTime);
     }
 
     public static Bitmap setViewToBitmapImage(View view) {
@@ -194,5 +234,58 @@ public class ImageEditActivity extends AppCompatActivity {
         return returnedBitmap;
     }
 
+    float oldXvalue;
+    float oldYvalue;
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        int width = ((ViewGroup) v.getParent()).getWidth() - v.getWidth();
+        int height = ((ViewGroup) v.getParent()).getHeight() - v.getHeight();
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            oldXvalue = event.getX();
+            oldYvalue = event.getY();
+            //  Log.i("Tag1", "Action Down X" + event.getX() + "," + event.getY());
+            Log.i("Tag1", "Action Down rX " + event.getRawX() + "," + event.getRawY());
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            v.setX(event.getRawX() - oldXvalue);
+            v.setY(event.getRawY() - (oldYvalue + v.getHeight()));
+            //  Log.i("Tag2", "Action Down " + me.getRawX() + "," + me.getRawY());
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+
+            if (v.getX() > width && v.getY() > height) {
+                v.setX(width);
+                v.setY(height);
+            } else if (v.getX() < 0 && v.getY() > height) {
+                v.setX(0);
+                v.setY(height);
+            } else if (v.getX() > width && v.getY() < 0) {
+                v.setX(width);
+                v.setY(0);
+            } else if (v.getX() < 0 && v.getY() < 0) {
+                v.setX(0);
+                v.setY(0);
+            } else if (v.getX() < 0 || v.getX() > width) {
+                if (v.getX() < 0) {
+                    v.setX(0);
+                    v.setY(event.getRawY() - oldYvalue - v.getHeight());
+                } else {
+                    v.setX(width);
+                    v.setY(event.getRawY() - oldYvalue - v.getHeight());
+                }
+            } else if (v.getY() < 0 || v.getY() > height) {
+                if (v.getY() < 0) {
+                    v.setX(event.getRawX() - oldXvalue);
+                    v.setY(0);
+                } else {
+                    v.setX(event.getRawX() - oldXvalue);
+                    v.setY(height);
+                }
+            }
+
+
+        }
+        return true;
+    }
 
 }
