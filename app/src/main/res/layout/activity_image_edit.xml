@@ -61,103 +61,116 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@color/design_default_color_background"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
+            <TextView
+                android:id="@+id/textView_date1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_gravity="bottom"
+                android:text="TextView1"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textView_date2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_gravity="bottom"
+                android:text="TextView1"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+<!--            <RelativeLayout-->
+<!--                android:layout_margin="30dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent">-->
 
 
-                <TextView
-                    android:id="@+id/textView_date1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="TextView1"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
+<!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/textView_date2"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_alignParentRight="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_gravity="bottom"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:text="TextView2"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textColor="#FFFFFF"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textSize="25dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:visibility="invisible" />&ndash;&gt;-->
 
-                <TextView
-                    android:id="@+id/textView_date2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="bottom"
-                    android:text="TextView2"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
+<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/textView_date3"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_alignParentBottom="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_gravity="bottom"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:text="TextView3"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textColor="#FFFFFF"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textSize="25dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:visibility="invisible" />&ndash;&gt;-->
 
-                <TextView
-                    android:id="@+id/textView_date3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="bottom"
-                    android:text="TextView3"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
+<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/textView_date4"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_alignParentRight="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_alignParentBottom="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_gravity="bottom"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:text="TextView4"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textColor="#FFFFFF"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textSize="25dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:visibility="invisible" />&ndash;&gt;-->
 
-                <TextView
-                    android:id="@+id/textView_date4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="bottom"
-                    android:text="TextView4"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/textView_date5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:gravity="center"
-                    android:text="TextView5"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
+<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/textView_date1"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_alignParentLeft="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_alignParentTop="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_alignParentRight="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_alignParentBottom="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:text="TextView5"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textColor="#FFFFFF"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textSize="22dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:visibility="invisible" />&ndash;&gt;-->
 
 
-                <!--        <TextView-->
-                <!--            android:id="@+id/textView2"-->
-                <!--            android:layout_width="wrap_content"-->
-                <!--            android:layout_height="wrap_content"-->
-                <!--            android:layout_above="@+id/textView"-->
-                <!--            android:layout_gravity="bottom"-->
-                <!--            android:layout_marginBottom="0dp"-->
-                <!--            android:text="TextView2"-->
-                <!--            android:textColor="#FFFFFF"-->
-                <!--            android:textSize="15dp"-->
-                <!--            android:textStyle="bold" />-->
+<!--                &lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:id="@+id/textView2"&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:layout_above="@+id/textView"&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:layout_gravity="bottom"&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:layout_marginBottom="0dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:text="TextView2"&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:textColor="#FFFFFF"&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:textSize="15dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;            android:textStyle="bold" />&ndash;&gt;-->
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
 
             <TextView
                 android:id="@+id/textView_border1"
@@ -187,47 +200,81 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
-        <Button
-            android:id="@+id/button1"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button" />
+            android:text="Time"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/timeStyleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button" />
+            android:text="스타일" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/timeColorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button" />
+            android:text="색" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/timeFontButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button" />
+            android:text="폰트" />
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button" />
+
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+
+
+<!--        <Button-->
+<!--            android:id="@+id/button1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Button" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Button" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Button" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button4"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Button" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button5"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="Button" />-->
+<!--    </LinearLayout>-->
 
 </LinearLayout>
