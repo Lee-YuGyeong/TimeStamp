@@ -186,57 +186,92 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/textView_border2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <!--        <FrameLayout-->
-        <!--            android:id="@+id/container"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content">-->
-
-        <!--        </FrameLayout>-->
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/timeStyleButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="스타일" />
-
-        <Button
-            android:id="@+id/timeColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="색" />
-
-        <Button
-            android:id="@+id/timeFontButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="폰트" />
-
 
     </LinearLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                android:background="@android:color/background_light"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:tabTextColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/colorAccent">
+
+
+            </com.google.android.material.tabs.TabLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Time"-->
+<!--            android:textSize="18dp"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/timeStyleButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="스타일" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/timeColorButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="색" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/timeFontButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="폰트" />-->
+
+
+<!--    </LinearLayout>-->
 
     <FrameLayout
-        android:id="@+id/container"
+        android:id="@+id/editContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </FrameLayout>
 
-<!--    <LinearLayout-->
+
+
+
+    <!--    <LinearLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:orientation="horizontal">-->

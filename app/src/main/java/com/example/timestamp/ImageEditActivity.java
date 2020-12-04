@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.example.timestamp.ui.myStamp.MyStampDetailActivity;
 import com.example.timestamp.ui.myStamp.MyStampDetailGridItem;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,12 +52,15 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     Bitmap bitmap;
 
+    EditBorderFragment editBorderFragment;
+    EditTimeFragment editTimeFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container, new TimeStyleButtonFragment()).commit();
+
 
         final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
@@ -66,6 +70,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         imageView.setImageBitmap(bitmap);
 
         setTime();
+        setTab();
 
         textView_date1.setOnTouchListener(this);
         //   goToFragment(bitmap, fragmentImageEditOrigin, 0);
@@ -97,33 +102,8 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             }
         });
 
-        Button timeStyleButton = (Button) findViewById(R.id.timeStyleButton);
-        timeStyleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new TimeStyleButtonFragment()).commit();
-            }
-        });
 
-        Button timeColorButton = (Button) findViewById(R.id.timeColorButton);
-        timeColorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new TimeColorButtonFragment()).commit();
-            }
-        });
 
-        Button timeFontButton = (Button) findViewById(R.id.timeFontButton);
-        timeFontButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new TimeFontButtonFragment()).commit();
-            }
-        });
-
-        Bundle bundle = new Bundle();
-        int style = bundle.getInt("style");
-        Log.d("아아", style + "");
 //        Button button1 = (Button) findViewById(R.id.button1);
 //        button1.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -174,6 +154,44 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
         boolean bool = visibility(textView_date1, visibility1);
         visibility1 = bool;
+    }
+
+    public void setTab(){
+        editBorderFragment = new EditBorderFragment();
+        editTimeFragment = new EditTimeFragment();
+
+        getSupportFragmentManager().beginTransaction().add(R.id.editContainer,editTimeFragment).commit();
+
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.addTab(tabs.newTab().setText("Time"));
+        tabs.addTab(tabs.newTab().setText("테두리"));
+
+        tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                Fragment selected = null;
+                if ( position == 0 ){
+                    selected = editTimeFragment;
+                }else if ( position ==1){
+                    selected = editBorderFragment;
+
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.editContainer,selected).commit();
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     public void TimeStyleButtonSelected(String command, int data) {
