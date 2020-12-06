@@ -44,7 +44,37 @@ public class TimeStyleButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack!=null){
-                    callBack.TimeStyleButtonSelected("show",1);
+                    callBack.TimeStyleButtonSelected("style",1);
+                }
+            }
+        });
+
+        Button button2 = (Button) root.findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack!=null){
+                    callBack.TimeStyleButtonSelected("style",2);
+                }
+            }
+        });
+
+        Button button3 = (Button) root.findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack!=null){
+                    callBack.TimeStyleButtonSelected("style",3);
+                }
+            }
+        });
+
+        Button button4 = (Button) root.findViewById(R.id.button4);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack!=null){
+                    callBack.TimeStyleButtonSelected("style",4);
                 }
             }
         });

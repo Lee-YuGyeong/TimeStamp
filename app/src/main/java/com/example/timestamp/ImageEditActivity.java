@@ -35,11 +35,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class ImageEditActivity extends AppCompatActivity implements View.OnTouchListener, FragmentCallBack {
 
     TextView textView_date1;
-//    TextView textView_date2;
+    // TextView textView_date2;
 //    TextView textView_date3;
 //    TextView textView_date4;
 //    TextView textView_date5;
@@ -51,25 +52,30 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 //    boolean visibility5 = false;
 
     Bitmap bitmap;
+    ImageView imageView;
 
     EditBorderFragment editBorderFragment;
     EditTimeFragment editTimeFragment;
+
+    Date mDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
-
-
         final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.imageView);
 
         byte[] arr = getIntent().getByteArrayExtra("bitmap");
         bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
         imageView.setImageBitmap(bitmap);
 
-        setTime();
+
+        long now = System.currentTimeMillis();
+        mDate = new Date(now);
+
+        TimeStyleButtonSelected("style", 1);
         setTab();
 
         textView_date1.setOnTouchListener(this);
@@ -101,7 +107,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
                 finish();
             }
         });
-
 
 
 //        Button button1 = (Button) findViewById(R.id.button1);
@@ -152,15 +157,16 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 //            }
 //        });
 
-        boolean bool = visibility(textView_date1, visibility1);
-        visibility1 = bool;
+//        boolean bool = visibility(textView_date1, visibility1);
+//        visibility1 = bool;
     }
 
-    public void setTab(){
+
+    public void setTab() {
         editBorderFragment = new EditBorderFragment();
         editTimeFragment = new EditTimeFragment();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.editContainer,editTimeFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.editContainer, editTimeFragment).commit();
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("Time"));
@@ -172,13 +178,13 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
                 int position = tab.getPosition();
 
                 Fragment selected = null;
-                if ( position == 0 ){
+                if (position == 0) {
                     selected = editTimeFragment;
-                }else if ( position ==1){
+                } else if (position == 1) {
                     selected = editBorderFragment;
 
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.editContainer,selected).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.editContainer, selected).commit();
 
             }
 
@@ -196,10 +202,25 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     public void TimeStyleButtonSelected(String command, int data) {
 
+        SimpleDateFormat simpleDate;
+
         if (data == 1) {
-            boolean bool = visibility(textView_date1, visibility1);
-            visibility1 = bool;
+            simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm");
+        } else if (data == 2) {
+            simpleDate = new SimpleDateFormat("h:mm a",Locale.ENGLISH);
+        } else {
+            simpleDate = new SimpleDateFormat("MMM d\nh:mm a ", Locale.ENGLISH);
         }
+
+        String getTime = simpleDate.format(mDate);
+
+        textView_date1 = (TextView) findViewById(R.id.textView_date1);
+        textView_date1.setText(getTime);
+
+//        if (data == 1) {
+//            boolean bool = visibility(textView_date1, visibility1);
+//            visibility1 = bool;
+//        }
 
     } //글자 스타일 적용
 
@@ -239,14 +260,8 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     }
 
-    public void setTime() {
-        long now = System.currentTimeMillis();
-        Date mDate = new Date(now);
-        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm:ss");
-        String getTime = simpleDate.format(mDate);
+    public void setTime(int i) {
 
-        textView_date1 = (TextView) findViewById(R.id.textView_date1);
-        textView_date1.setText(getTime);
 
 //        textView_date2 = (TextView) findViewById(R.id.textView_date2);
 //        textView_date2.setText(getTime);

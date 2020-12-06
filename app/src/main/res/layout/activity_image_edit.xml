@@ -76,25 +76,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_gravity="bottom"
-                android:text="TextView1"
+                android:text="1"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp"
                 android:textStyle="bold"
-                android:visibility="invisible"
                 android:fontFamily="@font/nanumbarunpen"/>
 
-            <TextView
-                android:id="@+id/textView_date2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_gravity="bottom"
-                android:text="TextView1"
-                android:textColor="#FFFFFF"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:visibility="invisible" />
+<!--            <TextView-->
+<!--                android:id="@+id/textView_date2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:text="2"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textSize="25dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:visibility="invisible" />-->
 
 <!--            <RelativeLayout-->
 <!--                android:layout_margin="30dp"-->

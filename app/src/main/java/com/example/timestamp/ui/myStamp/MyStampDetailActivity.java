@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,8 +26,6 @@ import com.example.timestamp.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,12 +71,16 @@ public class MyStampDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                  dispatchTakePictureIntent();
+
             }
         });
 
         ReceiveImageFromEditActivity();
 
     }
+
+
+
 
     public void ReceiveImageFromEditActivity() {
 
@@ -96,6 +97,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
 //        }
         //서버에 저장한거 그리드뷰 보이기
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -171,6 +173,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
 
     }
 
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -215,27 +218,27 @@ public class MyStampDetailActivity extends AppCompatActivity {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
     }
-
-    public static void saveBitmaptoJpeg(Bitmap bitmap, String folder, String name) {
-        String ex_storage = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String foler_name = "/" + folder + "/";
-        String file_name = name + ".jpg";
-        String string_path = ex_storage + foler_name;
-        File file_path;
-        try {
-            file_path = new File(string_path);
-            if (!file_path.isDirectory()) {
-                file_path.mkdirs();
-            }
-            FileOutputStream out = new FileOutputStream(string_path + file_name);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.close();
-        } catch (FileNotFoundException exception) {
-            Log.e("FileNotFoundException", exception.getMessage());
-        } catch (IOException exception) {
-            Log.e("IOException", exception.getMessage());
-        }
-    }
+//
+//    public static void saveBitmaptoJpeg(Bitmap bitmap, String folder, String name) {
+//        String ex_storage = Environment.getExternalStorageDirectory().getAbsolutePath();
+//        String foler_name = "/" + folder + "/";
+//        String file_name = name + ".jpg";
+//        String string_path = ex_storage + foler_name;
+//        File file_path;
+//        try {
+//            file_path = new File(string_path);
+//            if (!file_path.isDirectory()) {
+//                file_path.mkdirs();
+//            }
+//            FileOutputStream out = new FileOutputStream(string_path + file_name);
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+//            out.close();
+//        } catch (FileNotFoundException exception) {
+//            Log.e("FileNotFoundException", exception.getMessage());
+//        } catch (IOException exception) {
+//            Log.e("IOException", exception.getMessage());
+//        }
+//    }
 
 
     class StampDetailAdapter extends BaseAdapter {
