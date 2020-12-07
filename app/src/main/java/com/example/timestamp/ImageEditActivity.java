@@ -1,6 +1,7 @@
 package com.example.timestamp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
@@ -13,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -59,6 +61,8 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     Date mDate;
 
+    ImageView imageView_border1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
         final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
         imageView = (ImageView) findViewById(R.id.imageView);
+        imageView_border1 = (ImageView) findViewById(R.id.imageView_border1);
 
         byte[] arr = getIntent().getByteArrayExtra("bitmap");
         bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
@@ -200,6 +205,10 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         });
     }
 
+    public void BorderSizeButtonSelected(String command,int data){
+
+    }
+
     public void TimeStyleButtonSelected(String command, int data) {
 
         SimpleDateFormat simpleDate;
@@ -209,7 +218,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         } else if (data == 2) {
             simpleDate = new SimpleDateFormat("h:mm a",Locale.ENGLISH);
         } else {
-            simpleDate = new SimpleDateFormat("MMM d\nh:mm a ", Locale.ENGLISH);
+            simpleDate = new SimpleDateFormat("d MMM, hh:mm a ", Locale.ENGLISH);
         }
 
         String getTime = simpleDate.format(mDate);
@@ -224,10 +233,15 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     } //글자 스타일 적용
 
-    public void TimeColorButtonSelected(String command, String data) {
+    public void TimeColorButtonSelected(String command, String data,String key) {
 
-        textView_date1.setTextColor(Color.parseColor(data));
-
+        if(key=="time") {
+            textView_date1.setTextColor(Color.parseColor(data));
+        }else {
+            final GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
+            drawable.setStroke(10,(Color.parseColor(data)));
+            imageView_border1.setImageDrawable(drawable);
+        }
     } // 글자 색 적용
 
     public void TimeFontButtonSelected(String command, int font) {

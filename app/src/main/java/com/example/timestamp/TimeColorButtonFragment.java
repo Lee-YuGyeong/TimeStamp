@@ -3,6 +3,7 @@ package com.example.timestamp;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,8 @@ import androidx.fragment.app.Fragment;
 public class TimeColorButtonFragment extends Fragment {
 
     FragmentCallBack callBack;
-    String color;
+
+    String key;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -40,13 +42,15 @@ public class TimeColorButtonFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_color_button, container, false);
 
+        key = getArguments().getString("key");
+
 
         final Button button1 = (Button) root.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFFFFF");
+                    callBack.TimeColorButtonSelected("color", "#FFFFFF", key);
                 }
             }
         });
@@ -56,7 +60,7 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FF0000");
+                    callBack.TimeColorButtonSelected("color", "#FF0000", key);
                 }
             }
         });
@@ -66,7 +70,7 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FF5E00");
+                    callBack.TimeColorButtonSelected("color", "#FF5E00", key);
                 }
             }
         });
@@ -76,7 +80,7 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFBB00");
+                    callBack.TimeColorButtonSelected("color", "#FFBB00", key);
                 }
             }
         });
@@ -86,7 +90,7 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400");
+                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
                 }
             }
         });
@@ -96,7 +100,7 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#1FDA11");
+                    callBack.TimeColorButtonSelected("color", "#1FDA11", key);
                 }
             }
         });
@@ -106,7 +110,7 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400");
+                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
                 }
             }
         });
@@ -116,7 +120,7 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400");
+                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
                 }
             }
         });
@@ -126,7 +130,7 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400");
+                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
                 }
             }
         });
@@ -136,7 +140,7 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400");
+                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
                 }
 
             }

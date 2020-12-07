@@ -15,7 +15,8 @@ public class EditBorderFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_edit_border,container,false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_edit_border, container, false);
+
 
         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.container, new BorderSizeButtonFragment()).commit();
 
@@ -31,7 +32,12 @@ public class EditBorderFragment extends Fragment {
         timeColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new TimeColorButtonFragment()).commit();
+
+                TimeColorButtonFragment timeColorButtonFragment = new TimeColorButtonFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("key", "border");
+                timeColorButtonFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, timeColorButtonFragment).commit();
             }
         });
 

@@ -12,13 +12,41 @@ import androidx.fragment.app.Fragment;
 
 public class BorderSizeButtonFragment extends Fragment {
 
+    FragmentCallBack callBack;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+
+        super.onAttach(context);
+
+        if (context instanceof FragmentCallBack) {
+            callBack = (FragmentCallBack) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        if (callBack !=null)
+            callBack = null;
+
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_border_size_button, container, false);
 
-
+        Button button1 = (Button) root.findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack!=null){
+                    callBack.BorderSizeButtonSelected("style",1);
+                }
+            }
+        });
 
         return root;
     }
