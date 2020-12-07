@@ -233,13 +233,13 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     } //글자 스타일 적용
 
-    public void TimeColorButtonSelected(String command, String data,String key) {
+    public void TimeColorButtonSelected(String command, int data,String key) {
 
         if(key=="time") {
-            textView_date1.setTextColor(Color.parseColor(data));
+            textView_date1.setTextColor(data);
         }else {
             final GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
-            drawable.setStroke(10,(Color.parseColor(data)));
+            drawable.setStroke(10,data);
             imageView_border1.setImageDrawable(drawable);
         }
     } // 글자 색 적용

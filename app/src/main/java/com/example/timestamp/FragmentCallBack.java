@@ -4,7 +4,7 @@ public interface FragmentCallBack {
 
     public void TimeStyleButtonSelected(String command, int data);
 
-    public void TimeColorButtonSelected(String command, String data,String i);
+    public void TimeColorButtonSelected(String command, int data,String i);
 
     public void TimeFontButtonSelected(String command, int data);
 

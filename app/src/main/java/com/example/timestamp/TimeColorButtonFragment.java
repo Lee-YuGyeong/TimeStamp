@@ -2,6 +2,8 @@ package com.example.timestamp;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +52,9 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFFFFF", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button1.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
             }
         });
@@ -60,7 +64,9 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FF0000", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button2.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
             }
         });
@@ -70,7 +76,9 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FF5E00", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button3.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
             }
         });
@@ -80,7 +88,9 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFBB00", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button4.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
             }
         });
@@ -90,7 +100,9 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button5.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
             }
         });
@@ -100,7 +112,9 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#1FDA11", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button6.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
             }
         });
@@ -110,7 +124,9 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button7.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
             }
         });
@@ -120,7 +136,9 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button8.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
             }
         });
@@ -130,7 +148,9 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button9.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
             }
         });
@@ -140,11 +160,70 @@ public class TimeColorButtonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", "#FFE400", key);
+                    ColorDrawable buttonColor = (ColorDrawable) button10.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
                 }
 
             }
         });
+
+        final Button button11 = (Button) root.findViewById(R.id.button11);
+        button11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack != null) {
+                    ColorDrawable buttonColor = (ColorDrawable) button11.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
+                }
+
+            }
+        });
+
+
+        final Button button12 = (Button) root.findViewById(R.id.button12);
+        button12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack != null) {
+                    ColorDrawable buttonColor = (ColorDrawable) button12.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
+                }
+
+            }
+        });
+
+
+        final Button button13 = (Button) root.findViewById(R.id.button13);
+        button13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack != null) {
+                    ColorDrawable buttonColor = (ColorDrawable) button13.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
+                }
+
+            }
+        });
+
+
+        final Button button14 = (Button) root.findViewById(R.id.button14);
+        button14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callBack != null) {
+                    ColorDrawable buttonColor = (ColorDrawable) button14.getBackground();
+                    int colorId = buttonColor.getColor();
+                    callBack.TimeColorButtonSelected("color", colorId, key);
+                }
+
+            }
+        });
+
+
 
 
         return root;

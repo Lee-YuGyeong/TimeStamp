@@ -74,14 +74,14 @@
                 android:id="@+id/textView_date1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_gravity="bottom"
-                android:text="1"
-                android:textColor="#FFFFFF"
+                android:fontFamily="@font/nanumbarunpen"
+                android:text="date"
+                android:textColor="#000000"
                 android:textSize="25dp"
                 android:textStyle="bold"
-                android:fontFamily="@font/nanumbarunpen"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 <!--            <TextView-->
 <!--                android:id="@+id/textView_date2"-->
