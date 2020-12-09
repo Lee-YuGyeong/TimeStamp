@@ -1,40 +1,33 @@
 package com.example.timestamp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.timestamp.ui.myStamp.MyStampDetailActivity;
-import com.example.timestamp.ui.myStamp.MyStampDetailGridItem;
 import com.google.android.material.tabs.TabLayout;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -58,6 +51,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     EditBorderFragment editBorderFragment;
     EditTimeFragment editTimeFragment;
+    EditTextActivity editTextFragment;
 
     Date mDate;
 
@@ -170,12 +164,14 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     public void setTab() {
         editBorderFragment = new EditBorderFragment();
         editTimeFragment = new EditTimeFragment();
+        editTextFragment = new EditTextActivity();
 
         getSupportFragmentManager().beginTransaction().add(R.id.editContainer, editTimeFragment).commit();
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("Time"));
         tabs.addTab(tabs.newTab().setText("테두리"));
+        tabs.addTab(tabs.newTab().setText("글"));
 
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -185,11 +181,16 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
                 Fragment selected = null;
                 if (position == 0) {
                     selected = editTimeFragment;
+                    getSupportFragmentManager().beginTransaction().replace(R.id.editContainer, selected).commit();
                 } else if (position == 1) {
                     selected = editBorderFragment;
+                    getSupportFragmentManager().beginTransaction().replace(R.id.editContainer, selected).commit();
 
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), EditTextActivity.class);
+                    startActivityForResult(intent, 1000);
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.editContainer, selected).commit();
+
 
             }
 
@@ -205,25 +206,46 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         });
     }
 
-    public void BorderSizeButtonSelected(String command,int data){
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        super.startActivityForResult(intent, requestCode, options);
+
+        if (requestCode == 1000) {
+                if (intent != null) {
+                    TextView inputText = findViewById(R.id.inputText);
+
+                    String text = intent.getStringExtra("text");
+                    inputText.setText(text);
+                    Log.d("아아", text);
+                }
+
+        }
+    }
+
+    public void BorderSizeButtonSelected(String command, int data) {
 
     }
 
     public void TimeStyleButtonSelected(String command, int data) {
 
         SimpleDateFormat simpleDate;
+        textView_date1 = (TextView) findViewById(R.id.textView_date1);
+
 
         if (data == 1) {
             simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm");
+            textView_date1.setTextSize(25);
         } else if (data == 2) {
-            simpleDate = new SimpleDateFormat("h:mm a",Locale.ENGLISH);
+            simpleDate = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
+            textView_date1.setTextSize(40);
         } else {
             simpleDate = new SimpleDateFormat("d MMM, hh:mm a ", Locale.ENGLISH);
+            textView_date1.setTextSize(25);
         }
 
         String getTime = simpleDate.format(mDate);
 
-        textView_date1 = (TextView) findViewById(R.id.textView_date1);
+
         textView_date1.setText(getTime);
 
 //        if (data == 1) {
@@ -233,13 +255,13 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     } //글자 스타일 적용
 
-    public void TimeColorButtonSelected(String command, int data,String key) {
+    public void TimeColorButtonSelected(String command, int data, String key) {
 
-        if(key=="time") {
+        if (key == "time") {
             textView_date1.setTextColor(data);
-        }else {
+        } else {
             final GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
-            drawable.setStroke(10,data);
+            drawable.setStroke(10, data);
             imageView_border1.setImageDrawable(drawable);
         }
     } // 글자 색 적용

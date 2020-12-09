@@ -21,6 +21,7 @@
         <activity android:name=".StampTitleImageActivity" />
         <activity android:name=".ui.myStamp.MyStampAddActivity" />
         <activity android:name=".ui.myStamp.MyStampDetailActivity" />
+        <activity android:name=".EditTextActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
