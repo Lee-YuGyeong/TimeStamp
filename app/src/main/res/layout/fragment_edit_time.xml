@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F6F6"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/timeStyleButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="스타일" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/text" />
 
         <Button
             android:id="@+id/timeColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="색" />
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/paint" />
 
         <Button
             android:id="@+id/timeFontButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="폰트" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/font" />
 
 
     </LinearLayout>
@@ -35,7 +41,6 @@
         android:layout_height="match_parent">
 
     </FrameLayout>
-
 
 
 </LinearLayout>
