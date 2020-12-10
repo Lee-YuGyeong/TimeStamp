@@ -206,24 +206,27 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         });
     }
 
+
     @Override
-    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
-        super.startActivityForResult(intent, requestCode, options);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1000) {
-                if (intent != null) {
-                    TextView inputText = findViewById(R.id.inputText);
+            if (resultCode == RESULT_OK) {
+                TextView inputText = findViewById(R.id.inputText);
 
-                    String text = intent.getStringExtra("text");
+                    String text = data.getStringExtra("text");
                     inputText.setText(text);
-                    Log.d("아아", text);
-                }
-
+            }
         }
     }
 
     public void BorderSizeButtonSelected(String command, int data) {
 
+        if (data == 1) {
+            boolean bool = visibility(imageView_border1, visibility1);
+            visibility1 = bool;
+        }
     }
 
     public void TimeStyleButtonSelected(String command, int data) {
@@ -248,10 +251,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
         textView_date1.setText(getTime);
 
-//        if (data == 1) {
-//            boolean bool = visibility(textView_date1, visibility1);
-//            visibility1 = bool;
-//        }
 
     } //글자 스타일 적용
 
@@ -260,9 +259,13 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         if (key == "time") {
             textView_date1.setTextColor(data);
         } else {
+
             final GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
             drawable.setStroke(10, data);
             imageView_border1.setImageDrawable(drawable);
+
+            Log.d("아아",String.valueOf(drawable.getColor()));
+
         }
     } // 글자 색 적용
 
@@ -284,13 +287,13 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     } // 글자 폰트 적용
 
-    public boolean visibility(TextView textView, boolean visibility) {
+    public boolean visibility(ImageView imageView, boolean visibility) {
 
         if (visibility == false) {
-            textView.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.VISIBLE);
             return true;
         } else {
-            textView.setVisibility(View.INVISIBLE);
+            imageView.setVisibility(View.INVISIBLE);
             return false;
         }
 

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,8 @@ public class TimeColorButtonFragment extends Fragment {
     FragmentCallBack callBack;
 
     String key;
+
+    boolean vis = false;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -229,5 +232,14 @@ public class TimeColorButtonFragment extends Fragment {
         return root;
     }
 
+    public boolean visibility(boolean vis) {
+
+        if (vis == false) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 }

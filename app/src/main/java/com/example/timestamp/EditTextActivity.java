@@ -35,8 +35,7 @@ public class EditTextActivity extends AppCompatActivity {
                 String text = editText.getText().toString();
                 Intent intent = new Intent();
                 intent.putExtra("text", text);
-               // Log.d("아아",editText.getText().toString());
-                setResult(1000, intent);
+                setResult(RESULT_OK, intent);
                 finish();
 
             }
