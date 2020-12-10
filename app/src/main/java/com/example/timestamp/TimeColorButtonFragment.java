@@ -224,7 +224,6 @@ public class TimeColorButtonFragment extends Fragment {
         });
 
 
-
         button12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -246,7 +245,6 @@ public class TimeColorButtonFragment extends Fragment {
                 buttonSelect(button13, color13);
             }
         });
-
 
 
         button14.setOnClickListener(new View.OnClickListener() {
