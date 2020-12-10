@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -162,33 +163,44 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
 
     public void setTab() {
-        editBorderFragment = new EditBorderFragment();
-        editTimeFragment = new EditTimeFragment();
-        editTextFragment = new EditTextActivity();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.editContainer, editTimeFragment).commit();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        editTimeFragment = new EditTimeFragment();
+        fragmentManager.beginTransaction().add(R.id.editContainer, editTimeFragment).commit();
 
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("Time"));
         tabs.addTab(tabs.newTab().setText("테두리"));
-        tabs.addTab(tabs.newTab().setText("글"));
+
 
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
 
-                Fragment selected = null;
                 if (position == 0) {
-                    selected = editTimeFragment;
-                    getSupportFragmentManager().beginTransaction().replace(R.id.editContainer, selected).commit();
-                } else if (position == 1) {
-                    selected = editBorderFragment;
-                    getSupportFragmentManager().beginTransaction().replace(R.id.editContainer, selected).commit();
 
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), EditTextActivity.class);
-                    startActivityForResult(intent, 1000);
+                    if (editTimeFragment == null) {
+                        editTimeFragment = new EditTimeFragment();
+                        fragmentManager.beginTransaction().add(R.id.editContainer, editTimeFragment).commit();
+                    }
+
+                    if (editTimeFragment != null)
+                        fragmentManager.beginTransaction().show(editTimeFragment).commit();
+                    fragmentManager.beginTransaction().hide(editBorderFragment).commit();
+
+                } else if (position == 1) {
+
+                    if (editBorderFragment == null) {
+                        editBorderFragment = new EditBorderFragment();
+                        fragmentManager.beginTransaction().add(R.id.editContainer, editBorderFragment).commit();
+                    }
+
+                    fragmentManager.beginTransaction().hide(editTimeFragment).commit();
+                    if (editBorderFragment != null)
+                        fragmentManager.beginTransaction().show(editBorderFragment).commit();
+
                 }
 
 
@@ -215,8 +227,8 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             if (resultCode == RESULT_OK) {
                 TextView inputText = findViewById(R.id.inputText);
 
-                    String text = data.getStringExtra("text");
-                    inputText.setText(text);
+                String text = data.getStringExtra("text");
+                inputText.setText(text);
             }
         }
     }

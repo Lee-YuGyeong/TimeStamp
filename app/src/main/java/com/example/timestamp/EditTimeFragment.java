@@ -24,7 +24,8 @@ public class EditTimeFragment extends Fragment {
     TimeColorButtonFragment timeColorButtonFragment;
     TimeFontButtonFragment timeFontButtonFragment;
 
-    public FragmentManager fragmentManager;;
+    public FragmentManager fragmentManager;
+    ;
 
     @Nullable
     @Override
@@ -41,8 +42,21 @@ public class EditTimeFragment extends Fragment {
 
         fragmentManager = getActivity().getSupportFragmentManager();
 
-        timeStyleButtonFragment = new TimeStyleButtonFragment();
-        fragmentManager.beginTransaction().add(R.id.container, timeStyleButtonFragment).commit();
+
+        if (timeStyleButtonFragment == null) {
+            timeStyleButtonFragment = new TimeStyleButtonFragment();
+            fragmentManager.beginTransaction().add(R.id.time_container, timeStyleButtonFragment).commit();
+        }
+
+        if (timeStyleButtonFragment != null) {
+            fragmentManager.beginTransaction().show(timeStyleButtonFragment).commit();
+        }
+        if (timeColorButtonFragment != null) {
+            fragmentManager.beginTransaction().hide(timeColorButtonFragment).commit();
+        }
+        if (timeFontButtonFragment != null) {
+            fragmentManager.beginTransaction().hide(timeFontButtonFragment).commit();
+        }
 
 
         timeStyleButton.setOnClickListener(new View.OnClickListener() {
@@ -51,12 +65,19 @@ public class EditTimeFragment extends Fragment {
 
                 if (timeStyleButtonFragment == null) {
                     timeStyleButtonFragment = new TimeStyleButtonFragment();
-                    fragmentManager.beginTransaction().add(R.id.container, timeStyleButtonFragment).commit();
+                    fragmentManager.beginTransaction().add(R.id.time_container, timeStyleButtonFragment).commit();
                 }
 
-                if (timeStyleButtonFragment != null) fragmentManager.beginTransaction().show(timeStyleButtonFragment).commit();
-                if (timeColorButtonFragment != null) fragmentManager.beginTransaction().hide(timeColorButtonFragment).commit();
-                if (timeFontButtonFragment != null) fragmentManager.beginTransaction().hide(timeFontButtonFragment).commit();
+                if (timeStyleButtonFragment != null) {
+                    fragmentManager.beginTransaction().show(timeStyleButtonFragment).commit();
+                }
+                if (timeColorButtonFragment != null) {
+                    fragmentManager.beginTransaction().hide(timeColorButtonFragment).commit();
+                }
+                if (timeFontButtonFragment != null) {
+                    fragmentManager.beginTransaction().hide(timeFontButtonFragment).commit();
+                }
+
 
                 timeStyleButton.setBackgroundResource(R.drawable.text_click);
                 timeColorButton.setBackgroundResource(R.drawable.paint);
@@ -70,15 +91,21 @@ public class EditTimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+
                 if (timeColorButtonFragment == null) {
                     timeColorButtonFragment = new TimeColorButtonFragment();
-                    fragmentManager.beginTransaction().add(R.id.container, timeColorButtonFragment).commit();
+                    fragmentManager.beginTransaction().add(R.id.time_container, timeColorButtonFragment).commit();
                 }
 
-                if (timeStyleButtonFragment != null) fragmentManager.beginTransaction().hide(timeStyleButtonFragment).commit();
-                if (timeColorButtonFragment != null) fragmentManager.beginTransaction().show(timeColorButtonFragment).commit();
-                if (timeFontButtonFragment != null) fragmentManager.beginTransaction().hide(timeFontButtonFragment).commit();
-
+                if (timeStyleButtonFragment != null) {
+                    fragmentManager.beginTransaction().hide(timeStyleButtonFragment).commit();
+                }
+                if (timeColorButtonFragment != null) {
+                    fragmentManager.beginTransaction().show(timeColorButtonFragment).commit();
+                }
+                if (timeFontButtonFragment != null) {
+                    fragmentManager.beginTransaction().hide(timeFontButtonFragment).commit();
+                }
 
                 timeStyleButton.setBackgroundResource(R.drawable.text);
                 timeColorButton.setBackgroundResource(R.drawable.paint_click);
@@ -97,13 +124,18 @@ public class EditTimeFragment extends Fragment {
 
                 if (timeFontButtonFragment == null) {
                     timeFontButtonFragment = new TimeFontButtonFragment();
-                    fragmentManager.beginTransaction().add(R.id.container, timeFontButtonFragment).commit();
+                    fragmentManager.beginTransaction().add(R.id.time_container, timeFontButtonFragment).commit();
                 }
 
-                if (timeStyleButtonFragment != null) fragmentManager.beginTransaction().hide(timeStyleButtonFragment).commit();
-                if (timeColorButtonFragment != null) fragmentManager.beginTransaction().hide(timeColorButtonFragment).commit();
-                if (timeFontButtonFragment != null) fragmentManager.beginTransaction().show(timeFontButtonFragment).commit();
-
+                if (timeStyleButtonFragment != null) {
+                    fragmentManager.beginTransaction().hide(timeStyleButtonFragment).commit();
+                }
+                if (timeColorButtonFragment != null) {
+                    fragmentManager.beginTransaction().hide(timeColorButtonFragment).commit();
+                }
+                if (timeFontButtonFragment != null) {
+                    fragmentManager.beginTransaction().show(timeFontButtonFragment).commit();
+                }
                 timeStyleButton.setBackgroundResource(R.drawable.text);
                 timeColorButton.setBackgroundResource(R.drawable.paint);
                 timeFontButton.setBackgroundResource(R.drawable.font_click);
