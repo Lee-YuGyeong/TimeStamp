@@ -260,11 +260,10 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             textView_date1.setTextColor(data);
         } else {
 
-            final GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
+            GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
             drawable.setStroke(10, data);
             imageView_border1.setImageDrawable(drawable);
 
-            Log.d("아아",String.valueOf(drawable.getColor()));
 
         }
     } // 글자 색 적용
