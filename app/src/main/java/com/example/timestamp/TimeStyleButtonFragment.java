@@ -94,6 +94,8 @@ public class TimeStyleButtonFragment extends Fragment {
             }
         });
 
+        button5 = (Button) root.findViewById(R.id.button5);
+        button6 = (Button) root.findViewById(R.id.button6);
         return root;
     }
 
@@ -106,8 +108,8 @@ public class TimeStyleButtonFragment extends Fragment {
         button2.setBackgroundResource(R.drawable.button_border);
         button3.setBackgroundResource(R.drawable.button_border);
         button4.setBackgroundResource(R.drawable.button_border);
-
-
+        button5.setBackgroundResource(R.drawable.button_border);
+        button6.setBackgroundResource(R.drawable.button_border);
     }
 
 
