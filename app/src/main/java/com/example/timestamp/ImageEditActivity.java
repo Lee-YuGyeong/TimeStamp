@@ -36,19 +36,10 @@ import java.util.Locale;
 public class ImageEditActivity extends AppCompatActivity implements View.OnTouchListener, FragmentCallBack {
 
     TextView textView_date1;
-    // TextView textView_date2;
-//    TextView textView_date3;
-//    TextView textView_date4;
-//    TextView textView_date5;
-
-    boolean visibility1 = false;
-//    boolean visibility2 = false;
-//    boolean visibility3 = false;
-//    boolean visibility4 = false;
-//    boolean visibility5 = false;
 
     Bitmap bitmap;
     ImageView imageView;
+
 
     EditBorderFragment editBorderFragment;
     EditTimeFragment editTimeFragment;
@@ -109,56 +100,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         });
 
 
-//        Button button1 = (Button) findViewById(R.id.button1);
-//        button1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean bool = visibility(textView_date1,visibility1);
-//                visibility1 = bool;
-//
-//            }
-//        });////////////
-
-
-//        Button button2 = (Button) findViewById(R.id.button2);
-//        button2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean bool = visibility(textView_date2,visibility2);
-//                visibility2 = bool;
-//            }
-//        });
-//
-//        Button button3 = (Button) findViewById(R.id.button3);
-//        button3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean bool = visibility(textView_date3,visibility3);
-//                visibility3 = bool;
-//            }
-//        });
-//
-//        Button button4 = (Button) findViewById(R.id.button4);
-//        button4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean bool = visibility(textView_date4,visibility4);
-//                visibility4 = bool;
-//            }
-//        });
-//
-//
-//        Button button5 = (Button) findViewById(R.id.button5);
-//        button5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean bool = visibility(textView_date5,visibility5);
-//                visibility5 = bool;
-//            }
-//        });
-
-//        boolean bool = visibility(textView_date1, visibility1);
-//        visibility1 = bool;
     }
 
 
@@ -233,12 +174,14 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         }
     }
 
-    public void BorderSizeButtonSelected(String command, int data) {
+    public void BorderButtonSelected(String command, boolean state) {
 
-        if (data == 1) {
-            boolean bool = visibility(imageView_border1, visibility1);
-            visibility1 = bool;
+        if (state == true) {
+            imageView_border1.setVisibility(View.VISIBLE);
+        } else {
+            imageView_border1.setVisibility(View.INVISIBLE);
         }
+
     }
 
     public void TimeStyleButtonSelected(String command, int data) {
@@ -297,34 +240,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         }
 
     } // 글자 폰트 적용
-
-    public boolean visibility(ImageView imageView, boolean visibility) {
-
-        if (visibility == false) {
-            imageView.setVisibility(View.VISIBLE);
-            return true;
-        } else {
-            imageView.setVisibility(View.INVISIBLE);
-            return false;
-        }
-
-    }
-
-    public void setTime(int i) {
-
-
-//        textView_date2 = (TextView) findViewById(R.id.textView_date2);
-//        textView_date2.setText(getTime);
-//
-//        textView_date3 = (TextView) findViewById(R.id.textView_date3);
-//        textView_date3.setText(getTime);
-//
-//        textView_date4 = (TextView) findViewById(R.id.textView_date4);
-//        textView_date4.setText(getTime);
-//
-//        textView_date5 = (TextView) findViewById(R.id.textView_date5);
-//        textView_date5.setText(getTime);
-    }
 
     public static Bitmap setViewToBitmapImage(View view) {
 //Define a bitmap with the same size as the view

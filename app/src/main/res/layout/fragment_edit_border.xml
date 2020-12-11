@@ -8,18 +8,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/borderSizeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="크기" />
-
 
         <Button
             android:id="@+id/borderColorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="색" />
+            android:text="없음" />
 
 
     </LinearLayout>

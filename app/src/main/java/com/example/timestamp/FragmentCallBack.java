@@ -8,7 +8,7 @@ public interface FragmentCallBack {
 
     public void TimeFontButtonSelected(String command, int data);
 
-    public void BorderSizeButtonSelected(String command, int data);
+    public void BorderButtonSelected(String command, boolean state);
 
 
 }

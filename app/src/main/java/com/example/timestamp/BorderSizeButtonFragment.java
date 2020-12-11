@@ -38,15 +38,7 @@ public class BorderSizeButtonFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_border_size_button, container, false);
 
-        Button button1 = (Button) root.findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (callBack!=null){
-                    callBack.BorderSizeButtonSelected("style",1);
-                }
-            }
-        });
+
 
         return root;
     }

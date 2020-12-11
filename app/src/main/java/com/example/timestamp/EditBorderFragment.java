@@ -1,5 +1,6 @@
 package com.example.timestamp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,11 +15,32 @@ import androidx.fragment.app.FragmentManager;
 
 public class EditBorderFragment extends Fragment {
 
-    BorderSizeButtonFragment borderSizeButtonFragment;
     TimeColorButtonFragment timeColorButtonFragment;
 
     public FragmentManager fragmentManager;
-    ;
+
+    boolean vis = false;
+
+    FragmentCallBack callBack;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+
+        super.onAttach(context);
+
+        if (context instanceof FragmentCallBack) {
+            callBack = (FragmentCallBack) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        if (callBack != null)
+            callBack = null;
+
+    }
 
     @Nullable
     @Override
@@ -28,54 +50,38 @@ public class EditBorderFragment extends Fragment {
         fragmentManager = getActivity().getSupportFragmentManager();
 
 
-        if (borderSizeButtonFragment == null) {
-            borderSizeButtonFragment = new BorderSizeButtonFragment();
-            fragmentManager.beginTransaction().add(R.id.border_container, borderSizeButtonFragment).commit();
-        }
-
-        if (borderSizeButtonFragment != null) {
-            fragmentManager.beginTransaction().show(borderSizeButtonFragment).commit();
-        }
-        if (timeColorButtonFragment != null) {
-            fragmentManager.beginTransaction().hide(timeColorButtonFragment).commit();
-        }
-
-        Button borderSizeButton = (Button) root.findViewById(R.id.borderSizeButton);
-        borderSizeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (borderSizeButtonFragment == null) {
-                    borderSizeButtonFragment = new BorderSizeButtonFragment();
-                    fragmentManager.beginTransaction().add(R.id.border_container, borderSizeButtonFragment).commit();
-                }
-
-                if (borderSizeButtonFragment != null) {
-                    fragmentManager.beginTransaction().show(borderSizeButtonFragment).commit();
-                }
-                if (timeColorButtonFragment != null) {
-                    fragmentManager.beginTransaction().hide(timeColorButtonFragment).commit();
-                }
-
-            }
-        });
-
-        Button timeColorButton = (Button) root.findViewById(R.id.borderColorButton);
+        final Button timeColorButton = (Button) root.findViewById(R.id.borderColorButton);
         timeColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (timeColorButtonFragment == null) {
-                    timeColorButtonFragment = new TimeColorButtonFragment();
-                    fragmentManager.beginTransaction().add(R.id.border_container, timeColorButtonFragment).commit();
+
+                if (vis == false) {
+                    vis = true;
+                    timeColorButton.setText("있음");
+                } else {
+                    vis = false;
+                    timeColorButton.setText("없음");
                 }
 
-                if (borderSizeButtonFragment != null) {
-                    fragmentManager.beginTransaction().hide(borderSizeButtonFragment).commit();
+                if (vis == true) {
+
+                    if (timeColorButtonFragment == null) {
+                        timeColorButtonFragment = new TimeColorButtonFragment();
+                        fragmentManager.beginTransaction().add(R.id.border_container, timeColorButtonFragment).commit();
+                    }
+                    if (timeColorButtonFragment != null) {
+                        fragmentManager.beginTransaction().show(timeColorButtonFragment).commit();
+                    }
+
+                } else {
+                    if (timeColorButtonFragment != null) {
+                        fragmentManager.beginTransaction().hide(timeColorButtonFragment).commit();
+                    }
+
                 }
-                if (timeColorButtonFragment != null) {
-                    fragmentManager.beginTransaction().show(timeColorButtonFragment).commit();
-                }
+
+                callBack.BorderButtonSelected("테두리",vis);
+
                 Bundle bundle = new Bundle();
                 bundle.putString("key", "border");
                 timeColorButtonFragment.setArguments(bundle);
