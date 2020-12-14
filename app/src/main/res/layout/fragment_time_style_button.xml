@@ -15,7 +15,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_border"
-            android:text="자세한 시간" />
+            android:text="없음" />
 
         <Button
             android:id="@+id/button2"
@@ -24,7 +24,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_border"
-            android:text="간단한 시간" />
+            android:text="자세한 시간" />
 
         <Button
             android:id="@+id/button3"
@@ -33,7 +33,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_border"
-            android:text="영어" />
+            android:text="간단한 시간" />
 
 
     </LinearLayout>
@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:background="@drawable/button_border"
-            android:text="Button" />
+            android:text="영어" />
 
         <Button
             android:id="@+id/button5"

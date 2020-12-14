@@ -97,8 +97,9 @@ public class TimeColorButtonFragment extends Fragment {
         button13 = (Button) root.findViewById(R.id.button13);
         button14 = (Button) root.findViewById(R.id.button14);
 
+        callBack.TimeColorButtonSelected("color", color1, key);
         colorInit();
-
+        buttonSelect(button1, color1);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

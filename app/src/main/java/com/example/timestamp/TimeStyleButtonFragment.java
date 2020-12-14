@@ -46,6 +46,7 @@ public class TimeStyleButtonFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_time_style_button, container, false);
 
+
         button1 = (Button) root.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +97,11 @@ public class TimeStyleButtonFragment extends Fragment {
 
         button5 = (Button) root.findViewById(R.id.button5);
         button6 = (Button) root.findViewById(R.id.button6);
+
+        callBack.TimeStyleButtonSelected("style", 1);
+        buttonNotSelect();
+        buttonSelect(button1);
+
         return root;
     }
 

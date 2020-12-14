@@ -97,6 +97,10 @@ public class TimeFontButtonFragment extends Fragment {
         button5 = (Button) root.findViewById(R.id.button5);
         button6 = (Button) root.findViewById(R.id.button6);
 
+        callBack.TimeFontButtonSelected("font", 1);
+        buttonNotSelect();
+        buttonSelect(button1);
+
         return root;
     }
 

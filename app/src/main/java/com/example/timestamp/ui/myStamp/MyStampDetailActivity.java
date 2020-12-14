@@ -1,9 +1,12 @@
 package com.example.timestamp.ui.myStamp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -61,8 +64,19 @@ public class MyStampDetailActivity extends AppCompatActivity {
 
         adapter = new StampDetailAdapter();
 
-//        adapter.addItem(new MyStampDetailGridItem(R.drawable.background1));
-//        adapter.addItem(new MyStampDetailGridItem(R.drawable.background2));
+
+        ////////// 비트맵으로 변경
+        Context context = getApplicationContext();
+        Drawable drawable = getResources().getDrawable(R.drawable.background1);
+        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+
+        Drawable drawable2 = getResources().getDrawable(R.drawable.background2);
+        Bitmap bitmap2 = ((BitmapDrawable)drawable2).getBitmap();
+
+        adapter.addItem(new MyStampDetailGridItem(bitmap));
+        adapter.addItem(new MyStampDetailGridItem(bitmap2));
+
+        ////////////////////////////
 
         gridView.setAdapter(adapter);
 

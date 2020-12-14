@@ -43,7 +43,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     EditBorderFragment editBorderFragment;
     EditTimeFragment editTimeFragment;
-    EditTextActivity editTextFragment;
 
     Date mDate;
 
@@ -81,12 +80,14 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 //                ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
 //                imageView2.setImageBitmap(captureBitmap);
 
-                Intent intent = new Intent(getApplicationContext(), MyStampDetailActivity.class);
+  //              Intent intent = new Intent(getApplicationContext(), MyStampDetailActivity.class);
 //                ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //                captureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 //                byte[] byteArray = stream.toByteArray();
 //                intent.putExtra("captureBitmap",byteArray);
-                startActivity(intent); //비트맵 서버 저장하기
+    //            startActivity(intent); //비트맵 서버 저장하기
+
+                finish();
 
             }
         });
@@ -160,19 +161,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1000) {
-            if (resultCode == RESULT_OK) {
-                TextView inputText = findViewById(R.id.inputText);
-
-                String text = data.getStringExtra("text");
-                inputText.setText(text);
-            }
-        }
-    }
 
     public void BorderButtonSelected(String command, boolean state) {
 
@@ -191,9 +179,12 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
 
         if (data == 1) {
+            simpleDate = new SimpleDateFormat("");
+            textView_date1.setTextSize(0);
+        } else if (data == 2) {
             simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm");
             textView_date1.setTextSize(25);
-        } else if (data == 2) {
+        } else if( data ==3){
             simpleDate = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
             textView_date1.setTextSize(40);
         } else {
