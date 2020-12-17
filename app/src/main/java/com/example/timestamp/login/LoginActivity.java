@@ -3,6 +3,7 @@ package com.example.timestamp.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,15 @@ public class LoginActivity extends AppCompatActivity {
 
         et_id = findViewById(R.id.et_id);
         et_pass = findViewById(R.id.et_pass);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+        String login = sharedPreferences.getString("userID", "");
+
+        if(login != "") {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+
+        }
 
         btn_register = findViewById(R.id.btn_register);
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +73,9 @@ public class LoginActivity extends AppCompatActivity {
 //                                String userAge = jsonObject.getString("userAge");
 
                                 Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                                InLogDate(userID, userPass);
+
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                                 intent.putExtra("userID", userID);
@@ -89,4 +102,24 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void InLogDate(String id, String password) { // SharedPreferences에 값 저장.
+
+        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userID", id);
+        editor.putString("userPassword", password);
+        editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
+        Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+    }
+//
+//    public void OutLogData(String id, String password) {     // SharedPreferences에 값 불러오기.
+//        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+//        String inputText = sharedPreferences.getString("inputText", "");
+//        textView.setText(inputText);    // TextView에 SharedPreferences에 저장되어있던 값 찍기.
+//        Toast.makeText(this, "불러오기 하였습니다..", Toast.LENGTH_SHORT).show();
+//    }// clickGetBt()..
+
+
 }
