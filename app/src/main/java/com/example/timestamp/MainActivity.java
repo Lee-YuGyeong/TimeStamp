@@ -1,6 +1,8 @@
 package com.example.timestamp;
 
 import android.Manifest;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.timestamp.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +24,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
-
 
 
     @Override
@@ -43,8 +45,18 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         checkSelfPermission();
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
+//        String inputText = sharedPreferences.getString("userID", "");
+//        if (inputText == "") {
+//            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//            intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+//            startActivity(intent);
+//        }
+
 
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { //권한을 허용 했을 경우

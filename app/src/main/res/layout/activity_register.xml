@@ -16,10 +16,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="아이디"
-            android:inputType="textPersonName" />
+            android:privateImeOptions="defaultInputmode=english;symbol=false"/>
 
         <Button
-            android:id="@+id/btn_val"
+            android:id="@+id/btn_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="아이디 중복체크"/>
@@ -35,16 +35,31 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="비밀번호"
-        android:inputType="textPersonName" />
+        android:inputType="textPassword"/>
 
-    <EditText
-        android:id="@+id/et_name"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="이름"
-        android:inputType="textPersonName" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="이름"
+            android:inputType="textPersonName" />
+
+
+        <Button
+            android:id="@+id/btn_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="닉네임 중복체크"/>
+
+    </LinearLayout>
+
 
 
     <Button
