@@ -45,15 +45,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         checkSelfPermission();
-//
-//        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
-//        String inputText = sharedPreferences.getString("userID", "");
-//        if (inputText == "") {
-//            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//            intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
-//            startActivity(intent);
-//        }
-
 
     }
 

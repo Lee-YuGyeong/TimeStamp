@@ -34,8 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         et_id = findViewById(R.id.et_id);
         et_pass = findViewById(R.id.et_pass);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);    // mine 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
-//        boolean  = sharedPreferences.getString("userID", "");
+        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
 
         if (sharedPreferences.getBoolean("auto", false) == true) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
