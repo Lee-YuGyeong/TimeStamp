@@ -1,21 +1,23 @@
 package com.example.timestamp.ui.myStamp;
 
+import android.graphics.Bitmap;
+
 public class MyStampMenuGridItem {
 
-    int resId;
+    Bitmap bitmap;
     String title;
 
-    public MyStampMenuGridItem(int resId, String title) {
-        this.resId = resId;
+    public MyStampMenuGridItem(Bitmap bitmap, String title) {
+        this.bitmap = bitmap;
         this.title = title;
     }
 
-    public int getResId() {
-        return resId;
+    public Bitmap getResId() {
+        return bitmap;
     }
 
-    public void setResId(int resId) {
-        this.resId = resId;
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     public String getTitle() {

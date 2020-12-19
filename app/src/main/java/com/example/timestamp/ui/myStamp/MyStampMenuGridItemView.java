@@ -1,6 +1,7 @@
 package com.example.timestamp.ui.myStamp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.Button;
@@ -14,12 +15,11 @@ import com.example.timestamp.R;
 
 public class MyStampMenuGridItemView extends LinearLayout {
 
-   ImageView imageView;
+    ImageView imageView;
     TextView textView;
 
     public MyStampMenuGridItemView(Context context) {
         super(context);
-
         init(context);
     }
 
@@ -30,7 +30,7 @@ public class MyStampMenuGridItemView extends LinearLayout {
 
     private void init(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.my_stamp_menu_grid_item,this,true);
+        inflater.inflate(R.layout.my_stamp_menu_grid_item, this, true);
 
         imageView = (ImageView) findViewById(R.id.imageView);
         textView = (TextView) findViewById(R.id.textView);
@@ -40,8 +40,8 @@ public class MyStampMenuGridItemView extends LinearLayout {
         textView.setText(title);
     }
 
-    public void setImage(int resId) {
-        imageView.setImageResource(resId);
+    public void setImage(Bitmap bitmap) {
+        imageView.setImageBitmap(bitmap);
     }
 
 }

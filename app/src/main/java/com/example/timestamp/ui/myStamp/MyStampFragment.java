@@ -1,6 +1,9 @@
 package com.example.timestamp.ui.myStamp;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,12 +43,16 @@ public class MyStampFragment extends Fragment {
 
         adapter = new StampMenuAdapter();
 
-        adapter.addItem(new MyStampMenuGridItem(R.drawable.background1, "스터디"));
-        adapter.addItem(new MyStampMenuGridItem(R.drawable.background2, "다이어트"));
-        adapter.addItem(new MyStampMenuGridItem(R.drawable.background3, "기상"));
-        adapter.addItem(new MyStampMenuGridItem(R.drawable.background1, "스터디"));
-        adapter.addItem(new MyStampMenuGridItem(R.drawable.background1, "스터디"));
-        adapter.addItem(new MyStampMenuGridItem(R.drawable.background1, "스터디"));
+//        Bitmap bit = BitmapFactory.decodeResource(getActivity().getResources(),
+//                R.drawable.background1);
+//        resize(bit);
+
+//       adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
+//        adapter.addItem(new MyStampMenuGridItem(bit, "다이어트"));
+//        adapter.addItem(new MyStampMenuGridItem(bit, "기상"));
+//        adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
+//        adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
+//        adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
 
         gridView.setAdapter(adapter);
 
@@ -58,6 +65,21 @@ public class MyStampFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private Bitmap resize(Bitmap bm) {
+        Configuration config = getResources().getConfiguration();
+        if (config.smallestScreenWidthDp >= 800)
+            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+        else if (config.smallestScreenWidthDp >= 600)
+            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+        else if (config.smallestScreenWidthDp >= 400)
+            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+        else if (config.smallestScreenWidthDp >= 360)
+            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+        else
+            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+        return bm;
     }
 
 
@@ -107,12 +129,12 @@ public class MyStampFragment extends Fragment {
 
         if (requestCode == 0) {
             if (intent != null) {
-                int resId = intent.getIntExtra("resId", 0);
-                String title = intent.getStringExtra("title");
-
-                adapter.addItem(new MyStampMenuGridItem(resId, title));
-
-                adapter.notifyDataSetChanged();
+//                Bitmap bitmap = intent.get("bitmap", 0);
+//                String title = intent.getStringExtra("title");
+//
+//                adapter.addItem(new MyStampMenuGridItem(bitmap, title));
+//
+//                adapter.notifyDataSetChanged();
             }
         }
     }
