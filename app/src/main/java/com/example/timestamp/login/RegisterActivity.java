@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -231,11 +232,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                     //회원가입 성공시
                     if (success) {
-                        Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                        startActivity(intent);
                         //회원가입 실패시
                     } else {
-                        Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "회원가입이 실패되었습니다.", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
