@@ -32,7 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.RegisterActivity"/>
+        <activity android:name=".login.RegisterActivity"
+            android:noHistory = "true"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
