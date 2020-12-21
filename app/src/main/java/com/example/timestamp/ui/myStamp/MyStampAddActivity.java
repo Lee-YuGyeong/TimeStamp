@@ -2,9 +2,12 @@ package com.example.timestamp.ui.myStamp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
@@ -16,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.timestamp.R;
@@ -24,6 +28,7 @@ import com.example.timestamp.StampTitleImageActivity;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
 
 public class MyStampAddActivity extends AppCompatActivity {
 
@@ -38,6 +43,7 @@ public class MyStampAddActivity extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.editText);
         imageView = (ImageView) findViewById(R.id.imageView);
+
 
         Button backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +86,7 @@ public class MyStampAddActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -99,11 +106,15 @@ public class MyStampAddActivity extends AppCompatActivity {
                         Bitmap bitmap1 = resizeBitmap(bitmap, bitmap.getWidth(), bitmap.getWidth());
                         Bitmap bitmap2 = cropBitmap(bitmap1, bitmap1.getWidth(), bitmap1.getWidth());
                         imageView.setImageBitmap(bitmap2);
+
                     } else {
                         Bitmap bitmap1 = resizeBitmap(bitmap, bitmap.getHeight(), bitmap.getHeight());
                         Bitmap bitmap2 = cropBitmap(bitmap1, bitmap1.getHeight(), bitmap1.getHeight());
                         imageView.setImageBitmap(bitmap2);
+
+
                     }
+
 
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
@@ -117,9 +128,11 @@ public class MyStampAddActivity extends AppCompatActivity {
 
 
             }
+
         }
 
     }
+
 
     public Bitmap rotateImage(Uri uri, Bitmap bitmap) throws IOException {
         InputStream in = getContentResolver().openInputStream(uri);
