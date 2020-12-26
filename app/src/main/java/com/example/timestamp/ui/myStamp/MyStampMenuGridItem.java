@@ -4,20 +4,20 @@ import android.graphics.Bitmap;
 
 public class MyStampMenuGridItem {
 
-    Bitmap bitmap;
+    String image;
     String title;
 
-    public MyStampMenuGridItem(Bitmap bitmap, String title) {
-        this.bitmap = bitmap;
+    public MyStampMenuGridItem(String image, String title) {
+        this.image = image;
         this.title = title;
     }
 
-    public Bitmap getResId() {
-        return bitmap;
+    public String getImage() {
+        return image;
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getTitle() {

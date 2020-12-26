@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.timestamp.R;
 
 public class MyStampMenuGridItemView extends LinearLayout {
@@ -40,8 +41,8 @@ public class MyStampMenuGridItemView extends LinearLayout {
         textView.setText(title);
     }
 
-    public void setImage(Bitmap bitmap) {
-        imageView.setImageBitmap(bitmap);
+    public void setImage(String image) {
+        Glide.with(getContext()).load("http://lyg6452.dothome.co.kr/uploads/"+image);
     }
 
 }

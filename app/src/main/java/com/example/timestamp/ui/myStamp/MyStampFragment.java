@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.timestamp.R;
 
 import java.util.ArrayList;
@@ -43,13 +44,9 @@ public class MyStampFragment extends Fragment {
 
         adapter = new StampMenuAdapter();
 
-//        Bitmap bit = BitmapFactory.decodeResource(getActivity().getResources(),
-//                R.drawable.background1);
-//        resize(bit);
-
-//       adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
-//        adapter.addItem(new MyStampMenuGridItem(bit, "다이어트"));
-//        adapter.addItem(new MyStampMenuGridItem(bit, "기상"));
+       adapter.addItem(new MyStampMenuGridItem("background1.jpg", "스터디"));
+        adapter.addItem(new MyStampMenuGridItem("background2.jpg", "다이어트"));
+        adapter.addItem(new MyStampMenuGridItem("background3.jpg", "기상"));
 //        adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
 //        adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
 //        adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
@@ -116,7 +113,7 @@ public class MyStampFragment extends Fragment {
 
             MyStampMenuGridItem item = items.get(position);
             view.setTitle(item.getTitle());
-            view.setImage(item.getResId());
+            view.setImage(item.getImage());
 
 
             return view;
