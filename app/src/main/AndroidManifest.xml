@@ -19,7 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".test"></activity>
         <activity android:name=".OneImageDetailActivity" />
         <activity android:name=".ImageEditActivity" />
         <activity android:name=".StampTitleImageActivity" />

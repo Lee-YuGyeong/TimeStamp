@@ -7,7 +7,9 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -25,13 +27,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.timestamp.login.LoginActivity;
 import com.example.timestamp.ui.myStamp.MyStampDetailActivity;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ImageEditActivity extends AppCompatActivity implements View.OnTouchListener, FragmentCallBack {
 
@@ -48,11 +67,15 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     ImageView imageView_border1;
 
+    String drawerName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
+
+        // captureBitmapSave = (CaptureBitmapSave) findViewById(R.class.);
         final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView_border1 = (ImageView) findViewById(R.id.imageView_border1);
@@ -61,6 +84,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
         imageView.setImageBitmap(bitmap);
 
+        drawerName = getIntent().getStringExtra("drawerName");
 
         long now = System.currentTimeMillis();
         mDate = new Date(now);
@@ -69,7 +93,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         setTab();
 
         textView_date1.setOnTouchListener(this);
-        //   goToFragment(bitmap, fragmentImageEditOrigin, 0);
 
         Button saveButton = (Button) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -77,15 +100,8 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             public void onClick(View v) {
 
                 Bitmap captureBitmap = setViewToBitmapImage(container);
-//                ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
-//                imageView2.setImageBitmap(captureBitmap);
 
-  //              Intent intent = new Intent(getApplicationContext(), MyStampDetailActivity.class);
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                captureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//                byte[] byteArray = stream.toByteArray();
-//                intent.putExtra("captureBitmap",byteArray);
-    //            startActivity(intent); //비트맵 서버 저장하기
+                BitmapSave(captureBitmap);
 
                 finish();
 
@@ -101,6 +117,78 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         });
 
 
+    }
+
+    public void BitmapSave(Bitmap bitmap) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
+        String userID = sharedPreferences.getString("userID", "null");
+
+        File imageFile = null;
+        try {
+            imageFile = createFileFromBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("아아", "zz");
+        try {
+            Log.d("아아", drawerName);
+            uploadFile(imageFile, userID, drawerName);
+        } catch (URISyntaxException e) {
+            Log.d("아아", " not try");
+            e.printStackTrace();
+        }
+    }
+
+    public File createFileFromBitmap(Bitmap bitmap) throws IOException {
+        File newFile = new File(getFilesDir(), makeImageFileName());
+        FileOutputStream fileOutputStream = new FileOutputStream(newFile);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 60, fileOutputStream);
+        fileOutputStream.close();
+        return newFile;
+    }
+
+
+    public String makeImageFileName() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
+        Date date = new Date();
+        String strDate = simpleDateFormat.format(date);
+        return strDate + ".png";
+    }
+
+    public void uploadFile(File file, String userID, String drawerName) throws URISyntaxException {
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+        RequestBody drawerNameBody = RequestBody.create(MediaType.parse("text/plain"), drawerName);
+
+        //The gson builder
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        //creating retrofit object
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Api.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        //creating our api
+        Api api = retrofit.create(Api.class);
+
+        //creating a call and calling the upload image method
+        Call<List<MyResponse>> call = api.uploadImage(requestFile, userIDBody, drawerNameBody);
+
+        //finally performing the call
+        call.enqueue(new Callback<List<MyResponse>>() {
+            @Override
+            public void onResponse(Call<List<MyResponse>> call, Response<List<MyResponse>> response) {
+            }
+
+            @Override
+            public void onFailure(Call<List<MyResponse>> call, Throwable t) {
+            }
+        });
     }
 
 
@@ -161,7 +249,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     }
 
 
-
     public void BorderButtonSelected(String command, boolean state) {
 
         if (state == true) {
@@ -184,7 +271,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         } else if (data == 2) {
             simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm");
             textView_date1.setTextSize(25);
-        } else if( data ==3){
+        } else if (data == 3) {
             simpleDate = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
             textView_date1.setTextSize(40);
         } else {

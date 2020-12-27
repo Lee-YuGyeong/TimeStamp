@@ -43,6 +43,8 @@ public class MyStampDetailActivity extends AppCompatActivity {
     String currentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 1;
 
+    String title;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +58,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
             }
         });
 
-        String title = getIntent().getStringExtra("title");
+        title = getIntent().getStringExtra("title");
         TextView textView = (TextView) findViewById(R.id.toolBar_textView);
         textView.setText(title);
 
@@ -172,6 +174,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
                             rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                             byte[] byteArray = stream.toByteArray();
                             intent1.putExtra("bitmap", byteArray);
+                            intent1.putExtra("drawerName",title);
                             startActivity(intent1);
 
 
