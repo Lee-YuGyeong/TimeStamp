@@ -162,23 +162,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
         RequestBody drawerNameBody = RequestBody.create(MediaType.parse("text/plain"), drawerName);
 
-        //The gson builder
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        //creating retrofit object
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        //creating our api
-        Api api = retrofit.create(Api.class);
-
-        //creating a call and calling the upload image method
-        Call<List<MyResponse>> call = api.uploadImage(requestFile, userIDBody, drawerNameBody);
-
+        Call<List<MyResponse>> call = RetrofitClient.getInstance().getApi().uploadImage(requestFile, userIDBody, drawerNameBody);
         //finally performing the call
         call.enqueue(new Callback<List<MyResponse>>() {
             @Override
@@ -189,7 +173,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             public void onFailure(Call<List<MyResponse>> call, Throwable t) {
             }
         });
-    }
+    } //retrofit2 사진 업로드
 
 
     public void setTab() {
