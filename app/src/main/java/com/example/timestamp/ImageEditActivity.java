@@ -75,24 +75,21 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         setContentView(R.layout.activity_image_edit);
 
 
-        // captureBitmapSave = (CaptureBitmapSave) findViewById(R.class.);
         final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView_border1 = (ImageView) findViewById(R.id.imageView_border1);
 
         byte[] arr = getIntent().getByteArrayExtra("bitmap");
         bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
-        imageView.setImageBitmap(bitmap);
+        imageView.setImageBitmap(bitmap); //카메라 비트맵 이미지 받아오기
 
         drawerName = getIntent().getStringExtra("drawerName");
 
-        long now = System.currentTimeMillis();
-        mDate = new Date(now);
 
         TimeStyleButtonSelected("style", 1);
         setTab();
 
-        textView_date1.setOnTouchListener(this);
+        textView_date1.setOnTouchListener(this); //날짜 이동
 
         Button saveButton = (Button) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -100,9 +97,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             public void onClick(View v) {
 
                 Bitmap captureBitmap = setViewToBitmapImage(container);
-
-                BitmapSave(captureBitmap);
-
+                BitmapSave(captureBitmap); //이미지 서버 저장
                 finish();
 
             }
@@ -130,12 +125,9 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("아아", "zz");
         try {
-            Log.d("아아", drawerName);
             uploadFile(imageFile, userID, drawerName);
         } catch (URISyntaxException e) {
-            Log.d("아아", " not try");
             e.printStackTrace();
         }
     }
@@ -146,7 +138,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         bitmap.compress(Bitmap.CompressFormat.PNG, 60, fileOutputStream);
         fileOutputStream.close();
         return newFile;
-    }
+    }//비트맵 -> 파일 변환
 
 
     public String makeImageFileName() {
@@ -216,18 +208,14 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
                         fragmentManager.beginTransaction().show(editBorderFragment).commit();
 
                 }
-
-
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }
