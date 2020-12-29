@@ -6,9 +6,11 @@ import androidx.loader.content.CursorLoader;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -22,12 +24,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.timestamp.MyMenuInfo;
+import com.example.timestamp.MyResponse;
 import com.example.timestamp.R;
+import com.example.timestamp.ResponseInfo;
+import com.example.timestamp.RetrofitClient;
 import com.example.timestamp.StampTitleImageActivity;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MyStampAddActivity extends AppCompatActivity {
@@ -35,6 +56,11 @@ public class MyStampAddActivity extends AppCompatActivity {
     ImageView imageView;
     EditText editText;
     int resId;
+    String title;
+
+    String userID;
+
+    Bitmap selectedBitmap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +69,10 @@ public class MyStampAddActivity extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.editText);
         imageView = (ImageView) findViewById(R.id.imageView);
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
+        userID = sharedPreferences.getString("userID", "null");
 
 
         Button backButton = (Button) findViewById(R.id.backButton);
@@ -77,15 +107,74 @@ public class MyStampAddActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                title = editText.getText().toString();
+
+               // Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.logo);
+                BitmapSave(selectedBitmap, title); //이미지 서버 저장
+
+
                 Intent intent = new Intent();
                 intent.putExtra("resId", resId);
-                intent.putExtra("title", editText.getText().toString());
+                intent.putExtra("title", title);
                 setResult(RESULT_OK, intent);
                 finish();
+
+
             }
         });
     }
 
+    public void BitmapSave(Bitmap bitmap, String title) {
+
+        File imageFile = null;
+        try {
+            imageFile = createFileFromBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            uploadMenu(imageFile, userID, title);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public File createFileFromBitmap(Bitmap bitmap) throws IOException {
+        File newFile = new File(getFilesDir(), makeImageFileName());
+        FileOutputStream fileOutputStream = new FileOutputStream(newFile);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 60, fileOutputStream);
+        fileOutputStream.close();
+        return newFile;
+    }//비트맵 -> 파일 변환
+
+
+    public String makeImageFileName() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
+        Date date = new Date();
+        String strDate = simpleDateFormat.format(date);
+        return strDate + ".png";
+    }
+
+    public void uploadMenu(File file, String userID, String drawerTitle) throws URISyntaxException {
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+        RequestBody drawerTitleBody = RequestBody.create(MediaType.parse("text/plain"), drawerTitle);
+
+        Call<List<MyResponse>> call = RetrofitClient.getInstance().getApi().uploadImage(requestFile, userIDBody, drawerTitleBody);
+        //finally performing the call
+        call.enqueue(new Callback<List<MyResponse>>() {
+            @Override
+            public void onResponse(Call<List<MyResponse>> call, Response<List<MyResponse>> response) {
+            }
+
+            @Override
+            public void onFailure(Call<List<MyResponse>> call, Throwable t) {
+            }
+        });
+    } //retrofit2 내 메뉴 업로드
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
@@ -105,13 +194,14 @@ public class MyStampAddActivity extends AppCompatActivity {
                     if (bitmap.getHeight() >= bitmap.getWidth()) {
                         Bitmap bitmap1 = resizeBitmap(bitmap, bitmap.getWidth(), bitmap.getWidth());
                         Bitmap bitmap2 = cropBitmap(bitmap1, bitmap1.getWidth(), bitmap1.getWidth());
+                        selectedBitmap = bitmap2;
                         imageView.setImageBitmap(bitmap2);
 
                     } else {
                         Bitmap bitmap1 = resizeBitmap(bitmap, bitmap.getHeight(), bitmap.getHeight());
                         Bitmap bitmap2 = cropBitmap(bitmap1, bitmap1.getHeight(), bitmap1.getHeight());
+                        selectedBitmap = bitmap2;
                         imageView.setImageBitmap(bitmap2);
-
 
                     }
 
@@ -189,21 +279,6 @@ public class MyStampAddActivity extends AppCompatActivity {
 
         return bitmap;
     }//이미지 사이즈 조절
-
-//    private Bitmap resize(Bitmap bm) {
-//        Configuration config = getResources().getConfiguration();
-//        if (config.smallestScreenWidthDp >= 800)
-//            bm = Bitmap.createScaledBitmap(bm, 400, 400, true);
-//        else if (config.smallestScreenWidthDp >= 600)
-//            bm = Bitmap.createScaledBitmap(bm, 300, 300, true);
-//        else if (config.smallestScreenWidthDp >= 400)
-//            bm = Bitmap.createScaledBitmap(bm, 200, 200, true);
-//        else if (config.smallestScreenWidthDp >= 360)
-//            bm = Bitmap.createScaledBitmap(bm, 180, 180, true);
-//        else
-//            bm = Bitmap.createScaledBitmap(bm, 160, 160, true);
-//        return bm;
-//    }
 
 
 }

@@ -42,7 +42,7 @@ public class MyStampMenuGridItemView extends LinearLayout {
     }
 
     public void setImage(String image) {
-        Glide.with(getContext()).load("http://lyg6452.dothome.co.kr/uploads/"+image);
+        Glide.with(getContext().getApplicationContext()).load(image).into(imageView);
     }
 
 }

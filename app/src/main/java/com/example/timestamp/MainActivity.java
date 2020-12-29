@@ -80,5 +80,6 @@ public class MainActivity extends AppCompatActivity {
         } else { // 모두 허용 상태
         }
     }
+
 }
 

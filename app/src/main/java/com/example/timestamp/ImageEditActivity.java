@@ -74,7 +74,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
-
         final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView_border1 = (ImageView) findViewById(R.id.imageView_border1);
@@ -84,7 +83,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         imageView.setImageBitmap(bitmap); //카메라 비트맵 이미지 받아오기
 
         drawerName = getIntent().getStringExtra("drawerName");
-
 
         TimeStyleButtonSelected("style", 1);
         setTab();

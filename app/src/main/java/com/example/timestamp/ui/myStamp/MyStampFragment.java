@@ -1,10 +1,13 @@
 package com.example.timestamp.ui.myStamp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +21,37 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.timestamp.MyMenuInfo;
+import com.example.timestamp.MyResponse;
 import com.example.timestamp.R;
+import com.example.timestamp.ResponseInfo;
+import com.example.timestamp.RetrofitClient;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyStampFragment extends Fragment {
 
+    GridView gridView;
     StampMenuAdapter adapter;
+
+    String userID;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_my_stamp, container, false);
+
+        getUserInfo();
+        getMenuList();
 
         Button button = (Button) root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -40,29 +62,67 @@ public class MyStampFragment extends Fragment {
             }
         });
 
-        final GridView gridView = (GridView) root.findViewById(R.id.gridView);
+        gridView = (GridView) root.findViewById(R.id.gridView);
 
         adapter = new StampMenuAdapter();
 
-       adapter.addItem(new MyStampMenuGridItem("background1.jpg", "스터디"));
-        adapter.addItem(new MyStampMenuGridItem("background2.jpg", "다이어트"));
-        adapter.addItem(new MyStampMenuGridItem("background3.jpg", "기상"));
-//        adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
-//        adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
-//        adapter.addItem(new MyStampMenuGridItem(bit, "스터디"));
+//        adapter.addItem(new MyStampMenuGridItem("background1.jpg", "스터디"));
+//        adapter.addItem(new MyStampMenuGridItem("background2.jpg", "다이어트"));
+//        adapter.addItem(new MyStampMenuGridItem("background3.jpg", "기상"));
 
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent intent = new Intent(getContext(),MyStampDetailActivity.class);
-                intent.putExtra("title",adapter.items.get(position).getTitle());
+                Intent intent = new Intent(getContext(), MyStampDetailActivity.class);
+                intent.putExtra("title", adapter.items.get(position).getTitle());
                 startActivity(intent);
             }
         });
 
         return root;
     }
+
+    public void getUserInfo() {
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("mine", Context.MODE_PRIVATE);
+        userID = sharedPreferences.getString("userID", "null");
+
+    }
+
+    private void getMenuList() {
+        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+        Call<ResponseInfo> call = RetrofitClient.getInstance().getApi().getimages(userIDBody);
+
+        //finally performing the call
+        call.enqueue(new Callback<ResponseInfo>() {
+            @Override
+            public void onResponse(Call<ResponseInfo> call, Response<ResponseInfo> response) {
+
+                if (response.isSuccessful()) {
+                    ResponseInfo myResponseList = response.body();
+                    List<MyMenuInfo> myMenuInfoList = new ArrayList<MyMenuInfo>(myResponseList.getMyMenuInfoList());
+
+
+                    for (int i = 0; i < myMenuInfoList.size(); i++) {
+                        adapter.addItem(new MyStampMenuGridItem(myMenuInfoList.get(i).getMyTitleImage(), myMenuInfoList.get(i).getMyTitle()));
+
+                        Log.d("아아",i+ myMenuInfoList.get(i).getMyTitle());
+                    }
+                    adapter.notifyDataSetChanged();
+
+
+                } else {
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseInfo> call, Throwable t) {
+            }
+        });
+    } // retrofit 데이터 받아오기
+
 
     private Bitmap resize(Bitmap bm) {
         Configuration config = getResources().getConfiguration();
