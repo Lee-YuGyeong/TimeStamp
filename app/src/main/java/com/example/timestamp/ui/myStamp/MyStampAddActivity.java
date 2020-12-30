@@ -61,6 +61,7 @@ public class MyStampAddActivity extends AppCompatActivity {
     String userID;
 
     Bitmap selectedBitmap = null;
+    Uri selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +111,10 @@ public class MyStampAddActivity extends AppCompatActivity {
 
                 title = editText.getText().toString();
 
-               // Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.logo);
-                BitmapSave(selectedBitmap, title); //이미지 서버 저장
+                // Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.logo);
+                //    BitmapSave(selectedBitmap, title); //이미지 서버 저장
+
+                uploadMenu(selectedImage, userID, title);
 
 
                 Intent intent = new Intent();
@@ -125,20 +128,39 @@ public class MyStampAddActivity extends AppCompatActivity {
         });
     }
 
-    public void BitmapSave(Bitmap bitmap, String title) {
+    private String getRealPathFromURI(Uri contentURI) {
 
-        File imageFile = null;
-        try {
-            imageFile = createFileFromBitmap(bitmap);
-        } catch (IOException e) {
-            e.printStackTrace();
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
         }
-        try {
-            uploadMenu(imageFile, userID, title);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-    }
+        return result;
+
+    } // 절대경로로 변환
+
+
+//    public void BitmapSave(Bitmap bitmap, String title) {
+//
+//        File imageFile = null;
+//        try {
+//            imageFile = createFileFromBitmap(bitmap);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            //uploadMenu(imageFile, userID, title);
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     public File createFileFromBitmap(Bitmap bitmap) throws IOException {
@@ -157,7 +179,10 @@ public class MyStampAddActivity extends AppCompatActivity {
         return strDate + ".png";
     }
 
-    public void uploadMenu(File file, String userID, String drawerTitle) throws URISyntaxException {
+    public void uploadMenu(Uri fileUri, String userID, String drawerTitle) {
+
+        File file = new File(getRealPathFromURI(fileUri)); //절대경로로 바꾸기
+
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
@@ -180,41 +205,45 @@ public class MyStampAddActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         Bitmap bm;
-        if (requestCode == 0) {
+        if (requestCode == 0) { //제공된 사진 선택
             if (intent != null) {
                 resId = intent.getIntExtra("resId", 0);
                 imageView.setImageResource(resId);
             }
-        } else if (requestCode == 1) {
+        } else if (requestCode == 1) { //갤러리 사진 선택
             if (intent != null) {
-                try {
-                    bm = MediaStore.Images.Media.getBitmap(getContentResolver(), intent.getData());
-                    Bitmap bitmap = rotateImage(intent.getData(), bm);
+                //              try {
 
-                    if (bitmap.getHeight() >= bitmap.getWidth()) {
-                        Bitmap bitmap1 = resizeBitmap(bitmap, bitmap.getWidth(), bitmap.getWidth());
-                        Bitmap bitmap2 = cropBitmap(bitmap1, bitmap1.getWidth(), bitmap1.getWidth());
-                        selectedBitmap = bitmap2;
-                        imageView.setImageBitmap(bitmap2);
+                selectedImage = intent.getData();
+                imageView.setImageURI(selectedImage);
 
-                    } else {
-                        Bitmap bitmap1 = resizeBitmap(bitmap, bitmap.getHeight(), bitmap.getHeight());
-                        Bitmap bitmap2 = cropBitmap(bitmap1, bitmap1.getHeight(), bitmap1.getHeight());
-                        selectedBitmap = bitmap2;
-                        imageView.setImageBitmap(bitmap2);
-
-                    }
-
-
-                } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (OutOfMemoryError e) {
-                    Toast.makeText(getApplicationContext(), "이미지 용량이 너무 큽니다.", Toast.LENGTH_SHORT).show();
-                }
+//                    bm = MediaStore.Images.Media.getBitmap(getContentResolver(), intent.getData());
+//                    Bitmap bitmap = rotateImage(intent.getData(), bm);
+//
+//                    if (bitmap.getHeight() >= bitmap.getWidth()) {
+//                        Bitmap bitmap1 = resizeBitmap(bitmap, bitmap.getWidth(), bitmap.getWidth());
+//                        Bitmap bitmap2 = cropBitmap(bitmap1, bitmap1.getWidth(), bitmap1.getWidth());
+//                        selectedBitmap = bitmap2;
+//                        imageView.setImageBitmap(bitmap2);
+//
+//                    } else {
+//                        Bitmap bitmap1 = resizeBitmap(bitmap, bitmap.getHeight(), bitmap.getHeight());
+//                        Bitmap bitmap2 = cropBitmap(bitmap1, bitmap1.getHeight(), bitmap1.getHeight());
+//                        selectedBitmap = bitmap2;
+//                        imageView.setImageBitmap(bitmap2);
+//
+//                    }
+//
+//
+//                } catch (FileNotFoundException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                } catch (OutOfMemoryError e) {
+//                    Toast.makeText(getApplicationContext(), "이미지 용량이 너무 큽니다.", Toast.LENGTH_SHORT).show();
+//                } //비트맵 조절
 
 
             }
@@ -241,44 +270,44 @@ public class MyStampAddActivity extends AppCompatActivity {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
-    public Bitmap cropBitmap(Bitmap bitmap, int width, int height) {
-        int originWidth = bitmap.getWidth();
-        int originHeight = bitmap.getHeight();
-
-        // 이미지를 crop 할 좌상단 좌표
-        int x = 0;
-        int y = 0;
-
-        if (originWidth > width) { // 이미지의 가로가 view 의 가로보다 크면..
-            x = (originWidth - width) / 2;
-        }
-
-        if (originHeight > height) { // 이미지의 세로가 view 의 세로보다 크면..
-            y = (originHeight - height) / 2;
-        }
-
-        Bitmap cropedBitmap = Bitmap.createBitmap(bitmap, x, y, width, height);
-        return cropedBitmap;
-    }//이미지 자르기
-
-    public Bitmap resizeBitmap(Bitmap bitmap, int width, int height) {
-        if (bitmap.getWidth() != width || bitmap.getHeight() != height) {
-            float ratio = 1.0f;
-
-            if (width > height) {
-                ratio = (float) width / (float) bitmap.getWidth();
-            } else {
-                ratio = (float) height / (float) bitmap.getHeight();
-            }
-
-            bitmap = Bitmap.createScaledBitmap(bitmap,
-                    (int) (((float) bitmap.getWidth()) * ratio), // Width
-                    (int) (((float) bitmap.getHeight()) * ratio), // Height
-                    false);
-        }
-
-        return bitmap;
-    }//이미지 사이즈 조절
+//    public Bitmap cropBitmap(Bitmap bitmap, int width, int height) {
+//        int originWidth = bitmap.getWidth();
+//        int originHeight = bitmap.getHeight();
+//
+//        // 이미지를 crop 할 좌상단 좌표
+//        int x = 0;
+//        int y = 0;
+//
+//        if (originWidth > width) { // 이미지의 가로가 view 의 가로보다 크면..
+//            x = (originWidth - width) / 2;
+//        }
+//
+//        if (originHeight > height) { // 이미지의 세로가 view 의 세로보다 크면..
+//            y = (originHeight - height) / 2;
+//        }
+//
+//        Bitmap cropedBitmap = Bitmap.createBitmap(bitmap, x, y, width, height);
+//        return cropedBitmap;
+//    }//이미지 자르기
+//
+//    public Bitmap resizeBitmap(Bitmap bitmap, int width, int height) {
+//        if (bitmap.getWidth() != width || bitmap.getHeight() != height) {
+//            float ratio = 1.0f;
+//
+//            if (width > height) {
+//                ratio = (float) width / (float) bitmap.getWidth();
+//            } else {
+//                ratio = (float) height / (float) bitmap.getHeight();
+//            }
+//
+//            bitmap = Bitmap.createScaledBitmap(bitmap,
+//                    (int) (((float) bitmap.getWidth()) * ratio), // Width
+//                    (int) (((float) bitmap.getHeight()) * ratio), // Height
+//                    false);
+//        }
+//
+//        return bitmap;
+//    }//이미지 사이즈 조절
 
 
 }
