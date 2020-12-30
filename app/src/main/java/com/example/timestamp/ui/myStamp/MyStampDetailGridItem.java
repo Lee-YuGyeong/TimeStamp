@@ -5,19 +5,17 @@ import android.widget.TextView;
 
 public class MyStampDetailGridItem {
 
-    Bitmap image;
+    String image;
 
-    public MyStampDetailGridItem(Bitmap image) {
+    public MyStampDetailGridItem(String image) {
         this.image = image;
-
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
-
 }

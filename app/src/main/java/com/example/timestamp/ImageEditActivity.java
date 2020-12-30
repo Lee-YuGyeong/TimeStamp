@@ -68,6 +68,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     ImageView imageView_border1;
 
     String drawerName;
+    int myNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,10 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         imageView.setImageBitmap(bitmap); //카메라 비트맵 이미지 받아오기
 
         drawerName = getIntent().getStringExtra("drawerName");
+        myNum = getIntent().getIntExtra("myNum", 0);
+
+        long now = System.currentTimeMillis();
+        mDate = new Date(now); //현재시간 구하기
 
         TimeStyleButtonSelected("style", 1);
         setTab();
@@ -114,8 +119,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     public void BitmapSave(Bitmap bitmap) {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
-        String userID = sharedPreferences.getString("userID", "null");
 
         File imageFile = null;
         try {
@@ -124,7 +127,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             e.printStackTrace();
         }
         try {
-            uploadFile(imageFile, userID, drawerName);
+            uploadFile(imageFile, myNum);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -146,21 +149,23 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         return strDate + ".png";
     }
 
-    public void uploadFile(File file, String userID, String drawerName) throws URISyntaxException {
+    public void uploadFile(File file, int myNum) throws URISyntaxException {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
-        RequestBody drawerNameBody = RequestBody.create(MediaType.parse("text/plain"), drawerName);
+        // RequestBody MyNumBody = RequestBody.create(MediaType.parse(""), myNum);
+        //  RequestBody.create(MediaType.parse("text/plain"), myNum);
 
-        Call<List<MyResponse>> call = RetrofitClient.getInstance().getApi().uploadImage(requestFile, userIDBody, drawerNameBody);
+        Call<MyResponse> call = RetrofitClient.getInstance().getApi().MyImageUpload(requestFile, myNum);
         //finally performing the call
-        call.enqueue(new Callback<List<MyResponse>>() {
+        call.enqueue(new Callback<MyResponse>() {
             @Override
-            public void onResponse(Call<List<MyResponse>> call, Response<List<MyResponse>> response) {
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                Log.d("아아", "실패1 받아오기 : ");
             }
 
             @Override
-            public void onFailure(Call<List<MyResponse>> call, Throwable t) {
+            public void onFailure(Call<MyResponse> call, Throwable t) {
+                Log.d("아아", "실패2 받아오기 : " +t.getMessage());
             }
         });
     } //retrofit2 사진 업로드

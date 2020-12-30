@@ -44,6 +44,14 @@ public class MyStampFragment extends Fragment {
     StampMenuAdapter adapter;
 
     String userID;
+    int myNum;
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getMenuList();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,16 +59,15 @@ public class MyStampFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_my_stamp, container, false);
 
         getUserInfo();
-        getMenuList();
 
         Button button = (Button) root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MyStampAddActivity.class);
-                startActivityForResult(intent, 0);
+                startActivity(intent);
             }
-        });
+        }); // 메뉴 추가 버튼
 
         gridView = (GridView) root.findViewById(R.id.gridView);
 
@@ -70,15 +77,17 @@ public class MyStampFragment extends Fragment {
 //        adapter.addItem(new MyStampMenuGridItem("background2.jpg", "다이어트"));
 //        adapter.addItem(new MyStampMenuGridItem("background3.jpg", "기상"));
 
+
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent intent = new Intent(getContext(), MyStampDetailActivity.class);
                 intent.putExtra("title", adapter.items.get(position).getTitle());
+                intent.putExtra("myNum", adapter.items.get(position).getNum());
                 startActivity(intent);
             }
-        });
+        });// 메뉴 그리드뷰
 
         return root;
     }
@@ -88,11 +97,14 @@ public class MyStampFragment extends Fragment {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("mine", Context.MODE_PRIVATE);
         userID = sharedPreferences.getString("userID", "null");
 
+        getMenuList();
+
+
     }
 
     private void getMenuList() {
         RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
-        Call<ResponseInfo> call = RetrofitClient.getInstance().getApi().getimages(userIDBody);
+        Call<ResponseInfo> call = RetrofitClient.getInstance().getApi().MyMenuGet(userIDBody);
 
         //finally performing the call
         call.enqueue(new Callback<ResponseInfo>() {
@@ -103,41 +115,45 @@ public class MyStampFragment extends Fragment {
                     ResponseInfo myResponseList = response.body();
                     List<MyMenuInfo> myMenuInfoList = new ArrayList<MyMenuInfo>(myResponseList.getMyMenuInfoList());
 
+                    adapter.items.clear();
 
-                    for (int i = 0; i < myMenuInfoList.size(); i++) {
-                        adapter.addItem(new MyStampMenuGridItem(myMenuInfoList.get(i).getMyTitleImage(), myMenuInfoList.get(i).getMyTitle()));
+                    if (adapter.isEmpty() && myMenuInfoList.size()!=0 ) {
 
-                        Log.d("아아",i+ myMenuInfoList.get(i).getMyTitle());
+                        for (int i = 0; i < myMenuInfoList.size(); i++) {
+                            adapter.addItem(new MyStampMenuGridItem(myMenuInfoList.get(i).getMyTitleImage(), myMenuInfoList.get(i).getMyTitle(), myMenuInfoList.get(i).getMyNum()));
+                        }
+
                     }
                     adapter.notifyDataSetChanged();
 
-
-                } else {
+                } else { //response 실패
+                    Log.d("아아", "실패1 받아오기 : ");
                 }
 
             }
 
             @Override
             public void onFailure(Call<ResponseInfo> call, Throwable t) {
+                Log.d("아아", "실패2 받아오기 : " + t.getMessage());
             }
         });
     } // retrofit 데이터 받아오기
 
 
-    private Bitmap resize(Bitmap bm) {
-        Configuration config = getResources().getConfiguration();
-        if (config.smallestScreenWidthDp >= 800)
-            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
-        else if (config.smallestScreenWidthDp >= 600)
-            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
-        else if (config.smallestScreenWidthDp >= 400)
-            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
-        else if (config.smallestScreenWidthDp >= 360)
-            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
-        else
-            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
-        return bm;
-    }
+//    private Bitmap resize(Bitmap bm) {
+//        Configuration config = getResources().getConfiguration();
+//        if (config.smallestScreenWidthDp >= 800)
+//            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+//        else if (config.smallestScreenWidthDp >= 600)
+//            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+//        else if (config.smallestScreenWidthDp >= 400)
+//            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+//        else if (config.smallestScreenWidthDp >= 360)
+//            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+//        else
+//            bm = Bitmap.createScaledBitmap(bm, 100, 100, true);
+//        return bm;
+//    }
 
 
     class StampMenuAdapter extends BaseAdapter {
@@ -180,21 +196,25 @@ public class MyStampFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        if (requestCode == 0) {
-            if (intent != null) {
-//                Bitmap bitmap = intent.get("bitmap", 0);
-//                String title = intent.getStringExtra("title");
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+//        super.onActivityResult(requestCode, resultCode, intent);
 //
-//                adapter.addItem(new MyStampMenuGridItem(bitmap, title));
+//        if (requestCode == 0) {
+//            if (resultCode == 0) {
+//                if (intent != null) {
+////                Bitmap bitmap = intent.get("bitmap", 0);
+////                String title = intent.getStringExtra("title");
+////
+////                adapter.addItem(new MyStampMenuGridItem(bitmap, title));
+////
+////                adapter.notifyDataSetChanged();
+//                    getMenuList();
 //
-//                adapter.notifyDataSetChanged();
-            }
-        }
-    }
+//                }
+//            }
+//        }
+//    }
 
 }
 

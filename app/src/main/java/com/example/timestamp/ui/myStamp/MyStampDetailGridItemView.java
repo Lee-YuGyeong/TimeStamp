@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.timestamp.R;
 
 public class MyStampDetailGridItemView extends LinearLayout {
@@ -34,8 +35,8 @@ public class MyStampDetailGridItemView extends LinearLayout {
     }
 
 
-    public void setImage(Bitmap resId) {
-        imageView.setImageBitmap(resId);
+    public void setImage(String image) {
+        Glide.with(getContext().getApplicationContext()).load(image).into(imageView);
     }
 
 

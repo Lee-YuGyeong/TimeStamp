@@ -112,15 +112,20 @@ public class MyStampAddActivity extends AppCompatActivity {
                 title = editText.getText().toString();
 
                 // Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.logo);
-                //    BitmapSave(selectedBitmap, title); //이미지 서버 저장
+                //    BitmapSave(selectedBitmap, title); //비트맵 이미지 서버 저장
 
                 uploadMenu(selectedImage, userID, title);
 
+                Log.d("아아","selectedImage : "+selectedImage);
+                Log.d("아아","userID : "+userID);
+                Log.d("아아","title : "+title);
 
-                Intent intent = new Intent();
-                intent.putExtra("resId", resId);
-                intent.putExtra("title", title);
-                setResult(RESULT_OK, intent);
+
+//
+//                Intent intent = new Intent();
+//                intent.putExtra("resId", resId);
+////                intent.putExtra("title", title);
+//                setResult(0, intent);
                 finish();
 
 
@@ -147,56 +152,31 @@ public class MyStampAddActivity extends AppCompatActivity {
     } // 절대경로로 변환
 
 
-//    public void BitmapSave(Bitmap bitmap, String title) {
-//
-//        File imageFile = null;
-//        try {
-//            imageFile = createFileFromBitmap(bitmap);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            //uploadMenu(imageFile, userID, title);
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-    public File createFileFromBitmap(Bitmap bitmap) throws IOException {
-        File newFile = new File(getFilesDir(), makeImageFileName());
-        FileOutputStream fileOutputStream = new FileOutputStream(newFile);
-        bitmap.compress(Bitmap.CompressFormat.PNG, 60, fileOutputStream);
-        fileOutputStream.close();
-        return newFile;
-    }//비트맵 -> 파일 변환
-
-
-    public String makeImageFileName() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
-        Date date = new Date();
-        String strDate = simpleDateFormat.format(date);
-        return strDate + ".png";
-    }
 
     public void uploadMenu(Uri fileUri, String userID, String drawerTitle) {
 
         File file = new File(getRealPathFromURI(fileUri)); //절대경로로 바꾸기
 
-
+        Log.d("아아","file : "+file);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
         RequestBody drawerTitleBody = RequestBody.create(MediaType.parse("text/plain"), drawerTitle);
 
-        Call<List<MyResponse>> call = RetrofitClient.getInstance().getApi().uploadImage(requestFile, userIDBody, drawerTitleBody);
+        Call<MyResponse> call = RetrofitClient.getInstance().getApi().MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
         //finally performing the call
-        call.enqueue(new Callback<List<MyResponse>>() {
+        call.enqueue(new Callback<MyResponse>() {
             @Override
-            public void onResponse(Call<List<MyResponse>> call, Response<List<MyResponse>> response) {
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if(response.isSuccessful()){
+
+                }else{
+
+                }
+
             }
 
             @Override
-            public void onFailure(Call<List<MyResponse>> call, Throwable t) {
+            public void onFailure(Call<MyResponse> call, Throwable t) {
             }
         });
     } //retrofit2 내 메뉴 업로드
@@ -253,22 +233,54 @@ public class MyStampAddActivity extends AppCompatActivity {
     }
 
 
-    public Bitmap rotateImage(Uri uri, Bitmap bitmap) throws IOException {
-        InputStream in = getContentResolver().openInputStream(uri);
-        ExifInterface exifInterface = new ExifInterface(in);
-        in.close();
+//    public void BitmapSave(Bitmap bitmap, String title) {
+//
+//        File imageFile = null;
+//        try {
+//            imageFile = createFileFromBitmap(bitmap);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            //uploadMenu(imageFile, userID, title);
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-        Matrix matrix = new Matrix();
-        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            matrix.postRotate(90);
-        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            matrix.postRotate(180);
-        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            matrix.postRotate(270);
-        }
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-    }
+
+//    public File createFileFromBitmap(Bitmap bitmap) throws IOException {
+//        File newFile = new File(getFilesDir(), makeImageFileName());
+//        FileOutputStream fileOutputStream = new FileOutputStream(newFile);
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 60, fileOutputStream);
+//        fileOutputStream.close();
+//        return newFile;
+//    }//비트맵 -> 파일 변환
+
+//
+//    public String makeImageFileName() {
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
+//        Date date = new Date();
+//        String strDate = simpleDateFormat.format(date);
+//        return strDate + ".png";
+//    } //파일 이름 만들기
+
+//    public Bitmap rotateImage(Uri uri, Bitmap bitmap) throws IOException {
+//        InputStream in = getContentResolver().openInputStream(uri);
+//        ExifInterface exifInterface = new ExifInterface(in);
+//        in.close();
+//
+//        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+//        Matrix matrix = new Matrix();
+//        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+//            matrix.postRotate(90);
+//        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
+//            matrix.postRotate(180);
+//        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+//            matrix.postRotate(270);
+//        }
+//        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+//    } 비트맵 회전
 
 //    public Bitmap cropBitmap(Bitmap bitmap, int width, int height) {
 //        int originWidth = bitmap.getWidth();
