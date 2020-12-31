@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true">
+    >
         <activity android:name=".OneImageDetailActivity" />
         <activity android:name=".ImageEditActivity" />
         <activity android:name=".StampTitleImageActivity" />

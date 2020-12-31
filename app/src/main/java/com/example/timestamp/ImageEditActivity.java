@@ -101,7 +101,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
                 Bitmap captureBitmap = setViewToBitmapImage(container);
                 BitmapSave(captureBitmap); //이미지 서버 저장
-                finish();
 
             }
         });
@@ -152,8 +151,8 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     public void uploadFile(File file, int myNum) throws URISyntaxException {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        // RequestBody MyNumBody = RequestBody.create(MediaType.parse(""), myNum);
-        //  RequestBody.create(MediaType.parse("text/plain"), myNum);
+      //   RequestBody MyNumBody = RequestBody.create(MediaType.parse(""), myNum);
+       //   RequestBody.create(MediaType.parse("text/plain"), myNum);
 
         Call<MyResponse> call = RetrofitClient.getInstance().getApi().MyImageUpload(requestFile, myNum);
         //finally performing the call
@@ -161,11 +160,12 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             @Override
             public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
                 Log.d("아아", "실패1 받아오기 : ");
+                finish();
             }
 
             @Override
             public void onFailure(Call<MyResponse> call, Throwable t) {
-                Log.d("아아", "실패2 받아오기 : " +t.getMessage());
+                Log.d("아아", "실패2 받아오기 upload : " +t.getMessage());
             }
         });
     } //retrofit2 사진 업로드

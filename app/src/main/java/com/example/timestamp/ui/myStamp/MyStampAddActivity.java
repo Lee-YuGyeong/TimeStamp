@@ -25,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.timestamp.APIClient;
+import com.example.timestamp.APIInterface;
 import com.example.timestamp.MyMenuInfo;
 import com.example.timestamp.MyResponse;
 import com.example.timestamp.R;
@@ -62,11 +64,15 @@ public class MyStampAddActivity extends AppCompatActivity {
 
     Bitmap selectedBitmap = null;
     Uri selectedImage;
+    APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_stamp_add);
+
+
+        apiInterface = APIClient.getClient().create(APIInterface.class);
 
         editText = (EditText) findViewById(R.id.editText);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -116,21 +122,62 @@ public class MyStampAddActivity extends AppCompatActivity {
 
                 uploadMenu(selectedImage, userID, title);
 
-                Log.d("아아","selectedImage : "+selectedImage);
-                Log.d("아아","userID : "+userID);
-                Log.d("아아","title : "+title);
+            }
+        });
+    }
+
+    public void uploadMenu(Uri fileUri, String userID, String drawerTitle){
+
+        File file = new File(getRealPathFromURI(fileUri)); //절대경로로 바꾸기
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+        RequestBody drawerTitleBody = RequestBody.create(MediaType.parse("text/plain"), drawerTitle);
+
+        Call<MyResponse> call1 = apiInterface.MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
+        call1.enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if(response.isSuccessful()){
+                    //android:requestLegacyExternalStorage="true
+                    Log.d("아아","isSuccessful");
+                 finish();
+                }else{
+                    Log.d("아아","실패1");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable t) {
+                Log.d("아아","실패2" + t.getMessage());
+            }
+        });
 
 
 //
-//                Intent intent = new Intent();
-//                intent.putExtra("resId", resId);
-////                intent.putExtra("title", title);
-//                setResult(0, intent);
-                finish();
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+//        RequestBody drawerTitleBody = RequestBody.create(MediaType.parse("text/plain"), drawerTitle);
+//
+//        Call<MyResponse> call = RetrofitClient.getInstance().getApi().MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
+//        //finally performing the call
+//        call.enqueue(new Callback<MyResponse>() {
+//            @Override
+//            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+//                if(response.isSuccessful()){
+//                    //android:requestLegacyExternalStorage="true
+//                    Log.d("아아","isSuccessful");
+//                 finish();
+//                }else{
+//                    Log.d("아아","실패1");
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<MyResponse> call, Throwable t) {
+//                Log.d("아아","실패2" + t.getMessage());
+//            }
+//        });
 
-
-            }
-        });
     }
 
     private String getRealPathFromURI(Uri contentURI) {
@@ -153,33 +200,33 @@ public class MyStampAddActivity extends AppCompatActivity {
 
 
 
-    public void uploadMenu(Uri fileUri, String userID, String drawerTitle) {
-
-        File file = new File(getRealPathFromURI(fileUri)); //절대경로로 바꾸기
-
-        Log.d("아아","file : "+file);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
-        RequestBody drawerTitleBody = RequestBody.create(MediaType.parse("text/plain"), drawerTitle);
-
-        Call<MyResponse> call = RetrofitClient.getInstance().getApi().MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
-        //finally performing the call
-        call.enqueue(new Callback<MyResponse>() {
-            @Override
-            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                if(response.isSuccessful()){
-
-                }else{
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<MyResponse> call, Throwable t) {
-            }
-        });
-    } //retrofit2 내 메뉴 업로드
+//    public void uploadMenu(Uri fileUri, String userID, String drawerTitle) {
+//
+//        File file = new File(getRealPathFromURI(fileUri)); //절대경로로 바꾸기
+//
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+//        RequestBody drawerTitleBody = RequestBody.create(MediaType.parse("text/plain"), drawerTitle);
+//
+//        Call<MyResponse> call = RetrofitClient.getInstance().getApi().MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
+//        //finally performing the call
+//        call.enqueue(new Callback<MyResponse>() {
+//            @Override
+//            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+//                if(response.isSuccessful()){
+//                    //android:requestLegacyExternalStorage="true
+//                    Log.d("아아","isSuccessful");
+//                 finish();
+//                }else{
+//                    Log.d("아아","실패1");
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<MyResponse> call, Throwable t) {
+//                Log.d("아아","실패2" + t.getMessage());
+//            }
+//        });
+//    } //retrofit2 내 메뉴 업로드
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {

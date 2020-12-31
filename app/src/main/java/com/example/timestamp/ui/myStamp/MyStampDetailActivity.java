@@ -114,6 +114,8 @@ public class MyStampDetailActivity extends AppCompatActivity {
 
     private void getMenuDetailList() {
 
+        Log.d("아아","0121");
+
         Call<MenuDetailResponseInfo> call = RetrofitClient.getInstance().getApi().MyImageGet(myNum);
 
         //finally performing the call
@@ -126,6 +128,8 @@ public class MyStampDetailActivity extends AppCompatActivity {
                     List<MenuDetailInfo> menuDetailInfoList = new ArrayList<MenuDetailInfo>(menuDetailResponseInfo.getMenuDetailInfoList());
 
                     adapter.items.clear();
+
+                    Log.d("아아","11");
 
                     if (adapter.isEmpty()&& menuDetailInfoList.size()!=0 ) {
 
@@ -148,7 +152,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MenuDetailResponseInfo> call, Throwable t) {
-                Log.d("아아", "실패2 받아오기 : " + t.getMessage());
+                Log.d("아아", "실패2 받아오기 ggggg: " + t.getMessage());
             }
         });
     } // retrofit 데이터 받아오기
