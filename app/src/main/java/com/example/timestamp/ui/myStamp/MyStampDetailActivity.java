@@ -1,12 +1,9 @@
 package com.example.timestamp.ui.myStamp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,21 +15,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.example.timestamp.API.APIClient;
+import com.example.timestamp.API.Api;
 import com.example.timestamp.ImageEditActivity;
 import com.example.timestamp.MenuDetailInfo;
 import com.example.timestamp.MenuDetailResponseInfo;
-import com.example.timestamp.MyMenuInfo;
-import com.example.timestamp.MyResponse;
 import com.example.timestamp.R;
-import com.example.timestamp.ResponseInfo;
-import com.example.timestamp.RetrofitClient;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -42,8 +36,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,6 +49,13 @@ public class MyStampDetailActivity extends AppCompatActivity {
 
     String title;
     int myNum;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getMenuDetailList();
+    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,9 +113,8 @@ public class MyStampDetailActivity extends AppCompatActivity {
 
     private void getMenuDetailList() {
 
-        Log.d("아아","0121");
-
-        Call<MenuDetailResponseInfo> call = RetrofitClient.getInstance().getApi().MyImageGet(myNum);
+        Api Api = APIClient.getClient().create(Api.class);
+        Call<MenuDetailResponseInfo> call = Api.MyImageGet(myNum);
 
         //finally performing the call
         call.enqueue(new Callback<MenuDetailResponseInfo>() {
@@ -124,35 +122,32 @@ public class MyStampDetailActivity extends AppCompatActivity {
             public void onResponse(Call<MenuDetailResponseInfo> call, Response<MenuDetailResponseInfo> response) {
 
                 if (response.isSuccessful()) {
+
                     MenuDetailResponseInfo menuDetailResponseInfo = response.body();
                     List<MenuDetailInfo> menuDetailInfoList = new ArrayList<MenuDetailInfo>(menuDetailResponseInfo.getMenuDetailInfoList());
 
                     adapter.items.clear();
 
-                    Log.d("아아","11");
 
                     if (adapter.isEmpty()&& menuDetailInfoList.size()!=0 ) {
 
                         for (int i = 0; i < menuDetailInfoList.size(); i++) {
                             adapter.addItem(new MyStampDetailGridItem(menuDetailInfoList.get(i).getImage()));
-                            Log.d("아아",i +":   " +menuDetailInfoList.get(i).getImage()+"");
                         }
                         adapter.notifyDataSetChanged();
 
-
-                        Log.d("아아", "성공 받아오기 :" +menuDetailInfoList.get(0).getImage());
                     }
 
 
                 } else { //response 실패
-                    Log.d("아아", "실패1 받아오기 : ");
+
                 }
 
             }
 
             @Override
             public void onFailure(Call<MenuDetailResponseInfo> call, Throwable t) {
-                Log.d("아아", "실패2 받아오기 ggggg: " + t.getMessage());
+
             }
         });
     } // retrofit 데이터 받아오기

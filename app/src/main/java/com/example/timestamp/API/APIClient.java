@@ -1,4 +1,7 @@
-package com.example.timestamp;
+package com.example.timestamp.API;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -12,10 +15,12 @@ public class APIClient {
     public static Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://reqres.in/")
+                .baseUrl("http://lyg6452.dothome.co.kr/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

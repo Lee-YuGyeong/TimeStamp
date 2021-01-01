@@ -2,49 +2,26 @@ package com.example.timestamp.ui.myStamp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.CursorLoader;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.timestamp.APIClient;
-import com.example.timestamp.APIInterface;
-import com.example.timestamp.MyMenuInfo;
+import com.example.timestamp.API.APIClient;
+import com.example.timestamp.API.Api;
 import com.example.timestamp.MyResponse;
 import com.example.timestamp.R;
-import com.example.timestamp.ResponseInfo;
-import com.example.timestamp.RetrofitClient;
 import com.example.timestamp.StampTitleImageActivity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -64,15 +41,12 @@ public class MyStampAddActivity extends AppCompatActivity {
 
     Bitmap selectedBitmap = null;
     Uri selectedImage;
-    APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_stamp_add);
 
-
-        apiInterface = APIClient.getClient().create(APIInterface.class);
 
         editText = (EditText) findViewById(R.id.editText);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -116,67 +90,42 @@ public class MyStampAddActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 title = editText.getText().toString();
-
-                // Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.logo);
-                //    BitmapSave(selectedBitmap, title); //비트맵 이미지 서버 저장
-
                 uploadMenu(selectedImage, userID, title);
 
             }
         });
     }
 
-    public void uploadMenu(Uri fileUri, String userID, String drawerTitle){
+    public void uploadMenu(Uri fileUri, String userID, String drawerTitle) {
+
 
         File file = new File(getRealPathFromURI(fileUri)); //절대경로로 바꾸기
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(fileUri)), file);
         RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
         RequestBody drawerTitleBody = RequestBody.create(MediaType.parse("text/plain"), drawerTitle);
 
-        Call<MyResponse> call1 = apiInterface.MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
-        call1.enqueue(new Callback<MyResponse>() {
+
+        Api Api = APIClient.getClient().create(Api.class);
+        Call<MyResponse> call = Api.MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
+        //finally performing the call
+        call.enqueue(new Callback<MyResponse>() {
             @Override
             public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                if(response.isSuccessful()){
-                    //android:requestLegacyExternalStorage="true
-                    Log.d("아아","isSuccessful");
-                 finish();
-                }else{
-                    Log.d("아아","실패1");
+                if (!response.body().isError()) {
+                    MyResponse myResponse = response.body();
+
+                    finish();
+                } else {
+
                 }
             }
 
             @Override
             public void onFailure(Call<MyResponse> call, Throwable t) {
-                Log.d("아아","실패2" + t.getMessage());
+
             }
         });
-
-
-//
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
-//        RequestBody drawerTitleBody = RequestBody.create(MediaType.parse("text/plain"), drawerTitle);
-//
-//        Call<MyResponse> call = RetrofitClient.getInstance().getApi().MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
-//        //finally performing the call
-//        call.enqueue(new Callback<MyResponse>() {
-//            @Override
-//            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-//                if(response.isSuccessful()){
-//                    //android:requestLegacyExternalStorage="true
-//                    Log.d("아아","isSuccessful");
-//                 finish();
-//                }else{
-//                    Log.d("아아","실패1");
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<MyResponse> call, Throwable t) {
-//                Log.d("아아","실패2" + t.getMessage());
-//            }
-//        });
 
     }
 
@@ -198,35 +147,6 @@ public class MyStampAddActivity extends AppCompatActivity {
 
     } // 절대경로로 변환
 
-
-
-//    public void uploadMenu(Uri fileUri, String userID, String drawerTitle) {
-//
-//        File file = new File(getRealPathFromURI(fileUri)); //절대경로로 바꾸기
-//
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
-//        RequestBody drawerTitleBody = RequestBody.create(MediaType.parse("text/plain"), drawerTitle);
-//
-//        Call<MyResponse> call = RetrofitClient.getInstance().getApi().MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
-//        //finally performing the call
-//        call.enqueue(new Callback<MyResponse>() {
-//            @Override
-//            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-//                if(response.isSuccessful()){
-//                    //android:requestLegacyExternalStorage="true
-//                    Log.d("아아","isSuccessful");
-//                 finish();
-//                }else{
-//                    Log.d("아아","실패1");
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<MyResponse> call, Throwable t) {
-//                Log.d("아아","실패2" + t.getMessage());
-//            }
-//        });
-//    } //retrofit2 내 메뉴 업로드
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {

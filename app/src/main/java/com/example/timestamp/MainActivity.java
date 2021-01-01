@@ -1,6 +1,7 @@
 package com.example.timestamp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -25,11 +26,13 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = this;
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -80,6 +83,17 @@ public class MainActivity extends AppCompatActivity {
         } else { // 모두 허용 상태
         }
     }
+
+    public void networkStatus() {
+        int status = NetworkStatus.getConnectivityStatus(getApplicationContext());
+        if (status == NetworkStatus.TYPE_MOBILE) {
+            Toast.makeText(getApplicationContext(), "인터넷이 연결되어 있습니다.", Toast.LENGTH_LONG).show();
+        } else if (status == NetworkStatus.TYPE_WIFI) {
+            Toast.makeText(getApplicationContext(), "인터넷이 연결되어 있습니다.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "인터넷이 연결되어 있지 않습니다. 인터넷을 연결해주세요.", Toast.LENGTH_LONG).show();
+        }
+    }//네트워크 연결 여부 //사용방법 ((MainActivity)MainActivity.mContext).networkStatus();
 
 }
 

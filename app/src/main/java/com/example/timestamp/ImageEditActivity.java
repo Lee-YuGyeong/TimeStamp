@@ -29,6 +29,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.timestamp.API.APIClient;
+import com.example.timestamp.API.Api;
 import com.example.timestamp.login.LoginActivity;
 import com.example.timestamp.ui.myStamp.MyStampDetailActivity;
 import com.google.android.material.tabs.TabLayout;
@@ -51,6 +53,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static java.lang.Thread.sleep;
 
 public class ImageEditActivity extends AppCompatActivity implements View.OnTouchListener, FragmentCallBack {
 
@@ -151,21 +155,25 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     public void uploadFile(File file, int myNum) throws URISyntaxException {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-      //   RequestBody MyNumBody = RequestBody.create(MediaType.parse(""), myNum);
-       //   RequestBody.create(MediaType.parse("text/plain"), myNum);
 
-        Call<MyResponse> call = RetrofitClient.getInstance().getApi().MyImageUpload(requestFile, myNum);
+        Api Api = APIClient.getClient().create(Api.class);
+        Call<MyResponse> call = Api.MyImageUpload(requestFile, myNum);
+
         //finally performing the call
         call.enqueue(new Callback<MyResponse>() {
             @Override
             public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                Log.d("아아", "실패1 받아오기 : ");
-                finish();
+                if (!response.body().isError()) {
+                    MyResponse myResponse = response.body();
+                    finish();
+
+                } else {
+                }
             }
 
             @Override
             public void onFailure(Call<MyResponse> call, Throwable t) {
-                Log.d("아아", "실패2 받아오기 upload : " +t.getMessage());
+
             }
         });
     } //retrofit2 사진 업로드

@@ -1,16 +1,21 @@
-package com.example.timestamp;
-
+package com.example.timestamp.API;
 import com.example.timestamp.MenuDetailResponseInfo;
 import com.example.timestamp.MyResponse;
 import com.example.timestamp.ResponseInfo;
 
+import java.util.List;
+
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
-public interface APIInterface {
+public interface Api {
+
 
     @Multipart
     @POST("MyMenuApi.php?apicall=upload")
@@ -27,5 +32,4 @@ public interface APIInterface {
     @Multipart
     @POST("MyImageApi.php?apicall=getinfo")
     Call<MenuDetailResponseInfo> MyImageGet(@Part("myNum") int myNum); //myMenu 데이터 받기
-
 }

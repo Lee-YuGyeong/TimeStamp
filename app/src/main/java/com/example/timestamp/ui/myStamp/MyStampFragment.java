@@ -3,11 +3,7 @@ package com.example.timestamp.ui.myStamp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +13,14 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
+import com.example.timestamp.API.APIClient;
+import com.example.timestamp.API.Api;
 import com.example.timestamp.MyMenuInfo;
-import com.example.timestamp.MyResponse;
 import com.example.timestamp.R;
 import com.example.timestamp.ResponseInfo;
-import com.example.timestamp.RetrofitClient;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +51,7 @@ public class MyStampFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_my_stamp, container, false);
 
         getUserInfo();
+        getMenuList();
 
         Button button = (Button) root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -97,14 +90,13 @@ public class MyStampFragment extends Fragment {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("mine", Context.MODE_PRIVATE);
         userID = sharedPreferences.getString("userID", "null");
 
-        getMenuList();
-
-
     }
 
     private void getMenuList() {
         RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
-        Call<ResponseInfo> call = RetrofitClient.getInstance().getApi().MyMenuGet(userIDBody);
+
+        Api Api = APIClient.getClient().create(Api.class);
+        Call<ResponseInfo> call = Api.MyMenuGet(userIDBody);
 
         //finally performing the call
         call.enqueue(new Callback<ResponseInfo>() {
@@ -127,14 +119,14 @@ public class MyStampFragment extends Fragment {
                     adapter.notifyDataSetChanged();
 
                 } else { //response 실패
-                    Log.d("아아", "실패1 받아오기 : ");
+
                 }
 
             }
 
             @Override
             public void onFailure(Call<ResponseInfo> call, Throwable t) {
-                Log.d("아아", "실패2 받아오기 : " + t.getMessage());
+
             }
         });
     } // retrofit 데이터 받아오기
@@ -196,25 +188,6 @@ public class MyStampFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-//        super.onActivityResult(requestCode, resultCode, intent);
-//
-//        if (requestCode == 0) {
-//            if (resultCode == 0) {
-//                if (intent != null) {
-////                Bitmap bitmap = intent.get("bitmap", 0);
-////                String title = intent.getStringExtra("title");
-////
-////                adapter.addItem(new MyStampMenuGridItem(bitmap, title));
-////
-////                adapter.notifyDataSetChanged();
-//                    getMenuList();
-//
-//                }
-//            }
-//        }
-//    }
 
 }
 
