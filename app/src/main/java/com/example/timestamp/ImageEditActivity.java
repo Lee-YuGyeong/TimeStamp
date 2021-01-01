@@ -51,8 +51,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 import static java.lang.Thread.sleep;
 
@@ -64,8 +63,8 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     ImageView imageView;
 
 
-    EditBorderFragment editBorderFragment;
     EditTimeFragment editTimeFragment;
+    TimeColorButtonFragment timeColorButtonFragment;
 
     Date mDate;
 
@@ -205,18 +204,25 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
                     if (editTimeFragment != null)
                         fragmentManager.beginTransaction().show(editTimeFragment).commit();
-                    fragmentManager.beginTransaction().hide(editBorderFragment).commit();
+
+                    fragmentManager.beginTransaction().hide(timeColorButtonFragment).commit();
 
                 } else if (position == 1) {
 
-                    if (editBorderFragment == null) {
-                        editBorderFragment = new EditBorderFragment();
-                        fragmentManager.beginTransaction().add(R.id.editContainer, editBorderFragment).commit();
+                    if (timeColorButtonFragment == null) {
+                        timeColorButtonFragment = new TimeColorButtonFragment();
+                        fragmentManager.beginTransaction().add(R.id.editContainer, timeColorButtonFragment).commit();
+                    }
+
+                    if (timeColorButtonFragment != null) {
+                        fragmentManager.beginTransaction().show(timeColorButtonFragment).commit();
                     }
 
                     fragmentManager.beginTransaction().hide(editTimeFragment).commit();
-                    if (editBorderFragment != null)
-                        fragmentManager.beginTransaction().show(editBorderFragment).commit();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("key", "border");
+                    timeColorButtonFragment.setArguments(bundle);
 
                 }
             }
@@ -270,7 +276,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     } //글자 스타일 적용
 
-    public void TimeColorButtonSelected(String command, int data, String key) {
+    public void TimeColorButtonSelected(String command, int data, String key, boolean state) {
 
         if (key == "time") {
             textView_date1.setTextColor(data);
@@ -279,6 +285,12 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
             drawable.setStroke(10, data);
             imageView_border1.setImageDrawable(drawable);
+
+            if (state == true) {
+                imageView_border1.setVisibility(View.VISIBLE);
+            } else {
+                imageView_border1.setVisibility(View.INVISIBLE);
+            }
 
 
         }

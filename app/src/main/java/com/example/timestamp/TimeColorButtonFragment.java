@@ -23,7 +23,21 @@ public class TimeColorButtonFragment extends Fragment {
 
     String key;
 
-    boolean vis = false;
+    boolean button1_vis = false;
+    boolean button2_vis = false;
+    boolean button3_vis = false;
+    boolean button4_vis = false;
+    boolean button5_vis = false;
+    boolean button6_vis = false;
+    boolean button7_vis = false;
+    boolean button8_vis = false;
+    boolean button9_vis = false;
+    boolean button10_vis = false;
+    boolean button11_vis = false;
+    boolean button12_vis = false;
+    boolean button13_vis = false;
+    boolean button14_vis = false;
+
 
     Button button1;
     Button button2;
@@ -97,18 +111,22 @@ public class TimeColorButtonFragment extends Fragment {
         button13 = (Button) root.findViewById(R.id.button13);
         button14 = (Button) root.findViewById(R.id.button14);
 
-        callBack.TimeColorButtonSelected("color", color1, key);
+        callBack.TimeColorButtonSelected("color", color1, key, button1_vis);
         colorInit();
         buttonSelect(button1, color1);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                boolean vis = !button1_vis;
+                button1_vis = !button1_vis;
+                visible(button1, color1, button1_vis);
+                button1_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color1, key);
+                    callBack.TimeColorButtonSelected("color", color1, key, button1_vis);
                 }
-                colorInit();
-                buttonSelect(button1, color1);
             }
         });
 
@@ -116,99 +134,128 @@ public class TimeColorButtonFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                boolean vis = !button2_vis;
+                button2_vis = !button2_vis;
+                visible(button2, color2, button2_vis);
+                button2_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color2, key);
+                    callBack.TimeColorButtonSelected("color", color2, key, button2_vis);
                 }
-                colorInit();
-                buttonSelect(button2, color2);
             }
         });
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                boolean vis = !button3_vis;
+                button3_vis = !button3_vis;
+                visible(button3, color3, button3_vis);
+                button3_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color3, key);
+                    callBack.TimeColorButtonSelected("color", color3, key, button3_vis);
                 }
-                colorInit();
-                buttonSelect(button3, color3);
             }
         });
 
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button4_vis;
+                button4_vis = !button4_vis;
+                visible(button4, color4, button4_vis);
+                button4_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color4, key);
+                    callBack.TimeColorButtonSelected("color", color4, key, button4_vis);
                 }
-                colorInit();
-                buttonSelect(button4, color4);
             }
         });
 
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button5_vis;
+                button5_vis = !button5_vis;
+                visible(button5, color5, button5_vis);
+                button5_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color5, key);
+                    callBack.TimeColorButtonSelected("color", color5, key, button5_vis);
                 }
-                colorInit();
-                buttonSelect(button5, color5);
             }
         });
 
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button6_vis;
+                button6_vis = !button6_vis;
+                visible(button6, color6, button6_vis);
+                button6_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color6, key);
+                    callBack.TimeColorButtonSelected("color", color6, key, button6_vis);
                 }
-                colorInit();
-                buttonSelect(button6, color6);
             }
         });
 
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button7_vis;
+                button7_vis = !button7_vis;
+                visible(button7, color7, button7_vis);
+                button7_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color7, key);
+                    callBack.TimeColorButtonSelected("color", color7, key, button7_vis);
                 }
-                colorInit();
-                buttonSelect(button7, color7);
             }
         });
 
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button8_vis;
+                button8_vis = !button8_vis;
+                visible(button8, color8, button8_vis);
+                button8_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color8, key);
+                    callBack.TimeColorButtonSelected("color", color8, key, button8_vis);
                 }
-                colorInit();
-                buttonSelect(button8, color8);
             }
         });
 
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button9_vis;
+                button9_vis = !button9_vis;
+                visible(button9, color9, button9_vis);
+                button9_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color9, key);
+                    callBack.TimeColorButtonSelected("color", color9, key, button9_vis);
                 }
-                colorInit();
-                buttonSelect(button9, color9);
             }
         });
 
         button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button10_vis;
+                button10_vis = !button10_vis;
+                visible(button10, color10, button10_vis);
+                button10_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color10, key);
+                    callBack.TimeColorButtonSelected("color", color10, key, button10_vis);
                 }
-                colorInit();
-                buttonSelect(button10, color10);
             }
         });
 
@@ -216,11 +263,14 @@ public class TimeColorButtonFragment extends Fragment {
         button11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button11_vis;
+                button11_vis = !button11_vis;
+                visible(button11, color11, button11_vis);
+                button11_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color11, key);
+                    callBack.TimeColorButtonSelected("color", color11, key, button11_vis);
                 }
-                colorInit();
-                buttonSelect(button11, color11);
             }
         });
 
@@ -228,22 +278,28 @@ public class TimeColorButtonFragment extends Fragment {
         button12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button12_vis;
+                button12_vis = !button12_vis;
+                visible(button12, color12, button12_vis);
+                button12_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color12, key);
+                    callBack.TimeColorButtonSelected("color", color12, key, button12_vis);
                 }
-                colorInit();
-                buttonSelect(button12, color12);
             }
         });
 
         button13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button13_vis;
+                button13_vis = !button13_vis;
+                visible(button13, color13, button13_vis);
+                button13_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color13, key);
+                    callBack.TimeColorButtonSelected("color", color13, key, button13_vis);
                 }
-                colorInit();
-                buttonSelect(button13, color13);
             }
         });
 
@@ -251,11 +307,14 @@ public class TimeColorButtonFragment extends Fragment {
         button14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean vis = !button14_vis;
+                button14_vis = !button14_vis;
+                visible(button14, color14, button14_vis);
+                button14_vis = vis;
+
                 if (callBack != null) {
-                    callBack.TimeColorButtonSelected("color", color14, key);
+                    callBack.TimeColorButtonSelected("color", color14, key, button14_vis);
                 }
-                colorInit();
-                buttonSelect(button14, color14);
             }
         });
 
@@ -344,6 +403,36 @@ public class TimeColorButtonFragment extends Fragment {
         drawable.setStroke(10, Color.BLACK);
         drawable.setColor(color);
         button.setBackground(drawable);
+
+    }
+
+    public void visible(Button button, int color, boolean vis) {
+
+        if (vis) {
+            initFalse();
+            colorInit();
+            buttonSelect(button, color);
+        } else {
+            colorInit();
+        }
+    }
+
+    public void initFalse() {
+
+        button1_vis = false;
+        button2_vis = false;
+        button3_vis = false;
+        button4_vis = false;
+        button5_vis = false;
+        button6_vis = false;
+        button7_vis = false;
+        button8_vis = false;
+        button9_vis = false;
+        button10_vis = false;
+        button11_vis = false;
+        button12_vis = false;
+        button13_vis = false;
+        button14_vis = false;
 
     }
 
