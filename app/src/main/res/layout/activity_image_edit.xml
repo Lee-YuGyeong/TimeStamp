@@ -34,6 +34,7 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
+
             <Button
                 android:id="@+id/saveButton"
                 android:layout_width="25dp"
@@ -43,6 +44,17 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:background="@android:drawable/ic_menu_save" />
+
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/spin_kit"
+                style="@style/SpinKitView.Large.Circle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:layout_toStartOf="@+id/saveButton"
+                app:SpinKit_Color="@color/colorAccent" />
 
         </RelativeLayout>
 

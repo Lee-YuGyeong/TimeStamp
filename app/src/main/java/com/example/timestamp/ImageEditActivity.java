@@ -33,6 +33,7 @@ import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
 import com.example.timestamp.login.LoginActivity;
 import com.example.timestamp.ui.myStamp.MyStampDetailActivity;
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -53,8 +54,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-import static java.lang.Thread.sleep;
-
 public class ImageEditActivity extends AppCompatActivity implements View.OnTouchListener, FragmentCallBack {
 
     TextView textView_date1;
@@ -73,10 +72,15 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     String drawerName;
     int myNum;
 
+    SpinKitView spinKitView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
+
+        spinKitView = (SpinKitView) findViewById(R.id.spin_kit);
+        spinKitView.setVisibility(View.INVISIBLE);
 
         final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -102,6 +106,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             @Override
             public void onClick(View v) {
 
+                spinKitView.setVisibility(View.VISIBLE);
                 Bitmap captureBitmap = setViewToBitmapImage(container);
                 BitmapSave(captureBitmap); //이미지 서버 저장
 
@@ -164,6 +169,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
                 if (!response.body().isError()) {
                     MyResponse myResponse = response.body();
+                    spinKitView.setVisibility(View.INVISIBLE);
                     finish();
 
                 } else {
