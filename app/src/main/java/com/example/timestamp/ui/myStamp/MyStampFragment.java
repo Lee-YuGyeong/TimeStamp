@@ -5,14 +5,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.timestamp.API.APIClient;
@@ -39,37 +45,22 @@ public class MyStampFragment extends Fragment {
     int myNum;
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getMenuList();
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_my_stamp, container, false);
 
+        Toolbar toolbar = (Toolbar) root.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true); //toolbar
+
         getUserInfo();
         getMenuList();
 
-        Button button = (Button) root.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MyStampAddActivity.class);
-                startActivity(intent);
-            }
-        }); // 메뉴 추가 버튼
 
         gridView = (GridView) root.findViewById(R.id.gridView);
 
         adapter = new StampMenuAdapter();
-
-//        adapter.addItem(new MyStampMenuGridItem("background1.jpg", "스터디"));
-//        adapter.addItem(new MyStampMenuGridItem("background2.jpg", "다이어트"));
-//        adapter.addItem(new MyStampMenuGridItem("background3.jpg", "기상"));
-
 
         gridView.setAdapter(adapter);
 
@@ -84,6 +75,32 @@ public class MyStampFragment extends Fragment {
 
         return root;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().invalidateOptionsMenu();
+        getMenuList();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.my_stamp_toolbar_menu, menu);
+    } //toolbar
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.plusButton:
+                Intent intent = new Intent(getContext(), MyStampAddActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    } //toolbar
+
 
     public void getUserInfo() {
 
@@ -109,7 +126,7 @@ public class MyStampFragment extends Fragment {
 
                     adapter.items.clear();
 
-                    if (adapter.isEmpty() && myMenuInfoList.size()!=0 ) {
+                    if (adapter.isEmpty() && myMenuInfoList.size() != 0) {
 
                         for (int i = 0; i < myMenuInfoList.size(); i++) {
                             adapter.addItem(new MyStampMenuGridItem(myMenuInfoList.get(i).getMyTitleImage(), myMenuInfoList.get(i).getMyTitle(), myMenuInfoList.get(i).getMyNum()));

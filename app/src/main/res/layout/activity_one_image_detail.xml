@@ -25,7 +25,8 @@
                 android:id="@+id/backButton"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/back_white" />
+                android:background="@drawable/back_white"
+                />
 
 
             <Button
