@@ -10,37 +10,38 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#eb9f9f">
-
+        android:background="#FFFFFF"
+        android:elevation="10dp">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <Button
                 android:id="@+id/backButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/back" />
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/back"
+                android:layout_centerVertical="true"/>
 
             <TextView
                 android:id="@+id/toolBar_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Time Detail"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
-                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/backButton"
-                android:layout_marginLeft="10dp"/>
+                android:text="My Time Detail"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
 
             <Button
                 android:id="@+id/plusButton"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentTop="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"

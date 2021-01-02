@@ -10,7 +10,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#eb9f9f">
+        android:background="#FFFFFF"
+        android:elevation="10dp">
 
 
         <RelativeLayout
@@ -22,15 +23,15 @@
                 android:layout_height="wrap_content"
                 android:text="My Time"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="20dp"/>
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentTop="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/plus" />
@@ -44,6 +45,6 @@
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2" />
+        android:numColumns="2"/>
 
 </LinearLayout>
