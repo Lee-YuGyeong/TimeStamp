@@ -44,4 +44,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'//okhttp3
 
     implementation 'com.github.ybq:Android-SpinKit:1.4.0' //로딩 애니메이션
+
 }

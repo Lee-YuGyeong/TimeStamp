@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -26,6 +27,7 @@ import com.example.timestamp.API.Api;
 import com.example.timestamp.ImageEditActivity;
 import com.example.timestamp.MenuDetailInfo;
 import com.example.timestamp.MenuDetailResponseInfo;
+import com.example.timestamp.OneImageDetailActivity;
 import com.example.timestamp.R;
 
 import java.io.ByteArrayOutputStream;
@@ -80,31 +82,23 @@ public class MyStampDetailActivity extends AppCompatActivity {
 
         adapter = new StampDetailAdapter();
 
-     //   getMenuDetailList();
-
-//        ////////// 비트맵으로 변경
-//        Context context = getApplicationContext();
-//        Drawable drawable = getResources().getDrawable(R.drawable.background1);
-//        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-//
-//        Drawable drawable2 = getResources().getDrawable(R.drawable.background2);
-//        Bitmap bitmap2 = ((BitmapDrawable)drawable2).getBitmap();
-//
-//        adapter.addItem(new MyStampDetailGridItem(bitmap));
-//        adapter.addItem(new MyStampDetailGridItem(bitmap2));
-//
-//        ////////////////////////////
-
         getMenuDetailList();
         gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), OneImageDetailActivity.class);
+                intent.putExtra("url", adapter.items.get(position).getImage());
+                startActivity(intent);
+            }
+        });// 메뉴 그리드뷰
+
 
         Button plusButton = (Button) findViewById(R.id.plusButton);
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("아아","0000");
                  dispatchTakePictureIntent();
-                Log.d("아아","0");
             }
         });
 

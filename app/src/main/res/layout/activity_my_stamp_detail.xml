@@ -22,7 +22,7 @@
                 android:id="@+id/backButton"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/back"
+                android:background="@drawable/back_black"
                 android:layout_centerVertical="true"/>
 
             <TextView

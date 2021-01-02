@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OneImageDetailActivity">
+    tools:context=".OneImageDetailActivity"
+    android:background="#000000">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,20 +23,10 @@
 
             <Button
                 android:id="@+id/backButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/back" />
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/back_white" />
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/toolBar_textView"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginLeft="10dp"-->
-            <!--                android:layout_toRightOf="@+id/backButton"-->
-            <!--                android:text="My Time Detail"-->
-            <!--                android:textColor="#000000"-->
-            <!--                android:textSize="20dp"-->
-            <!--                android:textStyle="bold" />-->
 
             <Button
                 android:id="@+id/saveButton"
@@ -45,22 +36,23 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
-                android:background="@android:drawable/ic_menu_save" />
+                android:background="@drawable/download_white" />
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
-
 
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/background1"
+        android:background="@drawable/image_loding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.54" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".OneImageDetailActivity" />
+        <activity android:name=".OneImageDetailActivity"
+            android:theme="@style/AppTheme_black"/>
         <activity android:name=".ImageEditActivity" />
         <activity android:name=".StampTitleImageActivity" />
         <activity android:name=".ui.myStamp.MyStampAddActivity" />
