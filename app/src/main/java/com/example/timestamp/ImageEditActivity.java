@@ -85,6 +85,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("사진 편집");
@@ -97,8 +98,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             }
         });
 
-        spinKitView = (SpinKitView) findViewById(R.id.spin_kit);
-        spinKitView.setVisibility(View.INVISIBLE);
 
         container = (LinearLayout) findViewById(R.id.capture_target_Layout);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -119,6 +118,8 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
         textView_date1.setOnTouchListener(this); //날짜 이동
 
+        spinKitView = (SpinKitView) findViewById(R.id.spin_kit);
+        spinKitView.setVisibility(View.INVISIBLE);
 
 
     }

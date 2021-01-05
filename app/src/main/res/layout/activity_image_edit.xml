@@ -7,7 +7,6 @@
     android:orientation="vertical">
 
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
         android:background="#FFFFFF"
         android:elevation="10dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/capture_target_Layout"
@@ -28,19 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintDimensionRatio="1:1">
-
-            <com.github.ybq.android.spinkit.SpinKitView
-                android:id="@+id/spin_kit"
-                style="@style/SpinKitView.Large.Circle"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_toStartOf="@+id/saveButton"
-                app:SpinKit_Color="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
@@ -81,68 +67,47 @@
                 app:layout_constraintVertical_bias="0.473" />
 
 
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/spin_kit"
+                style="@style/SpinKitView.Large.Circle"
+                android:layout_width="77dp"
+                android:layout_height="77dp"
+                android:layout_gravity="center"
+                android:layout_toStartOf="@+id/saveButton"
+                app:SpinKit_Color="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
-        <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:background="@android:color/background_light"
+            android:elevation="1dp"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#BAD1E6"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#BAD1E6"
+            app:tabTextColor="#E2E2E2">
 
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="1dp"
-                android:background="@android:color/background_light"
-                app:tabMode="fixed"
-                app:tabGravity="fill"
-                app:tabTextColor="#E2E2E2"
-                app:tabSelectedTextColor="#BAD1E6"
-                app:tabIndicatorColor="#BAD1E6">
+        </com.google.android.material.tabs.TabLayout>
 
 
-            </com.google.android.material.tabs.TabLayout>
-
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal">-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Time"-->
-<!--            android:textSize="18dp"-->
-<!--            android:textStyle="bold" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/timeStyleButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="스타일" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/timeColorButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="색" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/timeFontButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="폰트" />-->
-
-
-<!--    </LinearLayout>-->
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/editContainer"
@@ -151,49 +116,5 @@
 
     </FrameLayout>
 
-
-
-
-    <!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal">-->
-
-
-<!--        <Button-->
-<!--            android:id="@+id/button1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Button" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/button2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Button" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/button3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Button" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/button4"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Button" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/button5"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Button" />-->
-<!--    </LinearLayout>-->
 
 </LinearLayout>

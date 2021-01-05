@@ -4,14 +4,6 @@
     tools:context="com.example.dd.tyt.MainActivity">
 
     <item
-        android:id="@+id/search_icon"
-        android:icon="@drawable/back_black"
-        android:title="검색버튼"
-        app:showAsAction="ifRoom" />
-    // 툴바에 아이콘이 보이게 설정
-
-
-    <item
         android:id="@+id/write_icon"
         android:title="글쓰기버튼"
         app:showAsAction="ifRoom" />
