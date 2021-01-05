@@ -2,6 +2,7 @@ package com.example.timestamp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +64,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     Bitmap bitmap;
     ImageView imageView;
 
+    LinearLayout container;
 
     EditTimeFragment editTimeFragment;
     TimeColorButtonFragment timeColorButtonFragment;
@@ -74,15 +78,29 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     SpinKitView spinKitView;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("사진 편집");
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         spinKitView = (SpinKitView) findViewById(R.id.spin_kit);
         spinKitView.setVisibility(View.INVISIBLE);
 
-        final LinearLayout container = (LinearLayout) findViewById(R.id.capture_target_Layout);
+        container = (LinearLayout) findViewById(R.id.capture_target_Layout);
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView_border1 = (ImageView) findViewById(R.id.imageView_border1);
 
@@ -101,28 +119,29 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
         textView_date1.setOnTouchListener(this); //날짜 이동
 
-        Button saveButton = (Button) findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                spinKitView.setVisibility(View.VISIBLE);
-                Bitmap captureBitmap = setViewToBitmapImage(container);
-                BitmapSave(captureBitmap); //이미지 서버 저장
-
-            }
-        });
-
-        Button backButton = (Button) findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.my_stamp_edit_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.saveButton:
+                spinKitView.setVisibility(View.VISIBLE);
+                Bitmap captureBitmap = setViewToBitmapImage(container);
+                BitmapSave(captureBitmap); //이미지 서버 저장
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    } //toolbar
+
 
     public void BitmapSave(Bitmap bitmap) {
 

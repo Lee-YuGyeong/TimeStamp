@@ -9,46 +9,12 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="#FFFFFF"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/backButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/back_black"
-                android:layout_centerVertical="true"/>
-
-            <TextView
-                android:id="@+id/toolBar_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/backButton"
-                android:text="My Time Detail"
-                android:textColor="#000000"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-
-            <Button
-                android:id="@+id/plusButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/plus" />
-
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
 
 
     <GridView

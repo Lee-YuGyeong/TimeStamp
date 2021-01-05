@@ -6,59 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <Button
-                android:id="@+id/backButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/back_black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/backButton"
-                android:text="My Time"
-                android:textColor="#000000"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-
-            <Button
-                android:id="@+id/saveButton"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
-                android:background="@android:drawable/ic_menu_save" />
-
-
-            <com.github.ybq.android.spinkit.SpinKitView
-                android:id="@+id/spin_kit"
-                style="@style/SpinKitView.Large.Circle"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="15dp"
-                android:layout_toStartOf="@+id/saveButton"
-                app:SpinKit_Color="@color/colorAccent" />
-
-        </RelativeLayout>
-
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="?attr/actionBarSize"
+        android:background="#FFFFFF"
+        android:elevation="10dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:id="@+id/capture_target_Layout"
@@ -66,10 +23,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintDimensionRatio="1:1">
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/spin_kit"
+                style="@style/SpinKitView.Large.Circle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_toStartOf="@+id/saveButton"
+                app:SpinKit_Color="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
@@ -95,95 +66,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView_date2"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:layout_gravity="bottom"-->
-<!--                android:text="2"-->
-<!--                android:textColor="#FFFFFF"-->
-<!--                android:textSize="25dp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:visibility="invisible" />-->
-
-<!--            <RelativeLayout-->
-<!--                android:layout_margin="30dp"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="0dp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent">-->
-
-
-<!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:id="@+id/textView_date2"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_alignParentRight="true"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_gravity="bottom"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:text="TextView2"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textColor="#FFFFFF"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textSize="25dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textStyle="bold"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:visibility="invisible" />&ndash;&gt;-->
-
-<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:id="@+id/textView_date3"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_alignParentBottom="true"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_gravity="bottom"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:text="TextView3"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textColor="#FFFFFF"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textSize="25dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textStyle="bold"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:visibility="invisible" />&ndash;&gt;-->
-
-<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:id="@+id/textView_date4"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_alignParentRight="true"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_alignParentBottom="true"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_gravity="bottom"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:text="TextView4"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textColor="#FFFFFF"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textSize="25dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textStyle="bold"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:visibility="invisible" />&ndash;&gt;-->
-
-<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:id="@+id/textView_date1"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_alignParentLeft="true"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_alignParentTop="true"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_alignParentRight="true"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_alignParentBottom="true"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:gravity="center"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:text="TextView5"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textColor="#FFFFFF"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textSize="22dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:textStyle="bold"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:visibility="invisible" />&ndash;&gt;-->
-
-
-<!--                &lt;!&ndash;        <TextView&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:id="@+id/textView2"&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:layout_above="@+id/textView"&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:layout_gravity="bottom"&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:layout_marginBottom="0dp"&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:text="TextView2"&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:textColor="#FFFFFF"&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:textSize="15dp"&ndash;&gt;-->
-<!--                &lt;!&ndash;            android:textStyle="bold" />&ndash;&gt;-->
-
-<!--            </RelativeLayout>-->
 
             <ImageView
                 android:id="@+id/imageView_border1"

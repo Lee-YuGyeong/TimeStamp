@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import com.example.timestamp.API.APIClient;
@@ -52,6 +55,8 @@ public class MyStampDetailActivity extends AppCompatActivity {
     String title;
     int myNum;
 
+    Toolbar toolbar;
+
     @Override
     public void onResume() {
         super.onResume();
@@ -64,19 +69,20 @@ public class MyStampDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_stamp_detail);
 
-        Button button = (Button) findViewById(R.id.backButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        title = getIntent().getStringExtra("title");
+        myNum = getIntent().getIntExtra("myNum", 0);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(title);
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
-        title = getIntent().getStringExtra("title");
-        TextView textView = (TextView) findViewById(R.id.toolBar_textView);
-        textView.setText(title);
-
-        myNum = getIntent().getIntExtra("myNum",0);
 
         GridView gridView = (GridView) findViewById(R.id.gridView);
 
@@ -94,16 +100,25 @@ public class MyStampDetailActivity extends AppCompatActivity {
         });// 메뉴 그리드뷰
 
 
-        Button plusButton = (Button) findViewById(R.id.plusButton);
-        plusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 dispatchTakePictureIntent();
-            }
-        });
-
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.my_stamp_detail_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.plusButton:
+                dispatchTakePictureIntent();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    } //toolbar
+
 
     private void getMenuDetailList() {
 
@@ -123,7 +138,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
                     adapter.items.clear();
 
 
-                    if (adapter.isEmpty()&& menuDetailInfoList.size()!=0 ) {
+                    if (adapter.isEmpty() && menuDetailInfoList.size() != 0) {
 
                         for (int i = 0; i < menuDetailInfoList.size(); i++) {
                             adapter.addItem(new MyStampDetailGridItem(menuDetailInfoList.get(i).getImage()));
@@ -188,16 +203,16 @@ public class MyStampDetailActivity extends AppCompatActivity {
                                     rotatedBitmap = imageBitmap;
                             }
 
-                            Log.d("아아","1222");
+                            Log.d("아아", "1222");
                             Intent intent1 = new Intent(getApplicationContext(), ImageEditActivity.class);
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                             byte[] byteArray = stream.toByteArray();
                             intent1.putExtra("bitmap", byteArray);
-                            intent1.putExtra("drawerName",title);
-                            intent1.putExtra("myNum",myNum);
+                            intent1.putExtra("drawerName", title);
+                            intent1.putExtra("myNum", myNum);
 
-                            Log.d("아아","1");
+                            Log.d("아아", "1");
                             startActivity(intent1);
 
 

@@ -10,37 +10,11 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <Button
-                android:id="@+id/backButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/back_white"
-                />
-
-
-            <Button
-                android:id="@+id/saveButton"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/download_white" />
-
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
+        android:elevation="10dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <ImageView

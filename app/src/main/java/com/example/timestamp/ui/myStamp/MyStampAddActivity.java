@@ -55,9 +55,9 @@ public class MyStampAddActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setTitle("메뉴 추가");
 
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,14 +72,6 @@ public class MyStampAddActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
         userID = sharedPreferences.getString("userID", "null");
 
-//
-//        Button backButton = (Button) findViewById(R.id.backButton);
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
 
         Button titleButton = (Button) findViewById(R.id.titleButton);
         titleButton.setOnClickListener(new View.OnClickListener() {
