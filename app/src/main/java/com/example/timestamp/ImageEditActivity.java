@@ -280,13 +280,13 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         textView_date1 = (TextView) findViewById(R.id.textView_date1);
 
 
-        if (data == 1) {
+        if (data == 0) {
             simpleDate = new SimpleDateFormat("");
             textView_date1.setTextSize(0);
-        } else if (data == 2) {
+        } else if (data == 1) {
             simpleDate = new SimpleDateFormat("yyyy년 MM월 dd일 (E) \na h:mm");
             textView_date1.setTextSize(25);
-        } else if (data == 3) {
+        } else if (data == 2) {
             simpleDate = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
             textView_date1.setTextSize(40);
         } else {
