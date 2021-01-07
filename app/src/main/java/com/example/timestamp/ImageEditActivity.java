@@ -135,7 +135,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.saveButton:
-                spinKitView.setVisibility(View.VISIBLE);
                 Bitmap captureBitmap = setViewToBitmapImage(container);
                 BitmapSave(captureBitmap); //이미지 서버 저장
                 break;
@@ -146,6 +145,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     public void BitmapSave(Bitmap bitmap) {
 
+        spinKitView.setVisibility(View.VISIBLE);
 
         File imageFile = null;
         try {
