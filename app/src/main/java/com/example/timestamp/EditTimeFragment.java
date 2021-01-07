@@ -1,7 +1,6 @@
 package com.example.timestamp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import java.sql.Time;
-
 public class EditTimeFragment extends Fragment {
 
     Button timeStyleButton;
     Button timeColorButton;
     Button timeFontButton;
 
-    TimeStyleButtonFragment2 timeStyleButtonFragment;
+    TimeStyleButtonFragment timeStyleButtonFragment;
     TimeColorButtonFragment timeColorButtonFragment;
     TimeFontButtonFragment timeFontButtonFragment;
 
@@ -36,15 +33,15 @@ public class EditTimeFragment extends Fragment {
         timeColorButton = (Button) root.findViewById(R.id.timeColorButton);
         timeFontButton = (Button) root.findViewById(R.id.timeFontButton);
 
-        timeStyleButton.setBackgroundResource(R.drawable.ic_text_fields_click_24dp);
+        timeStyleButton.setBackgroundResource(R.drawable.ic_text_fields_black_24dp);
         timeColorButton.setBackgroundResource(R.drawable.color_wheel);
-        timeFontButton.setBackgroundResource(R.drawable.ic_font_download_black_24dp);
+        timeFontButton.setBackgroundResource(R.drawable.ic_font_download_gray_24dp);
 
         fragmentManager = getActivity().getSupportFragmentManager();
 
 
         if (timeStyleButtonFragment == null) {
-            timeStyleButtonFragment = new TimeStyleButtonFragment2();
+            timeStyleButtonFragment = new TimeStyleButtonFragment();
             fragmentManager.beginTransaction().add(R.id.time_container, timeStyleButtonFragment).commit();
         }
 
@@ -64,7 +61,7 @@ public class EditTimeFragment extends Fragment {
             public void onClick(View v) {
 
                 if (timeStyleButtonFragment == null) {
-                    timeStyleButtonFragment = new TimeStyleButtonFragment2();
+                    timeStyleButtonFragment = new TimeStyleButtonFragment();
                     fragmentManager.beginTransaction().add(R.id.time_container, timeStyleButtonFragment).commit();
                 }
 
@@ -79,9 +76,9 @@ public class EditTimeFragment extends Fragment {
                 }
 
 
-                timeStyleButton.setBackgroundResource(R.drawable.ic_text_fields_click_24dp);
+                timeStyleButton.setBackgroundResource(R.drawable.ic_text_fields_black_24dp);
                 timeColorButton.setBackgroundResource(R.drawable.color_wheel);
-                timeFontButton.setBackgroundResource(R.drawable.ic_font_download_black_24dp);
+                timeFontButton.setBackgroundResource(R.drawable.ic_font_download_gray_24dp);
 
             }
         });
@@ -107,9 +104,9 @@ public class EditTimeFragment extends Fragment {
                     fragmentManager.beginTransaction().hide(timeFontButtonFragment).commit();
                 }
 
-                timeStyleButton.setBackgroundResource(R.drawable.ic_text_fields_black_24dp);
+                timeStyleButton.setBackgroundResource(R.drawable.ic_text_fields_gray_24dp);
                 timeColorButton.setBackgroundResource(R.drawable.color_wheel_click);
-                timeFontButton.setBackgroundResource(R.drawable.ic_font_download_black_24dp);
+                timeFontButton.setBackgroundResource(R.drawable.ic_font_download_gray_24dp);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("key", "time");
@@ -136,9 +133,9 @@ public class EditTimeFragment extends Fragment {
                 if (timeFontButtonFragment != null) {
                     fragmentManager.beginTransaction().show(timeFontButtonFragment).commit();
                 }
-                timeStyleButton.setBackgroundResource(R.drawable.ic_text_fields_black_24dp);
+                timeStyleButton.setBackgroundResource(R.drawable.ic_text_fields_gray_24dp);
                 timeColorButton.setBackgroundResource(R.drawable.color_wheel);
-                timeFontButton.setBackgroundResource(R.drawable.ic_font_download_click_24dp);
+                timeFontButton.setBackgroundResource(R.drawable.ic_font_download_black_24dp);
             }
         });
 

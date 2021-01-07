@@ -324,16 +324,16 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     public void TimeFontButtonSelected(String command, int font) {
 
-        if (font == 1) {
+        if (font == 0) {
             Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.nanumbarunpen);
             textView_date1.setTypeface(typeface);
-        } else if (font == 2) {
+        } else if (font == 1) {
             Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.nanumsquare);
             textView_date1.setTypeface(typeface);
-        } else if (font == 3) {
+        } else if (font == 2) {
             Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.maruburi);
             textView_date1.setTypeface(typeface);
-        } else if (font == 4) {
+        } else if (font == 3) {
             Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.bmhanna);
             textView_date1.setTypeface(typeface);
         }

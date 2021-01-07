@@ -98,10 +98,10 @@
             android:background="@android:color/background_light"
             android:elevation="1dp"
             app:tabGravity="fill"
-            app:tabIndicatorColor="#BAD1E6"
+            app:tabIndicatorColor="@color/black"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="#BAD1E6"
-            app:tabTextColor="#E2E2E2">
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/gray">
 
 
         </com.google.android.material.tabs.TabLayout>
