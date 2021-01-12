@@ -16,12 +16,19 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.timestamp.API.APIClient;
+import com.example.timestamp.API.Api;
 import com.example.timestamp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.regex.Pattern;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -101,13 +108,22 @@ public class RegisterActivity extends AppCompatActivity {
             dialog.show();
             return;
         }
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+
+        Api Api = APIClient.getClient().create(Api.class);
+        Call<SuccessResponseInfo> call = Api.IDValidate(userIDBody);
+
+        call.enqueue(new Callback<SuccessResponseInfo>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
+            public void onResponse(Call<SuccessResponseInfo> call, retrofit2.Response<SuccessResponseInfo> response) {
+
+                if (response.isSuccessful()) {
+
+                    SuccessResponseInfo successResponseInfo = response.body();
+
+                    if (successResponseInfo.getSuccess()) {
+
                         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                         builder.setMessage("사용할 수 있는 아이디입니다. 사용하시겠습니까?");
                         builder.setPositiveButton("예",
@@ -126,6 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 });
                         builder.show();
 
+
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                         dialog = builder.setMessage("이미 존재하는 아이디입니다.")
@@ -133,15 +150,19 @@ public class RegisterActivity extends AppCompatActivity {
                                 .create();
                         dialog.show();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        IDValidateRequest validateRequest = new IDValidateRequest(userID, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-        queue.add(validateRequest);
 
+
+                } else { //response 실패
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponseInfo> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void nameValidateCheck() {
@@ -159,13 +180,20 @@ public class RegisterActivity extends AppCompatActivity {
             dialog.show();
             return;
         }
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
+        RequestBody userNameBody = RequestBody.create(MediaType.parse("text/plain"), userName);
+
+        Api Api = APIClient.getClient().create(Api.class);
+        Call<SuccessResponseInfo> call = Api.NameValidate(userNameBody);
+
+        call.enqueue(new Callback<SuccessResponseInfo>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
+            public void onResponse(Call<SuccessResponseInfo> call, retrofit2.Response<SuccessResponseInfo> response) {
+
+                if (response.isSuccessful()) {
+
+                    SuccessResponseInfo successResponseInfo = response.body();
+
+                    if (successResponseInfo.getSuccess()) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                         builder.setMessage("사용할 수 있는 닉네임입니다. 사용하시겠습니까?");
                         builder.setPositiveButton("예",
@@ -183,6 +211,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
                                 });
                         builder.show();
+
+
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                         dialog = builder.setMessage("이미 존재하는 닉네임입니다.")
@@ -190,15 +220,19 @@ public class RegisterActivity extends AppCompatActivity {
                                 .create();
                         dialog.show();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        NameValidateRequest validateRequest = new NameValidateRequest(userName, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-        queue.add(validateRequest);
 
+
+                } else { //response 실패
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SuccessResponseInfo> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -222,36 +256,43 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
+        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+        RequestBody userPasswordBody = RequestBody.create(MediaType.parse("text/plain"), userPassword);
+        RequestBody userNameBody = RequestBody.create(MediaType.parse("text/plain"), userName);
+
+        Api Api = APIClient.getClient().create(Api.class);
+        Call<SuccessResponseInfo> call = Api.Register(userIDBody, userPasswordBody, userNameBody);
+
+        call.enqueue(new Callback<SuccessResponseInfo>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(Call<SuccessResponseInfo> call, retrofit2.Response<SuccessResponseInfo> response) {
 
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean success = jsonObject.getBoolean("success");
+                if (response.isSuccessful()) {
 
-                    //회원가입 성공시
-                    if (success) {
+                    SuccessResponseInfo successResponseInfo = response.body();
+
+                    if (successResponseInfo.getSuccess()) {
                         Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
-                        //회원가입 실패시
                     } else {
                         Toast.makeText(getApplicationContext(), "회원가입이 실패되었습니다.", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+                } else { //response 실패
+
                 }
 
             }
-        };
 
-        // 서버로 Volley를 이용해서 요청을 함
-        RegisterRequest registerRequest = new RegisterRequest(userID, userPassword, userName, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-        queue.add(registerRequest);
+            @Override
+            public void onFailure(Call<SuccessResponseInfo> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 }

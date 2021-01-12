@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         RequestBody userPassBody = RequestBody.create(MediaType.parse("text/plain"), userPass);
 
         Api Api = APIClient.getClient().create(Api.class);
-        Call<LoginResponseInfo> call = Api.LoginPut(userIDBody, userPassBody);
+        Call<LoginResponseInfo> call = Api.Login(userIDBody, userPassBody);
 
         call.enqueue(new Callback<LoginResponseInfo>() {
             @Override
@@ -80,10 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     LoginResponseInfo loginResponseInfo = response.body();
-                    Log.d("아아", loginResponseInfo.getSuccess() + "");
 
                     if (loginResponseInfo.getSuccess()) {
-                        Log.d("아아", loginResponseInfo.getSuccess() + "2");
 
                         InputNameData(loginResponseInfo.getUserName());
 
@@ -109,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
-                        Log.d("아아", loginResponseInfo.getSuccess() + "3");
                     }
 
 
@@ -121,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponseInfo> call, Throwable t) {
-                Log.d("아아", t.getMessage());
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     } // retrofit 데이터 받아오기
