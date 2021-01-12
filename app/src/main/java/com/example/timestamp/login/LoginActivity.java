@@ -13,14 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
+import com.example.timestamp.API.APIClient;
+import com.example.timestamp.API.Api;
 import com.example.timestamp.MainActivity;
 import com.example.timestamp.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -63,21 +65,27 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void login(String userID, String userPass) {
+    private void login(final String userID, final String userPass) {
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
+        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+        RequestBody userPassBody = RequestBody.create(MediaType.parse("text/plain"), userPass);
+
+        Api Api = APIClient.getClient().create(Api.class);
+        Call<LoginResponseInfo> call = Api.LoginPut(userIDBody, userPassBody);
+
+        call.enqueue(new Callback<LoginResponseInfo>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean success = jsonObject.getBoolean("success");
+            public void onResponse(Call<LoginResponseInfo> call, Response<LoginResponseInfo> response) {
 
-                    if (success) {//로그인 성공시
+                if (response.isSuccessful()) {
 
-                        final String userID = jsonObject.getString("userID");
-                        final String userPass = jsonObject.getString("userPassword");
+                    LoginResponseInfo loginResponseInfo = response.body();
+                    Log.d("아아", loginResponseInfo.getSuccess() + "");
 
-                        getName(userID);
+                    if (loginResponseInfo.getSuccess()) {
+                        Log.d("아아", loginResponseInfo.getSuccess() + "2");
+
+                        InputNameData(loginResponseInfo.getUserName());
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                         builder.setMessage("자동로그인에 등록하시겠습니까?");
@@ -99,42 +107,25 @@ public class LoginActivity extends AppCompatActivity {
                                 });
                         builder.show();
 
-
-                    } else {//로그인 실패시
+                    } else {
                         Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
-                        return;
+                        Log.d("아아", loginResponseInfo.getSuccess() + "3");
                     }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+                } else { //response 실패
+
                 }
+
             }
-        };
-        LoginRequest loginRequest = new LoginRequest(userID, userPass, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-        queue.add(loginRequest);
 
-    }
-
-    public void getName(String userID) {
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String getUserName = jsonObject.getString("userName");
-
-                    InputNameData(getUserName);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onFailure(Call<LoginResponseInfo> call, Throwable t) {
+                Log.d("아아", t.getMessage());
             }
-        };
-        GetNameRequest getNameRequest = new GetNameRequest(userID, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-        queue.add(getNameRequest);
-    }
+        });
+    } // retrofit 데이터 받아오기
+
 
     public void InputLogData(String id, String password, boolean auto) { // SharedPreferences에 값 저장.
 

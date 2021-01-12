@@ -2,6 +2,7 @@ package com.example.timestamp.API;
 import com.example.timestamp.MenuDetailResponseInfo;
 import com.example.timestamp.MyResponse;
 import com.example.timestamp.ResponseInfo;
+import com.example.timestamp.login.LoginResponseInfo;
 
 import java.util.List;
 
@@ -27,9 +28,14 @@ public interface Api {
 
     @Multipart
     @POST("MyImageApi.php?apicall=upload")
-    Call<MyResponse> MyImageUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("myNum") int myNum); //myMenu 데이터 업로드
+    Call<MyResponse> MyImageUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("myNum") int myNum); //myImage 데이터 업로드
 
     @Multipart
     @POST("MyImageApi.php?apicall=getinfo")
-    Call<MenuDetailResponseInfo> MyImageGet(@Part("myNum") int myNum); //myMenu 데이터 받기
+    Call<MenuDetailResponseInfo> MyImageGet(@Part("myNum") int myNum); //myImage 데이터 받기
+
+    @Multipart
+    @POST("LoginApi.php?apicall=get")
+    Call<LoginResponseInfo> LoginPut(@Part("userID") RequestBody userID, @Part("userPassword") RequestBody userPassword); //로그인 데이터 검색
+
 }

@@ -27,4 +27,10 @@
         android:textSize="40sp"
         tools:layout_editor_absoluteX="61dp"
         tools:layout_editor_absoluteY="81dp" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="로그아웃" />
 </LinearLayout>
