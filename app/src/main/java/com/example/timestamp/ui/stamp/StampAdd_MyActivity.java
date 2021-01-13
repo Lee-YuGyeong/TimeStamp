@@ -1,4 +1,4 @@
-package com.example.timestamp.ui.myStamp;
+package com.example.timestamp.ui.stamp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +19,9 @@ import android.widget.ImageView;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
-import com.example.timestamp.MyResponse;
 import com.example.timestamp.R;
 import com.example.timestamp.StampTitleImageActivity;
+import com.example.timestamp.SuccessResponseInfo;
 
 import java.io.File;
 
@@ -33,16 +32,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MyStampAddActivity extends AppCompatActivity {
+public class StampAdd_MyActivity extends AppCompatActivity {
 
     ImageView imageView;
     EditText editText;
     int resId;
     String title;
 
+
     String userID;
 
-    Bitmap selectedBitmap = null;
     Uri selectedImage;
 
     Toolbar toolbar;
@@ -50,7 +49,7 @@ public class MyStampAddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_stamp_add);
+        setContentView(R.layout.activity_stamp_add_my);
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -99,7 +98,7 @@ public class MyStampAddActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 title = editText.getText().toString();
-                uploadMenu(selectedImage, userID, title);
+                uploadMenu(selectedImage, userID, title, 0);
 
             }
         });
@@ -112,7 +111,7 @@ public class MyStampAddActivity extends AppCompatActivity {
         return true;
     }
 
-    public void uploadMenu(Uri fileUri, String userID, String drawerTitle) {
+    public void uploadMenu(Uri fileUri, String userID, String drawerTitle, int share) {
 
 
         File file = new File(getRealPathFromURI(fileUri)); //절대경로로 바꾸기
@@ -123,14 +122,12 @@ public class MyStampAddActivity extends AppCompatActivity {
 
 
         Api Api = APIClient.getClient().create(Api.class);
-        Call<MyResponse> call = Api.MyMenuUpload(requestFile, userIDBody, drawerTitleBody);
+        Call<SuccessResponseInfo> call = Api.MenuUpload(requestFile, userIDBody, drawerTitleBody, share);
         //finally performing the call
-        call.enqueue(new Callback<MyResponse>() {
+        call.enqueue(new Callback<SuccessResponseInfo>() {
             @Override
-            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                if (!response.body().isError()) {
-                    MyResponse myResponse = response.body();
-
+            public void onResponse(Call<SuccessResponseInfo> call, Response<SuccessResponseInfo> response) {
+                if (response.isSuccessful()) {
                     finish();
                 } else {
 
@@ -138,7 +135,7 @@ public class MyStampAddActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<MyResponse> call, Throwable t) {
+            public void onFailure(Call<SuccessResponseInfo> call, Throwable t) {
 
             }
         });

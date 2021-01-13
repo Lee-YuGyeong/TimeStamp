@@ -1,4 +1,4 @@
-package com.example.timestamp.login;
+package com.example.timestamp;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

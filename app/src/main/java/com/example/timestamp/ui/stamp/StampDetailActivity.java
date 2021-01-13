@@ -1,4 +1,4 @@
-package com.example.timestamp.ui.myStamp;
+package com.example.timestamp.ui.stamp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,9 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyStampDetailActivity extends AppCompatActivity {
+public class StampDetailActivity extends AppCompatActivity {
 
     StampDetailAdapter adapter;
 
@@ -141,7 +139,7 @@ public class MyStampDetailActivity extends AppCompatActivity {
                     if (adapter.isEmpty() && menuDetailInfoList.size() != 0) {
 
                         for (int i = 0; i < menuDetailInfoList.size(); i++) {
-                            adapter.addItem(new MyStampDetailGridItem(menuDetailInfoList.get(i).getImage()));
+                            adapter.addItem(new StampDetailGridItem(menuDetailInfoList.get(i).getImage()));
                         }
                         adapter.notifyDataSetChanged();
 
@@ -277,14 +275,14 @@ public class MyStampDetailActivity extends AppCompatActivity {
 
     class StampDetailAdapter extends BaseAdapter {
 
-        ArrayList<MyStampDetailGridItem> items = new ArrayList<MyStampDetailGridItem>();
+        ArrayList<StampDetailGridItem> items = new ArrayList<StampDetailGridItem>();
 
         @Override
         public int getCount() {
             return items.size();
         }
 
-        public void addItem(MyStampDetailGridItem item) {
+        public void addItem(StampDetailGridItem item) {
             items.add(item);
         }
 
@@ -300,14 +298,14 @@ public class MyStampDetailActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            MyStampDetailGridItemView view = null;
+            StampDetailGridItemView view = null;
             if (convertView == null) {
-                view = new MyStampDetailGridItemView(getApplicationContext());
+                view = new StampDetailGridItemView(getApplicationContext());
             } else {
-                view = (MyStampDetailGridItemView) convertView;
+                view = (StampDetailGridItemView) convertView;
             }
 
-            MyStampDetailGridItem item = items.get(position);
+            StampDetailGridItem item = items.get(position);
 
             view.setImage(item.getImage());
 

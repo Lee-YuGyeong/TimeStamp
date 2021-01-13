@@ -2,21 +2,15 @@ package com.example.timestamp;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.timestamp.login.LoginActivity;
 import com.example.timestamp.ui.home.HomeFragment;
-import com.example.timestamp.ui.myStamp.MyStampFragment;
+import com.example.timestamp.ui.stamp.StampFragment;
 import com.example.timestamp.ui.ourStamp.OurStampFragment;
 import com.example.timestamp.ui.setting.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,11 +21,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
      private FragmentManager fragmentManager = getSupportFragmentManager();
     private HomeFragment homeFragment = new HomeFragment();
-    private MyStampFragment myStampFragment = new MyStampFragment();
+    private StampFragment stampFragment = new StampFragment();
     private OurStampFragment ourStampFragment = new OurStampFragment();
     private SettingFragment settingFragment = new SettingFragment();
 
@@ -63,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.nav_host_fragment, homeFragment).commitAllowingStateLoss();
                         break;
                     case R.id.navigation_myStamp:
-                        transaction.replace(R.id.nav_host_fragment, myStampFragment).commitAllowingStateLoss();
+                        transaction.replace(R.id.nav_host_fragment, stampFragment).commitAllowingStateLoss();
                         break;
                     case R.id.navigation_ourStamp:
                         transaction.replace(R.id.nav_host_fragment, ourStampFragment).commitAllowingStateLoss();

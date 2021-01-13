@@ -1,13 +1,10 @@
-package com.example.timestamp.ui.myStamp;
+package com.example.timestamp.ui.stamp;
 
-import android.graphics.Bitmap;
-import android.widget.TextView;
-
-public class MyStampDetailGridItem {
+public class StampDetailGridItem {
 
     String image;
 
-    public MyStampDetailGridItem(String image) {
+    public StampDetailGridItem(String image) {
         this.image = image;
     }
 

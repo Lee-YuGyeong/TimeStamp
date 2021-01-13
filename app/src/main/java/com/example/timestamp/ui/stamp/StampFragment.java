@@ -1,4 +1,4 @@
-package com.example.timestamp.ui.myStamp;
+package com.example.timestamp.ui.stamp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,9 +21,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
-import com.example.timestamp.MyMenuInfo;
+import com.example.timestamp.MenuInfo;
+import com.example.timestamp.MenuResponseInfo;
 import com.example.timestamp.R;
-import com.example.timestamp.ResponseInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyStampFragment extends Fragment {
+public class StampFragment extends Fragment {
 
     GridView gridView;
     StampMenuAdapter adapter;
@@ -66,7 +64,7 @@ public class MyStampFragment extends Fragment {
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent intent = new Intent(getContext(), MyStampDetailActivity.class);
+                Intent intent = new Intent(getContext(), StampDetailActivity.class);
                 intent.putExtra("title", adapter.items.get(position).getTitle());
                 intent.putExtra("myNum", adapter.items.get(position).getNum());
                 startActivity(intent);
@@ -94,7 +92,7 @@ public class MyStampFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.plusButton:
-                Intent intent = new Intent(getContext(), MyStampAddActivity.class);
+                Intent intent = new Intent(getContext(), StampAdd_MyActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -109,27 +107,29 @@ public class MyStampFragment extends Fragment {
 
     }
 
+
     private void getMenuList() {
         RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
 
         Api Api = APIClient.getClient().create(Api.class);
-        Call<ResponseInfo> call = Api.MyMenuGet(userIDBody);
+        Call<MenuResponseInfo> call = Api.MenuGet(userIDBody);
 
         //finally performing the call
-        call.enqueue(new Callback<ResponseInfo>() {
+        call.enqueue(new Callback<MenuResponseInfo>() {
             @Override
-            public void onResponse(Call<ResponseInfo> call, Response<ResponseInfo> response) {
+            public void onResponse(Call<MenuResponseInfo> call, Response<MenuResponseInfo> response) {
 
                 if (response.isSuccessful()) {
-                    ResponseInfo myResponseList = response.body();
-                    List<MyMenuInfo> myMenuInfoList = new ArrayList<MyMenuInfo>(myResponseList.getMyMenuInfoList());
+
+                    MenuResponseInfo menuResponseInfo = response.body();
+                    List<MenuInfo> menuInfoList = new ArrayList<MenuInfo>(menuResponseInfo.getMenuInfoList());
 
                     adapter.items.clear();
 
-                    if (adapter.isEmpty() && myMenuInfoList.size() != 0) {
+                    if (adapter.isEmpty() && menuInfoList.size() != 0) {
 
-                        for (int i = 0; i < myMenuInfoList.size(); i++) {
-                            adapter.addItem(new MyStampMenuGridItem(myMenuInfoList.get(i).getMyTitleImage(), myMenuInfoList.get(i).getMyTitle(), myMenuInfoList.get(i).getMyNum()));
+                        for (int i = 0; i < menuInfoList.size(); i++) {
+                            adapter.addItem(new StampMenuGridItem(menuInfoList.get(i).getTitleImage(), menuInfoList.get(i).getTitle(), menuInfoList.get(i).getNum(), menuInfoList.get(i).getShare()));
                         }
 
                     }
@@ -142,7 +142,7 @@ public class MyStampFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponseInfo> call, Throwable t) {
+            public void onFailure(Call<MenuResponseInfo> call, Throwable t) {
 
             }
         });
@@ -166,14 +166,14 @@ public class MyStampFragment extends Fragment {
 
 
     class StampMenuAdapter extends BaseAdapter {
-        ArrayList<MyStampMenuGridItem> items = new ArrayList<MyStampMenuGridItem>();
+        ArrayList<StampMenuGridItem> items = new ArrayList<StampMenuGridItem>();
 
         @Override
         public int getCount() {
             return items.size();
         }
 
-        public void addItem(MyStampMenuGridItem item) {
+        public void addItem(StampMenuGridItem item) {
             items.add(item);
         }
 
@@ -189,14 +189,14 @@ public class MyStampFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            MyStampMenuGridItemView view = null;
+            StampMenuGridItemView view = null;
             if (convertView == null) {
-                view = new MyStampMenuGridItemView(getContext());
+                view = new StampMenuGridItemView(getContext());
             } else {
-                view = (MyStampMenuGridItemView) convertView;
+                view = (StampMenuGridItemView) convertView;
             }
 
-            MyStampMenuGridItem item = items.get(position);
+            StampMenuGridItem item = items.get(position);
             view.setTitle(item.getTitle());
             view.setImage(item.getImage());
 

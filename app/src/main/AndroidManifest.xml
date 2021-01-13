@@ -25,8 +25,8 @@
             android:theme="@style/AppTheme_black"/>
         <activity android:name=".ImageEditActivity" />
         <activity android:name=".StampTitleImageActivity" />
-        <activity android:name=".ui.myStamp.MyStampAddActivity" />
-        <activity android:name=".ui.myStamp.MyStampDetailActivity" />
+        <activity android:name=".ui.stamp.StampAdd_MyActivity" />
+        <activity android:name=".ui.stamp.StampDetailActivity" />
         <activity
             android:name=".login.LoginActivity"
             android:noHistory="true">

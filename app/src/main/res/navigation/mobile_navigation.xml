@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_myStamp"
-        android:name="com.example.timestamp.ui.myStamp.MyStampFragment"
+        android:name="com.example.timestamp.ui.stamp.StampFragment"
         android:label="@string/title_myStamp"
         tools:layout="@layout/fragment_my_stamp" />
 

@@ -1,8 +1,8 @@
 package com.example.timestamp.API;
 import com.example.timestamp.MenuDetailResponseInfo;
+import com.example.timestamp.MenuResponseInfo;
 import com.example.timestamp.MyResponse;
-import com.example.timestamp.ResponseInfo;
-import com.example.timestamp.login.SuccessResponseInfo;
+import com.example.timestamp.SuccessResponseInfo;
 import com.example.timestamp.login.LoginResponseInfo;
 
 import okhttp3.RequestBody;
@@ -29,13 +29,17 @@ public interface Api {
     @POST("NameValidate.php")
     Call<SuccessResponseInfo> Register(@Part("userID") RequestBody userID,@Part("userPassword") RequestBody userPassword,@Part("userName") RequestBody userName); //회원가입 데이터 삽입
 
-    @Multipart
-    @POST("MyMenuApi.php?apicall=upload")
-    Call<MyResponse> MyMenuUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("drawerName") RequestBody drawerName); //myMenu 데이터 업로드
+//    @Multipart
+//    @POST("MyMenuApi.php?apicall=upload")
+//    Call<MyResponse> MyMenuUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("drawerName") RequestBody drawerName); //myMenu 데이터 업로드
 
     @Multipart
-    @POST("MyMenuApi.php?apicall=getinfo")
-    Call<ResponseInfo> MyMenuGet(@Part("userID") RequestBody userID); //myMenu 데이터 받기
+    @POST("MenuUpload.php")
+    Call<SuccessResponseInfo> MenuUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("title") RequestBody title, @Part("share") int share); //Menu 데이터 업로드
+
+    @Multipart
+    @POST("MenuApi.php?apicall=getinfo")
+    Call<MenuResponseInfo> MenuGet(@Part("userID") RequestBody userID); //Menu 데이터 받기
 
     @Multipart
     @POST("MyImageApi.php?apicall=upload")
