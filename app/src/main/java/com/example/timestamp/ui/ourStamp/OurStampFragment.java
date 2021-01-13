@@ -30,29 +30,5 @@ public class OurStampFragment extends Fragment {
         return root;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        // destroy all menu and re-call onCreateOptionsMenu
-//        getActivity().invalidateOptionsMenu();
-//    }
-//
-//
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.my_stamp_toolbar_menu, menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch(item.getItemId()) {
-//            case R.id.search_icon :
-//                String message = "menu_two is selected";
-//                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
 }

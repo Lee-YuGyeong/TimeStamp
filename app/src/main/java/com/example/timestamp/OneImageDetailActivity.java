@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
@@ -46,7 +45,7 @@ public class OneImageDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my_stamp_one_image_toolbar_menu, menu);
+        getMenuInflater().inflate(R.menu.stamp_one_image_toolbar_menu, menu);
         return true;
     }
 

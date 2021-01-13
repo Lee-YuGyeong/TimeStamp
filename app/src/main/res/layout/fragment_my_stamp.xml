@@ -12,13 +12,26 @@
         android:background="#FFFFFF"
         android:elevation="10dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <GridView
-        android:id="@+id/gridView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2"/>
+        android:layout_height="match_parent">
+
+
+
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:numColumns="2" />
+        <FrameLayout
+            android:id="@+id/add_container"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+    </RelativeLayout>
 
 </LinearLayout>

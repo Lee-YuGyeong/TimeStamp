@@ -22,7 +22,7 @@ public class EditTimeFragment extends Fragment {
     TimeFontButtonFragment timeFontButtonFragment;
 
     public FragmentManager fragmentManager;
-    ;
+
 
     @Nullable
     @Override

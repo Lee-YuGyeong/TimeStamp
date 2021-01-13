@@ -98,7 +98,7 @@ public class StampAdd_ShareActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 title = editText.getText().toString();
-                uploadMenu(selectedImage, userID, title, 0);
+                uploadMenu(selectedImage, userID, title, 1);
 
             }
         });

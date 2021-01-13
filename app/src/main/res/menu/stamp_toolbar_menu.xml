@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.dd.tyt.MainActivity"
+    android:id="@+id/my_stamp_toolbar_menu">
+
+    <item
+        android:id="@+id/plusButton"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="추가버튼"
+        app:showAsAction="ifRoom" />
+    // 툴바에 아이콘이 보이게 설정
+
+
+
+</menu>

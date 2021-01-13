@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
@@ -40,8 +41,10 @@ public class StampFragment extends Fragment {
     StampMenuAdapter adapter;
 
     String userID;
-    int myNum;
 
+    AddSelectFragment addSelectFragment;
+    public FragmentManager fragmentManager;
+    int click = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class StampFragment extends Fragment {
         getUserInfo();
         getMenuList();
 
+        click = 0;
 
         gridView = (GridView) root.findViewById(R.id.gridView);
 
@@ -85,15 +89,27 @@ public class StampFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.my_stamp_toolbar_menu, menu);
+        inflater.inflate(R.menu.stamp_toolbar_menu, menu);
     } //toolbar
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.plusButton:
-                Intent intent = new Intent(getContext(), StampAdd_MyActivity.class);
-                startActivity(intent);
+                if (click == 0) {
+
+                    fragmentManager = getActivity().getSupportFragmentManager();
+
+                    addSelectFragment = new AddSelectFragment();
+                    fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_down, R.anim.slide_up, R.anim.slide_down, R.anim.slide_up).add(R.id.add_container, addSelectFragment).commit();
+
+                    click = 1;
+                } else {
+
+                    fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_down, R.anim.slide_up, R.anim.slide_down, R.anim.slide_up).hide(addSelectFragment).commit();
+
+                    click = 0;
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

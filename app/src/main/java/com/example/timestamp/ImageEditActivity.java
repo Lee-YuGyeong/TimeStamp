@@ -114,7 +114,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my_stamp_edit_toolbar_menu, menu);
+        getMenuInflater().inflate(R.menu.stamp_edit_toolbar_menu, menu);
         return true;
     }
 
