@@ -1,7 +1,7 @@
 package com.example.timestamp.API;
-import com.example.timestamp.MenuDetailResponseInfo;
+import com.example.timestamp.ErrorResponseInfo;
+import com.example.timestamp.ImageDetailResponseInfo;
 import com.example.timestamp.MenuResponseInfo;
-import com.example.timestamp.MyResponse;
 import com.example.timestamp.SuccessResponseInfo;
 import com.example.timestamp.login.LoginResponseInfo;
 
@@ -29,10 +29,6 @@ public interface Api {
     @POST("NameValidate.php")
     Call<SuccessResponseInfo> Register(@Part("userID") RequestBody userID,@Part("userPassword") RequestBody userPassword,@Part("userName") RequestBody userName); //회원가입 데이터 삽입
 
-//    @Multipart
-//    @POST("MyMenuApi.php?apicall=upload")
-//    Call<MyResponse> MyMenuUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("drawerName") RequestBody drawerName); //myMenu 데이터 업로드
-
     @Multipart
     @POST("MenuUpload.php")
     Call<SuccessResponseInfo> MenuUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("title") RequestBody title, @Part("share") int share); //Menu 데이터 업로드
@@ -42,12 +38,12 @@ public interface Api {
     Call<MenuResponseInfo> MenuGet(@Part("userID") RequestBody userID); //Menu 데이터 받기
 
     @Multipart
-    @POST("MyImageApi.php?apicall=upload")
-    Call<MyResponse> MyImageUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("myNum") int myNum); //myImage 데이터 업로드
+    @POST("ImageApi.php?apicall=upload")
+    Call<ErrorResponseInfo> ImageUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("num") int num, @Part("userID") RequestBody userID); //myImage 데이터 업로드
 
     @Multipart
-    @POST("MyImageApi.php?apicall=getinfo")
-    Call<MenuDetailResponseInfo> MyImageGet(@Part("myNum") int myNum); //myImage 데이터 받기
+    @POST("ImageApi.php?apicall=get")
+    Call<ImageDetailResponseInfo> ImageGet(@Part("num") int num); //myImage 데이터 받기
 
 
 

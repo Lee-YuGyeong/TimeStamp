@@ -16,6 +16,7 @@ public class StampMenuGridItemView extends LinearLayout {
 
     ImageView imageView;
     TextView textView;
+    ImageView people;
 
     public StampMenuGridItemView(Context context) {
         super(context);
@@ -33,6 +34,7 @@ public class StampMenuGridItemView extends LinearLayout {
 
         imageView = (ImageView) findViewById(R.id.imageView);
         textView = (TextView) findViewById(R.id.textView);
+        people = (ImageView) findViewById(R.id.imageView_people);
     }
 
     public void setTitle(String title) {
@@ -41,6 +43,14 @@ public class StampMenuGridItemView extends LinearLayout {
 
     public void setImage(String image) {
         Glide.with(getContext().getApplicationContext()).load(image).into(imageView);
+    }
+
+    public void setPeople(int share) {
+        if(share == 0){
+            people.setVisibility(INVISIBLE);
+        }else{
+            people.setVisibility(VISIBLE);
+        }
     }
 
 }

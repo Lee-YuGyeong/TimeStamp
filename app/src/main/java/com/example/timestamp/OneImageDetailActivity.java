@@ -3,6 +3,7 @@ package com.example.timestamp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,8 +23,13 @@ public class OneImageDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_image_detail);
 
+        url = getIntent().getStringExtra("url");
+        String userID = getIntent().getStringExtra("userID");
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(userID);
+        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -34,7 +40,7 @@ public class OneImageDetailActivity extends AppCompatActivity {
         });
 
 
-        url = getIntent().getStringExtra("url");
+
 
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
 

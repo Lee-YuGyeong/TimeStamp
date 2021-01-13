@@ -25,6 +25,8 @@ import androidx.core.content.FileProvider;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
+import com.example.timestamp.ImageDetailInfo;
+import com.example.timestamp.ImageDetailResponseInfo;
 import com.example.timestamp.ImageEditActivity;
 import com.example.timestamp.MenuDetailInfo;
 import com.example.timestamp.MenuDetailResponseInfo;
@@ -51,7 +53,7 @@ public class StampDetailActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
 
     String title;
-    int myNum;
+    int num;
 
     Toolbar toolbar;
 
@@ -68,7 +70,7 @@ public class StampDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_stamp_detail);
 
         title = getIntent().getStringExtra("title");
-        myNum = getIntent().getIntExtra("myNum", 0);
+        num = getIntent().getIntExtra("myNum", 0);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,6 +95,7 @@ public class StampDetailActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), OneImageDetailActivity.class);
                 intent.putExtra("url", adapter.items.get(position).getImage());
+                intent.putExtra("userID",adapter.items.get(position).getUserID());
                 startActivity(intent);
             }
         });// 메뉴 그리드뷰
@@ -121,25 +124,25 @@ public class StampDetailActivity extends AppCompatActivity {
     private void getMenuDetailList() {
 
         Api Api = APIClient.getClient().create(Api.class);
-        Call<MenuDetailResponseInfo> call = Api.MyImageGet(myNum);
+        Call<ImageDetailResponseInfo> call = Api.ImageGet(num);
 
         //finally performing the call
-        call.enqueue(new Callback<MenuDetailResponseInfo>() {
+        call.enqueue(new Callback<ImageDetailResponseInfo>() {
             @Override
-            public void onResponse(Call<MenuDetailResponseInfo> call, Response<MenuDetailResponseInfo> response) {
+            public void onResponse(Call<ImageDetailResponseInfo> call, Response<ImageDetailResponseInfo> response) {
 
                 if (response.isSuccessful()) {
 
-                    MenuDetailResponseInfo menuDetailResponseInfo = response.body();
-                    List<MenuDetailInfo> menuDetailInfoList = new ArrayList<MenuDetailInfo>(menuDetailResponseInfo.getMenuDetailInfoList());
+                    ImageDetailResponseInfo imageDetailResponseInfo = response.body();
+                    List<ImageDetailInfo> imageDetailInfoList = new ArrayList<ImageDetailInfo>(imageDetailResponseInfo.getImageDetailInfoList());
 
                     adapter.items.clear();
 
 
-                    if (adapter.isEmpty() && menuDetailInfoList.size() != 0) {
+                    if (adapter.isEmpty() && imageDetailInfoList.size() != 0) {
 
-                        for (int i = 0; i < menuDetailInfoList.size(); i++) {
-                            adapter.addItem(new StampDetailGridItem(menuDetailInfoList.get(i).getImage()));
+                        for (int i = 0; i < imageDetailInfoList.size(); i++) {
+                            adapter.addItem(new StampDetailGridItem(imageDetailInfoList.get(i).getImage(),imageDetailInfoList.get(i).getUserID()));
                         }
                         adapter.notifyDataSetChanged();
 
@@ -153,7 +156,7 @@ public class StampDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<MenuDetailResponseInfo> call, Throwable t) {
+            public void onFailure(Call<ImageDetailResponseInfo> call, Throwable t) {
 
             }
         });
@@ -208,7 +211,7 @@ public class StampDetailActivity extends AppCompatActivity {
                             byte[] byteArray = stream.toByteArray();
                             intent1.putExtra("bitmap", byteArray);
                             intent1.putExtra("drawerName", title);
-                            intent1.putExtra("myNum", myNum);
+                            intent1.putExtra("myNum", num);
 
                             Log.d("아아", "1");
                             startActivity(intent1);

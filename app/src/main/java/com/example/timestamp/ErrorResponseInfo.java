@@ -3,7 +3,7 @@ package com.example.timestamp;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MyResponse {
+public class ErrorResponseInfo {
 
 
     @SerializedName("error")
@@ -15,7 +15,7 @@ public class MyResponse {
     @Expose
     String message;
 
-    public MyResponse(boolean error, String message) {
+    public ErrorResponseInfo(boolean error, String message) {
         this.error = error;
         this.message = message;
     }

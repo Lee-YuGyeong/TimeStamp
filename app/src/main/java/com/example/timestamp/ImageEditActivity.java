@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -50,7 +52,6 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     Bitmap bitmap;
     ImageView imageView;
-
     LinearLayout container;
 
     EditTimeFragment editTimeFragment;
@@ -61,7 +62,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     ImageView imageView_border1;
 
     String drawerName;
-    int myNum;
+    int num;
 
     SpinKitView spinKitView;
 
@@ -95,7 +96,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         imageView.setImageBitmap(bitmap); //카메라 비트맵 이미지 받아오기
 
         drawerName = getIntent().getStringExtra("drawerName");
-        myNum = getIntent().getIntExtra("myNum", 0);
+        num = getIntent().getIntExtra("myNum", 0);
 
         long now = System.currentTimeMillis();
         mDate = new Date(now); //현재시간 구하기
@@ -141,7 +142,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             e.printStackTrace();
         }
         try {
-            uploadFile(imageFile, myNum);
+            uploadFile(imageFile, num);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -163,19 +164,23 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
         return strDate + ".png";
     }
 
-    public void uploadFile(File file, int myNum) throws URISyntaxException {
+    public void uploadFile(File file, int num) throws URISyntaxException {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE);
+        String userID = sharedPreferences.getString("userID", "null");
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody userIDBody = RequestBody.create(MediaType.parse("multipart/form-data"), userID);
 
         Api Api = APIClient.getClient().create(Api.class);
-        Call<MyResponse> call = Api.MyImageUpload(requestFile, myNum);
+        Call<ErrorResponseInfo> call = Api.ImageUpload(requestFile, num, userIDBody);
 
         //finally performing the call
-        call.enqueue(new Callback<MyResponse>() {
+        call.enqueue(new Callback<ErrorResponseInfo>() {
             @Override
-            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+            public void onResponse(Call<ErrorResponseInfo> call, Response<ErrorResponseInfo> response) {
                 if (!response.body().isError()) {
-                    MyResponse myResponse = response.body();
+                    ErrorResponseInfo errorResponseInfo = response.body();
                     spinKitView.setVisibility(View.INVISIBLE);
                     finish();
 
@@ -184,7 +189,7 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
             }
 
             @Override
-            public void onFailure(Call<MyResponse> call, Throwable t) {
+            public void onFailure(Call<ErrorResponseInfo> call, Throwable t) {
 
             }
         });

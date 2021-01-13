@@ -198,6 +198,7 @@ public class StampFragment extends Fragment {
             StampMenuGridItem item = items.get(position);
             view.setTitle(item.getTitle());
             view.setImage(item.getImage());
+            view.setPeople(item.getShare());
 
 
             return view;
