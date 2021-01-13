@@ -42,7 +42,7 @@ public class StampFragment extends Fragment {
 
     String userID;
 
-    AddSelectFragment addSelectFragment;
+    AddSelectActivity addSelectFragment;
     public FragmentManager fragmentManager;
     int click = 0;
 
@@ -100,7 +100,7 @@ public class StampFragment extends Fragment {
 
                     fragmentManager = getActivity().getSupportFragmentManager();
 
-                    addSelectFragment = new AddSelectFragment();
+                    addSelectFragment = new AddSelectActivity();
                     fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_down, R.anim.slide_up, R.anim.slide_down, R.anim.slide_up).add(R.id.add_container, addSelectFragment).commit();
 
                     click = 1;
