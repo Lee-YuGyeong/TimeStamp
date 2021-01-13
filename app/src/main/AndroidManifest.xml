@@ -27,6 +27,8 @@
         <activity android:name=".StampTitleImageActivity" />
         <activity android:name=".ui.stamp.StampAdd_MyActivity" />
         <activity android:name=".ui.stamp.StampAdd_ShareActivity" />
+        <activity android:name=".ui.stamp.AddSelectActivity"
+            android:theme="@style/Theme.Transparent"/>
         <activity android:name=".ui.stamp.StampDetailActivity" />
         <activity
             android:name=".login.LoginActivity"

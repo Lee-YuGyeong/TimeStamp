@@ -42,9 +42,6 @@ public class StampFragment extends Fragment {
 
     String userID;
 
-    AddSelectActivity addSelectFragment;
-    public FragmentManager fragmentManager;
-    int click = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,8 +54,6 @@ public class StampFragment extends Fragment {
 
         getUserInfo();
         getMenuList();
-
-        click = 0;
 
         gridView = (GridView) root.findViewById(R.id.gridView);
 
@@ -96,20 +91,8 @@ public class StampFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.plusButton:
-                if (click == 0) {
-
-                    fragmentManager = getActivity().getSupportFragmentManager();
-
-                    addSelectFragment = new AddSelectActivity();
-                    fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_down, R.anim.slide_up, R.anim.slide_down, R.anim.slide_up).add(R.id.add_container, addSelectFragment).commit();
-
-                    click = 1;
-                } else {
-
-                    fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_down, R.anim.slide_up, R.anim.slide_down, R.anim.slide_up).hide(addSelectFragment).commit();
-
-                    click = 0;
-                }
+                Intent intent = new Intent(getContext(),AddSelectActivity.class);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

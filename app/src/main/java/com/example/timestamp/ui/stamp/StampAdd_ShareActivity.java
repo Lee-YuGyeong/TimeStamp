@@ -128,6 +128,7 @@ public class StampAdd_ShareActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SuccessResponseInfo> call, Response<SuccessResponseInfo> response) {
                 if (response.isSuccessful()) {
+                    setResult(RESULT_OK);
                     finish();
                 } else {
 
