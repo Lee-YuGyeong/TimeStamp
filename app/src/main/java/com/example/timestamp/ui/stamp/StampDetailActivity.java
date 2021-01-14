@@ -204,7 +204,6 @@ public class StampDetailActivity extends AppCompatActivity {
                                     rotatedBitmap = imageBitmap;
                             }
 
-                            Log.d("아아", "1222");
                             Intent intent1 = new Intent(getApplicationContext(), ImageEditActivity.class);
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -213,7 +212,6 @@ public class StampDetailActivity extends AppCompatActivity {
                             intent1.putExtra("drawerName", title);
                             intent1.putExtra("myNum", num);
 
-                            Log.d("아아", "1");
                             startActivity(intent1);
 
 

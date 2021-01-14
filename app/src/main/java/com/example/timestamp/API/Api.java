@@ -2,6 +2,7 @@ package com.example.timestamp.API;
 import com.example.timestamp.ErrorResponseInfo;
 import com.example.timestamp.ImageDetailResponseInfo;
 import com.example.timestamp.MenuResponseInfo;
+import com.example.timestamp.ShareRecyclerViewResponseInfo;
 import com.example.timestamp.SuccessResponseInfo;
 import com.example.timestamp.login.LoginResponseInfo;
 
@@ -45,6 +46,8 @@ public interface Api {
     @POST("ImageApi.php?apicall=get")
     Call<ImageDetailResponseInfo> ImageGet(@Part("num") int num); //myImage 데이터 받기
 
-
+    @Multipart
+    @POST("ShareRecyclerViewApi.php?apicall=get")
+    Call<ShareRecyclerViewResponseInfo> ShareGet(@Part("num") int num); //ShareRecyclerView 데이터 받기
 
 }

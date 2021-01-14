@@ -21,14 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".OneImageDetailActivity"
-            android:theme="@style/AppTheme_black"/>
+        <activity android:name=".ShareSearchActivity"></activity>
+        <activity
+            android:name=".OneImageDetailActivity"
+            android:theme="@style/AppTheme_black" />
         <activity android:name=".ImageEditActivity" />
         <activity android:name=".StampTitleImageActivity" />
         <activity android:name=".ui.stamp.StampAdd_MyActivity" />
         <activity android:name=".ui.stamp.StampAdd_ShareActivity" />
-        <activity android:name=".ui.stamp.AddSelectActivity"
-            android:theme="@style/Theme.Transparent"/>
+        <activity
+            android:name=".ui.stamp.AddSelectActivity"
+            android:theme="@style/Theme.Transparent" />
         <activity android:name=".ui.stamp.StampDetailActivity" />
         <activity
             android:name=".login.LoginActivity"

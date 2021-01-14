@@ -143,6 +143,8 @@ public class StampAdd_ShareActivity extends AppCompatActivity {
 
     }
 
+
+
     private String getRealPathFromURI(Uri contentURI) {
 
         String result;
