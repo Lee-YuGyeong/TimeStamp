@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +24,8 @@ import com.example.timestamp.ui.stamp.StampDetailGridItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,11 +59,7 @@ public class ShareSearchActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, 1));
-//        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(48));
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getApplicationContext(),
-//                LinearLayoutManager.VERTICAL);
-//        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_line));
-//        recyclerView.addItemDecoration(dividerItemDecoration);
+
         shareRecyclerAdapter = new ShareRecyclerAdapter(getApplicationContext());
 
         getShareRecyclerView();
@@ -69,9 +69,13 @@ public class ShareSearchActivity extends AppCompatActivity {
         shareRecyclerAdapter.setOnItemClickListener(new ShareRecyclerAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(ShareRecyclerAdapter.ViewHolder holder, View view, int position) {
-                ShareItem item = shareRecyclerAdapter.getItem(position);
 
-                Toast.makeText(getApplicationContext(), "아이템 선택됨 : " + item.getTitle(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),ShareViewClickActivity.class);
+                intent.putExtra("title",shareRecyclerAdapter.getItem(position).getTitle());
+                intent.putExtra("people",shareRecyclerAdapter.getItem(position).getPeople());
+                intent.putExtra("titleImage",shareRecyclerAdapter.getItem(position).getTitleImage());
+                intent.putExtra("num",shareRecyclerAdapter.getItem(position).getNum());
+                startActivity(intent);
             }
         });
 
@@ -99,8 +103,13 @@ public class ShareSearchActivity extends AppCompatActivity {
 
     private void getShareRecyclerView() {
 
+        SharedPreferences sharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE);
+        String userID = sharedPreferences.getString("userID", "null");
+
+        RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+
         Api Api = APIClient.getClient().create(Api.class);
-        Call<ShareRecyclerViewResponseInfo> call = Api.ShareGet(1);
+        Call<ShareRecyclerViewResponseInfo> call = Api.ShareGet(userIDBody);
 
         //finally performing the call
         call.enqueue(new Callback<ShareRecyclerViewResponseInfo>() {
@@ -117,7 +126,7 @@ public class ShareSearchActivity extends AppCompatActivity {
                     if (shareRecyclerViewInfoList.size() != 0) {
 
                         for (int i = 0; i < shareRecyclerViewInfoList.size(); i++) {
-                            shareRecyclerAdapter.addItem(new ShareItem(shareRecyclerViewInfoList.get(i).getTitle(), shareRecyclerViewInfoList.get(i).getTitleImage(), shareRecyclerViewInfoList.get(i).getPeople()));
+                            shareRecyclerAdapter.addItem(new ShareItem(shareRecyclerViewInfoList.get(i).getNum(),shareRecyclerViewInfoList.get(i).getTitle(), shareRecyclerViewInfoList.get(i).getTitleImage(), shareRecyclerViewInfoList.get(i).getPeople()));
                         }
 
                         shareRecyclerAdapter.notifyDataSetChanged();

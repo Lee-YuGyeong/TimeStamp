@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ShareRecyclerViewInfo {
 
-
+    @SerializedName("num")
+    @Expose
+    private int num;
     @SerializedName("title")
     @Expose
     private String title;
@@ -15,6 +17,14 @@ public class ShareRecyclerViewInfo {
     @SerializedName("people")
     @Expose
     private int people;
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
 
     public String getTitle() {
         return title;

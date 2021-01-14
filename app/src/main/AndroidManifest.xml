@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ShareSearchActivity"></activity>
+        <activity android:name=".ShareViewClickActivity"></activity>
+        <activity android:name=".ShareSearchActivity" />
         <activity
             android:name=".OneImageDetailActivity"
             android:theme="@style/AppTheme_black" />
