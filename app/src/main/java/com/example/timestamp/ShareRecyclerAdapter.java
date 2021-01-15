@@ -40,7 +40,7 @@ public class ShareRecyclerAdapter extends RecyclerView.Adapter<ShareRecyclerAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.recycler_view_item, parent, false);
+        View itemView = inflater.inflate(R.layout.search_recycler_view_item, parent, false);
 
         return new ViewHolder(itemView);
     }
