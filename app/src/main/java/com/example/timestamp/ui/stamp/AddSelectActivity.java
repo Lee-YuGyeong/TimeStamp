@@ -23,7 +23,7 @@ public class AddSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_select);
 
-        overridePendingTransition(R.anim.slide_down, R.anim.slide_down);
+        overridePendingTransition(R.anim.enter_from_top, R.anim.enter_from_top);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,7 +34,7 @@ public class AddSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                overridePendingTransition(R.anim.slide_up, R.anim.slide_up);
+                overridePendingTransition(R.anim.exit_to_top, R.anim.exit_to_top);
             }
         });
 
@@ -61,7 +61,7 @@ public class AddSelectActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.slide_up, R.anim.slide_up);
+        overridePendingTransition(R.anim.exit_to_top, R.anim.exit_to_top);
     }
 
     @Override

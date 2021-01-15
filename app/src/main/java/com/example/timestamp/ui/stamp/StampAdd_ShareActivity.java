@@ -2,6 +2,7 @@ package com.example.timestamp.ui.stamp;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,6 +96,15 @@ public class StampAdd_ShareActivity extends AppCompatActivity {
 //        });
     }
 
+    public void getTitleData(String Data){
+        Log.d("아아",Data);
+    }
+    public void getImageData(Uri Data){
+        Log.d("아아",Data+"");
+    }
+    public void getTagData(String Data){
+        Log.d("아아",Data);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -115,6 +125,7 @@ public class StampAdd_ShareActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
         fragmentTransaction.replace(R.id.room_container, fragment).addToBackStack(null).commit();
     }//fragment 교체 (room_container)
 

@@ -1,5 +1,6 @@
 package com.example.timestamp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -19,6 +23,7 @@ import com.example.timestamp.ui.stamp.StampAdd_ShareActivity;
 
 public class StampAddMenuTagFragment extends Fragment {
 
+    EditText editText;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -27,6 +32,11 @@ public class StampAddMenuTagFragment extends Fragment {
 
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
+
+        editText = (EditText) root.findViewById(R.id.editText);
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         return root;
     }
@@ -42,7 +52,12 @@ public class StampAddMenuTagFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nextButton:
-                //데이터 전송
+                String Data = editText.getText().toString();
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
+
+                ((StampAdd_ShareActivity) getActivity()).getTagData(Data);
+                //데이터 전송 호출
                 break;
         }
         return super.onOptionsItemSelected(item);
