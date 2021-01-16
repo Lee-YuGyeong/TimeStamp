@@ -17,6 +17,9 @@ public class ShareRecyclerViewInfo {
     @SerializedName("people")
     @Expose
     private int people;
+    @SerializedName("tag")
+    @Expose
+    private String tag;
 
     public int getNum() {
         return num;
@@ -48,5 +51,13 @@ public class ShareRecyclerViewInfo {
 
     public void setPeople(int people) {
         this.people = people;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

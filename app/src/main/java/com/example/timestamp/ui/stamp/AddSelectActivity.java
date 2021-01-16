@@ -2,6 +2,7 @@ package com.example.timestamp.ui.stamp;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +43,11 @@ public class AddSelectActivity extends AppCompatActivity {
         btn_my.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), StampAdd_MyActivity.class);
+                Intent intent = new Intent(getApplicationContext(), StampAddActivity.class);
+                SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("share", 0);
+                editor.commit(); //share 값저장
                 startActivityForResult(intent, 1000);
             }
         });
@@ -52,6 +57,10 @@ public class AddSelectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ShareSearchActivity.class);
+                SharedPreferences sharedPreferences = getSharedPreferences("mine", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("share", 1);
+                editor.commit(); //share 값저장
                 startActivityForResult(intent, 1000);
             }
         });

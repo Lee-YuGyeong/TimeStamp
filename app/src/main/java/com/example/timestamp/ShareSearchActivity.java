@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +17,8 @@ import android.widget.Toast;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
-import com.example.timestamp.ui.stamp.StampAdd_ShareActivity;
-import com.example.timestamp.ui.stamp.StampDetailGridItem;
+import com.example.timestamp.ui.stamp.StampAddActivity;
+import com.example.timestamp.ui.stamp.StampDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +35,15 @@ public class ShareSearchActivity extends AppCompatActivity {
     ShareRecyclerAdapter shareRecyclerAdapter;
 
     Toolbar toolbar;
+
+    ShareItem shareItem;
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getShareRecyclerView();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +78,10 @@ public class ShareSearchActivity extends AppCompatActivity {
             @Override
             public void OnItemClick(ShareRecyclerAdapter.ViewHolder holder, View view, int position) {
 
-                Intent intent = new Intent(getApplicationContext(),ShareViewClickActivity.class);
-                intent.putExtra("title",shareRecyclerAdapter.getItem(position).getTitle());
-                intent.putExtra("people",shareRecyclerAdapter.getItem(position).getPeople());
-                intent.putExtra("titleImage",shareRecyclerAdapter.getItem(position).getTitleImage());
-                intent.putExtra("num",shareRecyclerAdapter.getItem(position).getNum());
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), ShareViewClickActivity.class);
+                shareItem = shareRecyclerAdapter.getItem(position);
+                intent.putExtra("shareItem", shareItem);
+                startActivityForResult(intent, 1001);
             }
         });
 
@@ -93,7 +99,7 @@ public class ShareSearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.plusButton:
-                Intent intent = new Intent(getApplicationContext(), StampAdd_ShareActivity.class);
+                Intent intent = new Intent(getApplicationContext(), StampAddActivity.class);
                 startActivityForResult(intent, 1000);
                 break;
         }
@@ -126,13 +132,12 @@ public class ShareSearchActivity extends AppCompatActivity {
                     if (shareRecyclerViewInfoList.size() != 0) {
 
                         for (int i = 0; i < shareRecyclerViewInfoList.size(); i++) {
-                            shareRecyclerAdapter.addItem(new ShareItem(shareRecyclerViewInfoList.get(i).getNum(),shareRecyclerViewInfoList.get(i).getTitle(), shareRecyclerViewInfoList.get(i).getTitleImage(), shareRecyclerViewInfoList.get(i).getPeople()));
+                            shareRecyclerAdapter.addItem(new ShareItem(shareRecyclerViewInfoList.get(i).getNum(), shareRecyclerViewInfoList.get(i).getTitle(), shareRecyclerViewInfoList.get(i).getTitleImage(), shareRecyclerViewInfoList.get(i).getPeople(), shareRecyclerViewInfoList.get(i).getTag()));
                         }
 
-                        shareRecyclerAdapter.notifyDataSetChanged();
 
                     }
-
+                    shareRecyclerAdapter.notifyDataSetChanged();
 
                 } else { //response 실패
                 }
@@ -155,6 +160,14 @@ public class ShareSearchActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 setResult(RESULT_OK);
                 finish();
+            }
+        } else if (requestCode == 1001) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(getApplicationContext(), "입장완료되었습니다.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), StampDetailActivity.class);
+                intent.putExtra("title", shareItem.getTitle());
+                intent.putExtra("num", shareItem.getNum());
+                startActivity(intent);
             }
         }
     }

@@ -2,7 +2,6 @@ package com.example.timestamp;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,15 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.timestamp.ui.stamp.StampAdd_ShareActivity;
+import com.example.timestamp.ui.stamp.StampAddActivity;
 
 public class StampAddMenuTagFragment extends Fragment {
 
@@ -56,8 +51,9 @@ public class StampAddMenuTagFragment extends Fragment {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
 
-                ((StampAdd_ShareActivity) getActivity()).getTagData(Data);
-                //데이터 전송 호출
+                ((StampAddActivity) getActivity()).getTagData(Data);//데이터 전송 호출
+                ((StampAddActivity) getActivity()).uploadMenu_share();//공유스탬프 데이터 업로드
+
                 break;
         }
         return super.onOptionsItemSelected(item);

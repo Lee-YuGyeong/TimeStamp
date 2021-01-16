@@ -2,7 +2,6 @@ package com.example.timestamp;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,10 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.timestamp.ui.stamp.StampAdd_ShareActivity;
+import com.example.timestamp.ui.stamp.StampAddActivity;
 
 public class StampAddMenuTitleFragment extends Fragment {
 
@@ -35,10 +32,11 @@ public class StampAddMenuTitleFragment extends Fragment {
         editText = (EditText) root.findViewById(R.id.editText);
         editText.requestFocus();
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         return root;
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -57,10 +55,10 @@ public class StampAddMenuTitleFragment extends Fragment {
                     break;
                 }
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY,0);
+                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
-                ((StampAdd_ShareActivity) getActivity()).getTitleData(Data);
-                ((StampAdd_ShareActivity) getActivity()).replaceFragment(new StampAddMenuImageFragment());
+                ((StampAddActivity) getActivity()).getTitleData(Data);
+                ((StampAddActivity) getActivity()).replaceFragment(new StampAddMenuImageFragment());
                 break;
         }
         return super.onOptionsItemSelected(item);

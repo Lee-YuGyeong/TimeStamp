@@ -3,6 +3,7 @@ package com.example.timestamp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
+import com.example.timestamp.ui.stamp.StampDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +30,11 @@ import retrofit2.Response;
 
 public class ShareViewClickActivity extends AppCompatActivity {
 
-    String title;
-    String titleImage;
-    int people;
-    int num;
-
     Toolbar toolbar;
+
+    ShareItem shareItem;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +52,16 @@ public class ShareViewClickActivity extends AppCompatActivity {
             }
         });
 
-        title = getIntent().getStringExtra("title");
-        titleImage = getIntent().getStringExtra("titleImage");
-        people = getIntent().getIntExtra("people", 0);
-        num = getIntent().getIntExtra("num", 0);
-
         TextView textView_title = (TextView) findViewById(R.id.textView_title);
         TextView textView_people = (TextView) findViewById(R.id.textView_people);
+        TextView textView_tag = (TextView) findViewById(R.id.textView_tag);
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
 
-        textView_title.setText(title);
-        textView_people.setText(people + "명");
-        Glide.with(getApplicationContext()).load(titleImage).into(imageView);
+        shareItem = (ShareItem) getIntent().getSerializableExtra("shareItem");
+        textView_title.setText(shareItem.getTitle());
+        textView_people.setText(shareItem.getPeople() + "명");
+        textView_tag.setText(shareItem.getTag());
+        Glide.with(getApplicationContext()).load(shareItem.getTitleImage()).into(imageView);
 
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +79,7 @@ public class ShareViewClickActivity extends AppCompatActivity {
         String userID = sharedPreferences.getString("userID", "null");
 
         RequestBody userIDBody = RequestBody.create(MediaType.parse("text/plain"), userID);
+        int num = shareItem.getNum();
 
         Api Api = APIClient.getClient().create(Api.class);
         Call<ErrorResponseInfo> call = Api.ShareUpload(userIDBody, num);
@@ -93,6 +93,7 @@ public class ShareViewClickActivity extends AppCompatActivity {
 
                     ErrorResponseInfo errorResponseInfo = response.body();
                     if (!errorResponseInfo.isError()) {
+                        setResult(RESULT_OK);
                         finish();
                     }
 

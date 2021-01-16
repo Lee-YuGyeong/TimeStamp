@@ -28,11 +28,11 @@
             android:theme="@style/AppTheme_black" />
         <activity android:name=".ImageEditActivity" />
         <activity android:name=".StampTitleImageActivity" />
-        <activity android:name=".ui.stamp.StampAdd_MyActivity" />
-        <activity android:name=".ui.stamp.StampAdd_ShareActivity" />
+        <activity android:name=".ui.stamp.StampAddActivity" />
         <activity
             android:name=".ui.stamp.AddSelectActivity"
-            android:theme="@style/Theme.Transparent" />
+            android:theme="@style/Theme.Transparent"
+            android:noHistory="true"/>
         <activity android:name=".ui.stamp.StampDetailActivity" />
         <activity
             android:name=".login.LoginActivity"

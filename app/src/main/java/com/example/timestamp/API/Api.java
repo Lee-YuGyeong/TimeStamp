@@ -1,4 +1,5 @@
 package com.example.timestamp.API;
+
 import com.example.timestamp.ErrorResponseInfo;
 import com.example.timestamp.ImageDetailResponseInfo;
 import com.example.timestamp.MenuResponseInfo;
@@ -27,12 +28,16 @@ public interface Api {
     Call<SuccessResponseInfo> NameValidate(@Part("userName") RequestBody userName); //닉네임 중복검사
 
     @Multipart
-    @POST("NameValidate.php")
-    Call<SuccessResponseInfo> Register(@Part("userID") RequestBody userID,@Part("userPassword") RequestBody userPassword,@Part("userName") RequestBody userName); //회원가입 데이터 삽입
+    @POST("Register.php")
+    Call<SuccessResponseInfo> Register(@Part("userID") RequestBody userID, @Part("userPassword") RequestBody userPassword, @Part("userName") RequestBody userName); //회원가입 데이터 삽입
 
     @Multipart
     @POST("MenuUpload.php")
-    Call<SuccessResponseInfo> MenuUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("title") RequestBody title, @Part("share") int share); //Menu 데이터 업로드
+    Call<SuccessResponseInfo> MenuUpload_my(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("title") RequestBody title, @Part("share") int share); //내Menu 데이터 업로드
+
+    @Multipart
+    @POST("MenuUpload.php")
+    Call<SuccessResponseInfo> MenuUpload_share(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("title") RequestBody title, @Part("share") int share, @Part("tag") RequestBody tag); //공유Menu 데이터 업로드
 
     @Multipart
     @POST("MenuApi.php?apicall=getinfo")
@@ -40,15 +45,15 @@ public interface Api {
 
     @Multipart
     @POST("ImageApi.php?apicall=upload")
-    Call<ErrorResponseInfo> ImageUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("num") int num, @Part("userID") RequestBody userID); //myImage 데이터 업로드
+    Call<ErrorResponseInfo> ImageUpload(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("num") int num, @Part("userID") RequestBody userID); //Image 데이터 업로드
 
     @Multipart
     @POST("ImageApi.php?apicall=get")
-    Call<ImageDetailResponseInfo> ImageGet(@Part("num") int num); //myImage 데이터 받기
+    Call<ImageDetailResponseInfo> ImageGet(@Part("num") int num); //Image 데이터 받기
 
     @Multipart
     @POST("ShareRecyclerViewApi.php?apicall=upload")
-    Call<ErrorResponseInfo> ShareUpload(@Part("userID") RequestBody userID,@Part("num") int num); //ShareRecyclerView 데이터 넣기 (공유메뉴 들어가기)
+    Call<ErrorResponseInfo> ShareUpload(@Part("userID") RequestBody userID, @Part("num") int num); //ShareRecyclerView 데이터 넣기 (공유메뉴 들어가기)
 
     @Multipart
     @POST("ShareRecyclerViewApi.php?apicall=get")

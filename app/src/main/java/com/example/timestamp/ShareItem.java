@@ -1,17 +1,24 @@
 package com.example.timestamp;
 
-public class ShareItem {
+import java.io.Serializable;
+
+public class ShareItem implements Serializable {
 
     private int num;
     private String title;
     private String titleImage;
     private int people;
+    private String tag;
 
-    public ShareItem(int num, String title, String titleImage, int people) {
+    public ShareItem() {
+    }
+
+    public ShareItem(int num, String title, String titleImage, int people, String tag) {
         this.num = num;
         this.title = title;
         this.titleImage = titleImage;
         this.people = people;
+        this.tag = tag;
     }
 
     public int getNum() {
@@ -44,5 +51,13 @@ public class ShareItem {
 
     public void setPeople(int people) {
         this.people = people;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

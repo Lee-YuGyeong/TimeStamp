@@ -70,7 +70,7 @@ public class StampDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_stamp_detail);
 
         title = getIntent().getStringExtra("title");
-        num = getIntent().getIntExtra("myNum", 0);
+        num = getIntent().getIntExtra("num", 0);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

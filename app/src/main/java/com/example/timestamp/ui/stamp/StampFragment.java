@@ -65,7 +65,7 @@ public class StampFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent intent = new Intent(getContext(), StampDetailActivity.class);
                 intent.putExtra("title", adapter.items.get(position).getTitle());
-                intent.putExtra("myNum", adapter.items.get(position).getNum());
+                intent.putExtra("num", adapter.items.get(position).getNum());
                 startActivity(intent);
             }
         });// 메뉴 그리드뷰

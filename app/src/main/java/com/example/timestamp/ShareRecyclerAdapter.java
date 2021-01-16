@@ -73,6 +73,7 @@ public class ShareRecyclerAdapter extends RecyclerView.Adapter<ShareRecyclerAdap
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         TextView textView2;
+        TextView textView3;
         ImageView imageView;
 
         OnItemClickListener listener;
@@ -82,6 +83,7 @@ public class ShareRecyclerAdapter extends RecyclerView.Adapter<ShareRecyclerAdap
 
             textView = (TextView) itemView.findViewById(R.id.textView);
             textView2 = (TextView) itemView.findViewById(R.id.textView2);
+            textView3 = (TextView) itemView.findViewById(R.id.textView3);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +102,7 @@ public class ShareRecyclerAdapter extends RecyclerView.Adapter<ShareRecyclerAdap
         public void setItem(ShareItem item) {
             textView.setText(item.getTitle());
             textView2.setText(item.getPeople()+"명");
+            textView3.setText(item.getTag());
             Glide.with(imageView.getContext()).load(item.getTitleImage()).into(imageView);
         }
 
