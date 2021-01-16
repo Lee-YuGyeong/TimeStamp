@@ -2,13 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
         android:id="@+id/nextButton"
         android:icon="@drawable/ic_navigate_next_black_24dp"
         android:title="다음"
         app:showAsAction="ifRoom" />
-
-
 
 </menu>

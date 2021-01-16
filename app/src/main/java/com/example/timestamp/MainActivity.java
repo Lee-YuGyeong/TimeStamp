@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.example.timestamp.ui.home.HomeFragment;
 import com.example.timestamp.ui.stamp.StampFragment;
-import com.example.timestamp.ui.ourStamp.OurStampFragment;
 import com.example.timestamp.ui.setting.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,10 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static Context mContext;
 
-     private FragmentManager fragmentManager = getSupportFragmentManager();
+    private FragmentManager fragmentManager = getSupportFragmentManager();
     private HomeFragment homeFragment = new HomeFragment();
     private StampFragment stampFragment = new StampFragment();
-    private OurStampFragment ourStampFragment = new OurStampFragment();
     private SettingFragment settingFragment = new SettingFragment();
 
     @Override
@@ -53,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_myStamp:
                         transaction.replace(R.id.nav_host_fragment, stampFragment).commitAllowingStateLoss();
-                        break;
-                    case R.id.navigation_ourStamp:
-                        transaction.replace(R.id.nav_host_fragment, ourStampFragment).commitAllowingStateLoss();
                         break;
                     case R.id.navigation_setting:
                         transaction.replace(R.id.nav_host_fragment, settingFragment).commitAllowingStateLoss();
@@ -112,32 +107,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "인터넷이 연결되어 있지 않습니다. 인터넷을 연결해주세요.", Toast.LENGTH_LONG).show();
         }
     }//네트워크 연결 여부 //사용방법 ((MainActivity)MainActivity.mContext).networkStatus();
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        MenuInflater menuInflater = getMenuInflater();
-//        menuInflater.inflate(R.menu.main_toolbar_menu, menu);
-//        return true;
-//
-//    }
-//
-//
-//    // 툴바에 삽입된 메뉴에 대해서 이벤트 처리
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.search_icon:
-//                Toast.makeText(getApplicationContext(), "검색 버튼이 클릭됨", Toast.LENGTH_LONG).show();
-//                return true;
-//            case R.id.write_icon:
-//                Toast.makeText(getApplicationContext(), "글쓰기 버튼이 클릭됨", Toast.LENGTH_LONG).show();
-//                return true;
-//            default:
-//                Toast.makeText(getApplicationContext(), "나머지 버튼 클릭됨", Toast.LENGTH_LONG).show();
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 
 }
 

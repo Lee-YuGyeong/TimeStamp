@@ -9,12 +9,8 @@
     <item
         android:id="@+id/navigation_myStamp"
         android:icon="@drawable/ic_inbox_black_24dp"
-        android:title="@string/title_myStamp" />
+        android:title="@string/title_stamp" />
 
-    <item
-        android:id="@+id/navigation_ourStamp"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_ourStamp" />
 
     <item
         android:id="@+id/navigation_setting"
