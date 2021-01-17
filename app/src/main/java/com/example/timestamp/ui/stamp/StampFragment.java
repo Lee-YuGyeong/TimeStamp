@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.palette.graphics.Palette;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
@@ -92,7 +91,7 @@ public class StampFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.plusButton:
-                Intent intent = new Intent(getContext(),AddSelectActivity.class);
+                Intent intent = new Intent(getContext(), AddSelectActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -129,7 +128,7 @@ public class StampFragment extends Fragment {
                     if (adapter.isEmpty() && menuInfoList.size() != 0) {
 
                         for (int i = 0; i < menuInfoList.size(); i++) {
-                            adapter.addItem(new StampMenuGridItem(menuInfoList.get(i).getTitleImage(), menuInfoList.get(i).getTitle(), menuInfoList.get(i).getNum(), menuInfoList.get(i).getShare()));
+                            adapter.addItem(new StampMenuGridItem(menuInfoList.get(i).getTitleImage(), menuInfoList.get(i).getTitle(), menuInfoList.get(i).getColor(), menuInfoList.get(i).getNum(), menuInfoList.get(i).getShare()));
                         }
 
                     }
@@ -200,7 +199,7 @@ public class StampFragment extends Fragment {
             view.setTitle(item.getTitle());
             view.setImage(item.getImage());
             view.setPeople(item.getShare());
-
+            view.setColor(item.getColor());
 
             return view;
         }

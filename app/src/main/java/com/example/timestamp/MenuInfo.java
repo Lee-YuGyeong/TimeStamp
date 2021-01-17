@@ -17,13 +17,9 @@ public class MenuInfo {
     @SerializedName("share")
     @Expose
     private int share;
-
-    public MenuInfo(int num, String title, String titleImage, int share) {
-        this.num = num;
-        this.title = title;
-        this.titleImage = titleImage;
-        this.share = share;
-    }
+    @SerializedName("color")
+    @Expose
+    private int color;
 
     public int getNum() {
         return num;
@@ -55,5 +51,13 @@ public class MenuInfo {
 
     public void setShare(int share) {
         this.share = share;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

@@ -48,6 +48,7 @@ public class StampAddActivity extends AppCompatActivity {
     String tag;
 
     int share;
+    int color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,7 @@ public class StampAddActivity extends AppCompatActivity {
         RequestBody titleBody = RequestBody.create(MediaType.parse("text/plain"), title);
 
         Api Api = APIClient.getClient().create(Api.class);
-        Call<SuccessResponseInfo> call = Api.MenuUpload_my(requestFile, userIDBody, titleBody, share);
+        Call<SuccessResponseInfo> call = Api.MenuUpload_my(requestFile, userIDBody, titleBody,color, share);
         //finally performing the call
         call.enqueue(new Callback<SuccessResponseInfo>() {
             @Override
@@ -151,7 +152,7 @@ public class StampAddActivity extends AppCompatActivity {
         RequestBody tagBody = RequestBody.create(MediaType.parse("text/plain"), tag);
 
         Api Api = APIClient.getClient().create(Api.class);
-        Call<SuccessResponseInfo> call = Api.MenuUpload_share(requestFile, userIDBody, titleBody, share, tagBody);
+        Call<SuccessResponseInfo> call = Api.MenuUpload_share(requestFile, userIDBody, titleBody, color,share, tagBody);
         //finally performing the call
         call.enqueue(new Callback<SuccessResponseInfo>() {
             @Override
@@ -196,8 +197,16 @@ public class StampAddActivity extends AppCompatActivity {
         title = data;
     }
 
+    public String setTitleData() {
+        return title;
+    }
+
     public void getImageData(Uri data) {
         image = data;
+    }
+
+    public void getColorData(int data) {
+        color = data;
     }
 
     public void getTagData(String data) {

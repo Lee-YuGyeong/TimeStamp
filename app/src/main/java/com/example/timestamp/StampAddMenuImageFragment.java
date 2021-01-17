@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,9 +19,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.timestamp.ui.stamp.StampAddActivity;
+import com.skydoves.colorpickerview.ColorEnvelope;
+import com.skydoves.colorpickerview.ColorPickerView;
+import com.skydoves.colorpickerview.listeners.ColorListener;
+
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -29,7 +35,8 @@ public class StampAddMenuImageFragment extends Fragment {
 
     Uri selectedImage;
     ImageView imageView;
-    ColorPickerView colorPickerView;
+
+    TextView textView_title;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +44,8 @@ public class StampAddMenuImageFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_stamp_add_menu_image, container, false);
 
         imageView = (ImageView) root.findViewById(R.id.imageView);
+        textView_title = (TextView) root.findViewById(R.id.textView_title);
+        textView_title.setText(((StampAddActivity) getActivity()).setTitleData());
 
         setHasOptionsMenu(true);
         getActivity().invalidateOptionsMenu();
@@ -52,14 +61,17 @@ public class StampAddMenuImageFragment extends Fragment {
             }
         });
 
-        LinearLayout linearLayout = root.findViewById(R.id.linearLayout);
+
+        ColorPickerView colorPickerView = (ColorPickerView) root.findViewById(R.id.colorPickerView);
+
         colorPickerView.setColorListener(new ColorListener() {
             @Override
             public void onColorSelected(int color, boolean fromUser) {
-
-                linearLayout.setBackgroundColor(color);
+                textView_title.setTextColor(color);
+                ((StampAddActivity) getActivity()).getColorData(color);
             }
         });
+
 
         return root;
     }

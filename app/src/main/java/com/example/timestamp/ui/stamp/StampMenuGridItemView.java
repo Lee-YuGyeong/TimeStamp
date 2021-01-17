@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.palette.graphics.Palette;
 
 import com.bumptech.glide.Glide;
 import com.example.timestamp.R;
@@ -56,6 +55,10 @@ public class StampMenuGridItemView extends LinearLayout {
         } else {
             people.setVisibility(VISIBLE);
         }
+    }
+
+    public void setColor(int color){
+        textView.setTextColor(color);
     }
 
 

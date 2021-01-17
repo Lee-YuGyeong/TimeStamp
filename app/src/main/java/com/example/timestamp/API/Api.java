@@ -33,11 +33,11 @@ public interface Api {
 
     @Multipart
     @POST("MenuUpload.php")
-    Call<SuccessResponseInfo> MenuUpload_my(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("title") RequestBody title, @Part("share") int share); //내Menu 데이터 업로드
+    Call<SuccessResponseInfo> MenuUpload_my(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("title") RequestBody title, @Part("color") int color, @Part("share") int share); //내Menu 데이터 업로드
 
     @Multipart
     @POST("MenuUpload.php")
-    Call<SuccessResponseInfo> MenuUpload_share(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("title") RequestBody title, @Part("share") int share, @Part("tag") RequestBody tag); //공유Menu 데이터 업로드
+    Call<SuccessResponseInfo> MenuUpload_share(@Part("image\"; filename=\"myfile.jpg\" ") RequestBody file, @Part("userID") RequestBody userID, @Part("title") RequestBody title, @Part("color") int color, @Part("share") int share, @Part("tag") RequestBody tag); //공유Menu 데이터 업로드
 
     @Multipart
     @POST("MenuApi.php?apicall=getinfo")
@@ -53,7 +53,7 @@ public interface Api {
 
     @Multipart
     @POST("ImageApi.php?apicall=delete")
-    Call<SuccessResponseInfo> ImageDelete(@Part("userID") RequestBody userID,@Part("url") RequestBody url); //Image 데이터 업로드
+    Call<SuccessResponseInfo> ImageDelete(@Part("userID") RequestBody userID, @Part("url") RequestBody url); //Image 데이터 업로드
 
 
     @Multipart

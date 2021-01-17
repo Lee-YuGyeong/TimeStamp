@@ -5,12 +5,14 @@ public class StampMenuGridItem {
 
     String image;
     String title;
+    int color;
     int num;
     int share;
 
-    public StampMenuGridItem(String image, String title, int num, int share) {
+    public StampMenuGridItem(String image, String title, int color, int num, int share) {
         this.image = image;
         this.title = title;
+        this.color = color;
         this.num = num;
         this.share = share;
     }
@@ -29,6 +31,14 @@ public class StampMenuGridItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public int getNum() {
