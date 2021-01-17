@@ -3,6 +3,7 @@ package com.example.timestamp.ui.stamp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.palette.graphics.Palette;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
@@ -46,7 +47,7 @@ public class StampFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_my_stamp, container, false);
+        View root = inflater.inflate(R.layout.fragment_stamp, container, false);
 
         Toolbar toolbar = (Toolbar) root.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);

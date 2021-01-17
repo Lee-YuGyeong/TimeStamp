@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.timestamp.ui.stamp.StampAddActivity;
@@ -28,6 +29,7 @@ public class StampAddMenuImageFragment extends Fragment {
 
     Uri selectedImage;
     ImageView imageView;
+    ColorPickerView colorPickerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +49,15 @@ public class StampAddMenuImageFragment extends Fragment {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/-");
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        LinearLayout linearLayout = root.findViewById(R.id.linearLayout);
+        colorPickerView.setColorListener(new ColorListener() {
+            @Override
+            public void onColorSelected(int color, boolean fromUser) {
+
+                linearLayout.setBackgroundColor(color);
             }
         });
 

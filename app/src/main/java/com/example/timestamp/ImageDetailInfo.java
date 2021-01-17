@@ -11,6 +11,9 @@ public class ImageDetailInfo {
     @SerializedName("userID")
     @Expose
     private String userID;
+    @SerializedName("userName")
+    @Expose
+    private String userName;
 
     public String getImage() {
         return image;
@@ -26,5 +29,13 @@ public class ImageDetailInfo {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

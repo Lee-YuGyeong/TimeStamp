@@ -27,7 +27,7 @@ public class StampDetailGridItemView extends LinearLayout {
 
     private void init(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.my_stamp_detail_grid_item, this, true);
+        inflater.inflate(R.layout.stamp_detail_grid_item, this, true);
 
         imageView = (ImageView) findViewById(R.id.imageView);
     }

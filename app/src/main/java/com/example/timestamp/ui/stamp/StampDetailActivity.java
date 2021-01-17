@@ -95,7 +95,8 @@ public class StampDetailActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), OneImageDetailActivity.class);
                 intent.putExtra("url", adapter.items.get(position).getImage());
-                intent.putExtra("userID",adapter.items.get(position).getUserID());
+                intent.putExtra("userID", adapter.items.get(position).getUserID());
+                intent.putExtra("userName", adapter.items.get(position).getUserName());
                 startActivity(intent);
             }
         });// 메뉴 그리드뷰
@@ -142,12 +143,12 @@ public class StampDetailActivity extends AppCompatActivity {
                     if (adapter.isEmpty() && imageDetailInfoList.size() != 0) {
 
                         for (int i = 0; i < imageDetailInfoList.size(); i++) {
-                            adapter.addItem(new StampDetailGridItem(imageDetailInfoList.get(i).getImage(),imageDetailInfoList.get(i).getUserID()));
+                            adapter.addItem(new StampDetailGridItem(imageDetailInfoList.get(i).getImage(), imageDetailInfoList.get(i).getUserID(),imageDetailInfoList.get(i).getUserName()));
                         }
-                        adapter.notifyDataSetChanged();
 
                     }
 
+                    adapter.notifyDataSetChanged();
 
                 } else { //response 실패
 

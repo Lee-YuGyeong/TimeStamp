@@ -1,13 +1,18 @@
 package com.example.timestamp.ui.stamp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.palette.graphics.Palette;
 
 import com.bumptech.glide.Glide;
 import com.example.timestamp.R;
@@ -30,7 +35,7 @@ public class StampMenuGridItemView extends LinearLayout {
 
     private void init(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.my_stamp_menu_grid_item, this, true);
+        inflater.inflate(R.layout.stamp_menu_grid_item, this, true);
 
         imageView = (ImageView) findViewById(R.id.imageView);
         textView = (TextView) findViewById(R.id.textView);
@@ -46,11 +51,12 @@ public class StampMenuGridItemView extends LinearLayout {
     }
 
     public void setPeople(int share) {
-        if(share == 0){
+        if (share == 0) {
             people.setVisibility(INVISIBLE);
-        }else{
+        } else {
             people.setVisibility(VISIBLE);
         }
     }
+
 
 }

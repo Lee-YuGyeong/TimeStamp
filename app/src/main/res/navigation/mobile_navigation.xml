@@ -15,7 +15,7 @@
         android:id="@+id/navigation_myStamp"
         android:name="com.example.timestamp.ui.stamp.StampFragment"
         android:label="@string/title_stamp"
-        tools:layout="@layout/fragment_my_stamp" />
+        tools:layout="@layout/fragment_stamp" />
 
     <fragment
         android:id="@+id/navigation_setting"

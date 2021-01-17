@@ -4,10 +4,12 @@ public class StampDetailGridItem {
 
     String image;
     String userID;
+    String userName;
 
-    public StampDetailGridItem(String image, String userID) {
+    public StampDetailGridItem(String image, String userID, String userName) {
         this.image = image;
         this.userID = userID;
+        this.userName = userName;
     }
 
     public String getImage() {
@@ -24,5 +26,13 @@ public class StampDetailGridItem {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -52,6 +52,11 @@ public interface Api {
     Call<ImageDetailResponseInfo> ImageGet(@Part("num") int num); //Image 데이터 받기
 
     @Multipart
+    @POST("ImageApi.php?apicall=delete")
+    Call<SuccessResponseInfo> ImageDelete(@Part("userID") RequestBody userID,@Part("url") RequestBody url); //Image 데이터 업로드
+
+
+    @Multipart
     @POST("ShareRecyclerViewApi.php?apicall=upload")
     Call<ErrorResponseInfo> ShareUpload(@Part("userID") RequestBody userID, @Part("num") int num); //ShareRecyclerView 데이터 넣기 (공유메뉴 들어가기)
 
