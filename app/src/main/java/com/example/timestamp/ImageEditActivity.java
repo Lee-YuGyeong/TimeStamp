@@ -68,6 +68,9 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     Toolbar toolbar;
 
+    int textColor;
+    int borderColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -256,13 +259,12 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
     }
 
 
-    public void BorderButtonSelected(String command, boolean state) {
+    public void BorderButtonSelected(String command) {
 
-        if (state == true) {
-            imageView_border1.setVisibility(View.VISIBLE);
-        } else {
-            imageView_border1.setVisibility(View.INVISIBLE);
-        }
+        borderColor = 0xFFFFFF;
+        GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
+        drawable.setStroke(10, 0xFFFFFF);
+        imageView_border1.setImageDrawable(drawable);
 
     }
 
@@ -294,25 +296,33 @@ public class ImageEditActivity extends AppCompatActivity implements View.OnTouch
 
     } //글자 스타일 적용
 
-    public void TimeColorButtonSelected(String command, int data, String key, boolean state) {
+    public void TimeColorButtonSelected(String command, String key) {
 
         if (key == "time") {
+            textView_date1.setTextColor(borderColor);
+            textColor = borderColor;
+        } else {
+            GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
+            drawable.setStroke(10, textColor);
+            imageView_border1.setImageDrawable(drawable);
+            borderColor = textColor;
+        }
+    } // 글자 색 적용
+
+    public void TimeColorPaletteSelected(String command, int data, String key) {
+
+        if (key == "time") {
+            textColor = data;
             textView_date1.setTextColor(data);
         } else {
-
+            borderColor = data;
             GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.border);
             drawable.setStroke(10, data);
             imageView_border1.setImageDrawable(drawable);
 
-            if (state == true) {
-                imageView_border1.setVisibility(View.VISIBLE);
-            } else {
-                imageView_border1.setVisibility(View.INVISIBLE);
-            }
-
-
         }
     } // 글자 색 적용
+
 
     public void TimeFontButtonSelected(String command, int font) {
 
