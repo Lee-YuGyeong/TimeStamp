@@ -29,7 +29,8 @@
     <com.skydoves.colorpickerview.ColorPickerView
         android:id="@+id/colorPickerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:palette="@drawable/color" />
+        android:layout_height="150dp"
+        app:palette="@drawable/color"
+        android:scaleType="fitXY"/>
 
 </LinearLayout>

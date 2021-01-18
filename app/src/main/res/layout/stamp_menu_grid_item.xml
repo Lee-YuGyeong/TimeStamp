@@ -33,11 +33,11 @@
 
     <ImageView
         android:id="@+id/imageView_people"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/ic_people_white_24dp"
+        android:background="@drawable/ic_view_quilt_white_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         tools:visibility="invisible" />

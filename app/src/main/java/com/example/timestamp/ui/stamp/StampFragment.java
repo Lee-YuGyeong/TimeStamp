@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +43,7 @@ public class StampFragment extends Fragment {
 
     String userID;
 
+    ImageView imageView_people;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +56,8 @@ public class StampFragment extends Fragment {
 
         getUserInfo();
         getMenuList();
+
+        imageView_people = (ImageView) root.findViewById(R.id.imageView_people);
 
         gridView = (GridView) root.findViewById(R.id.gridView);
 
