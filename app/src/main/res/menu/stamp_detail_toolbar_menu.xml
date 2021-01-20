@@ -8,6 +8,19 @@
         android:title="추가버튼"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/infoButton"
+        android:title="상세정보보기"
+        app:showAsAction="never" />
 
+    <item
+        android:id="@+id/modifyButton"
+        android:title="수정하기"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/deleteButton"
+        android:title="방 삭제하기"
+        app:showAsAction="never" />
 
 </menu>

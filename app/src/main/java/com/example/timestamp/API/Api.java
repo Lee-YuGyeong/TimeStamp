@@ -1,5 +1,6 @@
 package com.example.timestamp.API;
 
+import com.example.timestamp.DetailClickDataResponseInfo;
 import com.example.timestamp.ErrorResponseInfo;
 import com.example.timestamp.ImageDetailResponseInfo;
 import com.example.timestamp.MenuResponseInfo;
@@ -63,5 +64,10 @@ public interface Api {
     @Multipart
     @POST("ShareRecyclerViewApi.php?apicall=get")
     Call<ShareRecyclerViewResponseInfo> ShareGet(@Part("userID") RequestBody userID); //ShareRecyclerView 데이터 받기
+
+    @Multipart
+    @POST("DetailClickDataApi.php?apicall=get")
+    Call<DetailClickDataResponseInfo> PeopleGet(@Part("num") int num); //people 데이터 받기
+
 
 }

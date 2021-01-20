@@ -1,6 +1,8 @@
 package com.example.timestamp.ui.stamp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -25,11 +27,11 @@ import androidx.core.content.FileProvider;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
+import com.example.timestamp.DetailClickData;
+import com.example.timestamp.DetailClickDataMy;
 import com.example.timestamp.ImageDetailInfo;
 import com.example.timestamp.ImageDetailResponseInfo;
 import com.example.timestamp.ImageEditActivity;
-import com.example.timestamp.MenuDetailInfo;
-import com.example.timestamp.MenuDetailResponseInfo;
 import com.example.timestamp.OneImageDetailActivity;
 import com.example.timestamp.R;
 
@@ -57,6 +59,8 @@ public class StampDetailActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
+    int share;
+
     @Override
     public void onResume() {
         super.onResume();
@@ -75,7 +79,6 @@ public class StampDetailActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(title);
-
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +86,10 @@ public class StampDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE);
+        share = sharedPreferences.getInt("share", -1);
 
         GridView gridView = (GridView) findViewById(R.id.gridView);
 
@@ -113,10 +120,32 @@ public class StampDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.plusButton:
                 dispatchTakePictureIntent();
                 break;
+            case R.id.infoButton:
+                if(share == 0 ){
+                    Intent intent = new Intent(getApplicationContext(), DetailClickDataMy.class);
+                    intent.putExtra("title",title);
+                    startActivity(intent);
+                    break;
+                }else{
+                    Intent intent = new Intent(getApplicationContext(), DetailClickData.class);
+                    intent.putExtra("title",title);
+                    intent.putExtra("num",num);
+                    startActivity(intent);
+                    break;
+                }
+
+            case R.id.modifyButton:
+
+                break;
+            case R.id.deleteButton:
+
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     } //toolbar
@@ -143,7 +172,7 @@ public class StampDetailActivity extends AppCompatActivity {
                     if (adapter.isEmpty() && imageDetailInfoList.size() != 0) {
 
                         for (int i = 0; i < imageDetailInfoList.size(); i++) {
-                            adapter.addItem(new StampDetailGridItem(imageDetailInfoList.get(i).getImage(), imageDetailInfoList.get(i).getUserID(),imageDetailInfoList.get(i).getUserName()));
+                            adapter.addItem(new StampDetailGridItem(imageDetailInfoList.get(i).getImage(), imageDetailInfoList.get(i).getUserID(), imageDetailInfoList.get(i).getUserName()));
                         }
 
                     }

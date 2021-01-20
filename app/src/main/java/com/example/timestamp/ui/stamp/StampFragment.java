@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -70,6 +71,11 @@ public class StampFragment extends Fragment {
                 Intent intent = new Intent(getContext(), StampDetailActivity.class);
                 intent.putExtra("title", adapter.items.get(position).getTitle());
                 intent.putExtra("num", adapter.items.get(position).getNum());
+
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("mine", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("share", adapter.items.get(position).getShare());
+                editor.commit();
                 startActivity(intent);
             }
         });// 메뉴 그리드뷰

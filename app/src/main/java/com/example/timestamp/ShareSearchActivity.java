@@ -13,12 +13,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
 import com.example.timestamp.ui.stamp.StampAddActivity;
 import com.example.timestamp.ui.stamp.StampDetailActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +64,7 @@ public class ShareSearchActivity extends AppCompatActivity {
                 finish();
             }
         });
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
