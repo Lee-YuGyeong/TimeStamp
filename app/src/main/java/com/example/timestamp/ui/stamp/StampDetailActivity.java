@@ -24,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.timestamp.API.APIClient;
 import com.example.timestamp.API.Api;
@@ -77,6 +78,7 @@ public class StampDetailActivity extends AppCompatActivity {
         num = getIntent().getIntExtra("num", 0);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(title);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -87,6 +89,15 @@ public class StampDetailActivity extends AppCompatActivity {
             }
         });
 
+        final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMenuDetailList();
+                refreshLayout.setRefreshing(false);
+            }
+        });
 
         SharedPreferences sharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE);
         share = sharedPreferences.getInt("share", -1);
