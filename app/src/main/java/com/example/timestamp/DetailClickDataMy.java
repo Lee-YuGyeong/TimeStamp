@@ -11,7 +11,7 @@ public class DetailClickDataMy extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_click_data_my);
+        setContentView(R.layout.fragment_detail_click_data_my);
 
         String title = getIntent().getStringExtra("title");
 

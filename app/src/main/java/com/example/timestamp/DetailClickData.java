@@ -53,14 +53,14 @@ public class DetailClickData extends AppCompatActivity {
         });
 
         textView_peopleNum = (TextView) findViewById(R.id.textView_peopleNum);
+//
+//        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+//        recyclerView.setLayoutManager(layoutManager);
+//        adapter = new PeopleRecyclerAdapter(getApplicationContext());
+//        recyclerView.setAdapter(adapter);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new PeopleRecyclerAdapter(getApplicationContext());
-        recyclerView.setAdapter(adapter);
-
-        getPeople();
+    //    getPeople();
 
 
     }
@@ -84,14 +84,13 @@ public class DetailClickData extends AppCompatActivity {
                     DetailClickDataResponseInfo detailClickDataResponseInfo = response.body();
                     List<DetailClickDataInfo> detailClickDataInfoList = new ArrayList<DetailClickDataInfo>(detailClickDataResponseInfo.getDetailClickDataInfoList());
 
-                    textView_peopleNum.setText(detailClickDataInfoList.size() + "명");
+   //                 textView_peopleNum.setText(detailClickDataInfoList.size() + "명");
                     adapter.items.clear();
 
                     if (detailClickDataInfoList.size() != 0) {
 
                         for (int i = 0; i < detailClickDataInfoList.size(); i++) {
                             adapter.addItem(new PeopleItem(detailClickDataInfoList.get(i).getUserName()));
-                            Log.d("아아",adapter.getItem(i).getName());
                         }
 
 

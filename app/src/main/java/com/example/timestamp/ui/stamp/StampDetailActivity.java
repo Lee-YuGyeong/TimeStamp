@@ -16,9 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +38,7 @@ import com.example.timestamp.ImageDetailResponseInfo;
 import com.example.timestamp.ImageEditActivity;
 import com.example.timestamp.OneImageDetailActivity;
 import com.example.timestamp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -61,6 +65,10 @@ public class StampDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     int share;
+
+    FloatingActionButton fab_main, fab_sub1, fab_sub2;
+    Animation fab_open, fab_close;
+    boolean isFabOpen = false;
 
     @Override
     public void onResume() {
@@ -96,6 +104,34 @@ public class StampDetailActivity extends AppCompatActivity {
             public void onRefresh() {
                 getMenuDetailList();
                 refreshLayout.setRefreshing(false);
+            }
+        });
+
+        fab_main = (FloatingActionButton) findViewById(R.id.fab_main);
+        fab_sub1 = (FloatingActionButton) findViewById(R.id.fab_sub1);
+        fab_sub2 = (FloatingActionButton) findViewById(R.id.fab_sub2);
+
+        fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+
+        fab_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleFab();
+            }
+        });
+
+        fab_sub1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleFab();
+                dispatchTakePictureIntent();
+            }
+        });
+        fab_sub2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleFab();
             }
         });
 
@@ -136,31 +172,42 @@ public class StampDetailActivity extends AppCompatActivity {
             case R.id.plusButton:
                 dispatchTakePictureIntent();
                 break;
-            case R.id.infoButton:
-                if(share == 0 ){
+
+            case R.id.settingButton:
+                if (share == 0) {
                     Intent intent = new Intent(getApplicationContext(), DetailClickDataMy.class);
-                    intent.putExtra("title",title);
+                    intent.putExtra("title", title);
                     startActivity(intent);
                     break;
-                }else{
+                } else {
                     Intent intent = new Intent(getApplicationContext(), DetailClickData.class);
-                    intent.putExtra("title",title);
-                    intent.putExtra("num",num);
+                    intent.putExtra("title", title);
+                    intent.putExtra("num", num);
                     startActivity(intent);
                     break;
                 }
 
-            case R.id.modifyButton:
-
-                break;
-            case R.id.deleteButton:
-
-                break;
 
         }
         return super.onOptionsItemSelected(item);
     } //toolbar
 
+
+    private void toggleFab() {
+        if (isFabOpen) {
+            fab_sub1.startAnimation(fab_close);
+            fab_sub2.startAnimation(fab_close);
+            fab_sub1.setClickable(false);
+            fab_sub2.setClickable(false);
+            isFabOpen = false;
+        } else {
+            fab_sub1.startAnimation(fab_open);
+            fab_sub2.startAnimation(fab_open);
+            fab_sub1.setClickable(true);
+            fab_sub2.setClickable(true);
+            isFabOpen = true;
+        }
+    }
 
     private void getMenuDetailList() {
 
