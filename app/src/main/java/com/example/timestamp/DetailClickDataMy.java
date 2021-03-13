@@ -1,29 +1,23 @@
 package com.example.timestamp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-public class DetailClickDataMy extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_detail_click_data_my);
+public class DetailClickDataMy extends Fragment {
 
-        String title = getIntent().getStringExtra("title");
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(title);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        View root = inflater.inflate(R.layout.fragment_detail_click_data_my, container, false);
+
+
+
+        return root;
     }
 }

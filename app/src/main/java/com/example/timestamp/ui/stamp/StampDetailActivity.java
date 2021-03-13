@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.timestamp.API.APIClient;
@@ -169,21 +170,16 @@ public class StampDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.plusButton:
-                dispatchTakePictureIntent();
-                break;
 
             case R.id.settingButton:
                 if (share == 0) {
-                    Intent intent = new Intent(getApplicationContext(), DetailClickDataMy.class);
-                    intent.putExtra("title", title);
-                    startActivity(intent);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.detail_click_container, new DetailClickDataMy()).addToBackStack(null).commit();
                     break;
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), DetailClickData.class);
-                    intent.putExtra("title", title);
-                    intent.putExtra("num", num);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getApplicationContext(), DetailClickData.class);
+//                    intent.putExtra("title", title);
+//                    intent.putExtra("num", num);
+ //                   startActivity(intent);
                     break;
                 }
 
