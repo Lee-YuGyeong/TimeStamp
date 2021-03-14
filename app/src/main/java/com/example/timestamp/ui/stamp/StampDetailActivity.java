@@ -173,13 +173,19 @@ public class StampDetailActivity extends AppCompatActivity {
 
             case R.id.settingButton:
                 if (share == 0) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.detail_click_container, new DetailClickDataMy()).addToBackStack(null).commit();
+                    Intent intent = new Intent(getApplicationContext(), DetailClickData.class);
+                    intent.putExtra("title", title);
+                    intent.putExtra("num", num);
+                    intent.putExtra("share",share);
+                    startActivity(intent);
+                    //  getSupportFragmentManager().beginTransaction().replace(R.id.detail_click_container, new DetailClickDataMy()).addToBackStack(null).commit();
                     break;
                 } else {
-//                    Intent intent = new Intent(getApplicationContext(), DetailClickData.class);
-//                    intent.putExtra("title", title);
-//                    intent.putExtra("num", num);
- //                   startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), DetailClickData.class);
+                    intent.putExtra("title", title);
+                    intent.putExtra("num", num);
+                    intent.putExtra("share",share);
+                    startActivity(intent);
                     break;
                 }
 

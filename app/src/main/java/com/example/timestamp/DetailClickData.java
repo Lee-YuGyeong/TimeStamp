@@ -34,6 +34,8 @@ public class DetailClickData extends AppCompatActivity {
     PeopleRecyclerAdapter adapter;
     TextView textView_peopleNum;
 
+    DetailClickDataShare detailClickDataShare = new DetailClickDataShare();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,17 @@ public class DetailClickData extends AppCompatActivity {
         });
 
         textView_peopleNum = (TextView) findViewById(R.id.textView_peopleNum);
+
+        if (getIntent().getIntExtra("share", -1) == 0) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.detail_click_container, new DetailClickDataMy()).commit();
+        } else {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.detail_click_container, detailClickDataShare).commit();
+            Bundle bundle = new Bundle();
+            bundle.putInt("num", num);
+            detailClickDataShare.setArguments(bundle);
+        }
+
 //
 //        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -60,7 +73,7 @@ public class DetailClickData extends AppCompatActivity {
 //        adapter = new PeopleRecyclerAdapter(getApplicationContext());
 //        recyclerView.setAdapter(adapter);
 
-    //    getPeople();
+        //    getPeople();
 
 
     }
@@ -84,7 +97,7 @@ public class DetailClickData extends AppCompatActivity {
                     DetailClickDataResponseInfo detailClickDataResponseInfo = response.body();
                     List<DetailClickDataInfo> detailClickDataInfoList = new ArrayList<DetailClickDataInfo>(detailClickDataResponseInfo.getDetailClickDataInfoList());
 
-   //                 textView_peopleNum.setText(detailClickDataInfoList.size() + "명");
+                    //                 textView_peopleNum.setText(detailClickDataInfoList.size() + "명");
                     adapter.items.clear();
 
                     if (detailClickDataInfoList.size() != 0) {
